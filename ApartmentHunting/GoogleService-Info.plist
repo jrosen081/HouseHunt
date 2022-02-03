@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>838639844567-4tv5a2nmb6fdutaoe7hstra33mfoi7j5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.838639844567-4tv5a2nmb6fdutaoe7hstra33mfoi7j5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBiFE5TlmRyt9zGWPKow0x1-O53x93hulU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>838639844567</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.JackRosen.apartmenthunting.ApartmentHunting</string>
+	<key>PROJECT_ID</key>
+	<string>apartmenthunting-165e0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>apartmenthunting-165e0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:838639844567:ios:092ec91805757dde40c492</string>
+</dict>
+</plist>
