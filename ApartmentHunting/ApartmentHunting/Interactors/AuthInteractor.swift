@@ -68,6 +68,9 @@ class AuthInteractor: ObservableObject {
                 return
             }
             Task {
+                await MainActor.run {
+                    self.authState = .loading
+                }
                 await self.fetchUserLocally(id: user.uid)
             }
             if let token = Messaging.messaging().fcmToken {

@@ -16,7 +16,8 @@ struct SignInView: View {
     @State private var signInState = SignInState.login
     @EnvironmentObject var authInteractor: AuthInteractor
     
-    var body: some View {
+    @ViewBuilder
+    private var mainView: some View {
         VStack {
             Text("Home Hunt")
                 .font(.largeTitle)
@@ -41,11 +42,7 @@ struct SignInView: View {
                         .padding(.bottom)
                 }
             }.frame(maxWidth: .infinity).multilineTextAlignment(.leading)
-            switch authInteractor.authState {
-            case .loading:
-                ProgressView(signInState == .login ? "Logging In" : "Signing Up")
-                    .padding(.vertical)
-            case .error(let error):
+            switch authInteractor.authState {            case .error(let error):
                 Text("Something went wrong: \(error)")
                     .foregroundColor(.red)
             default:
@@ -69,5 +66,21 @@ struct SignInView: View {
                 }
             }
         }.frame(maxWidth: .infinity).padding().disabled(authInteractor.authState == .loading).textFieldStyle(.roundedBorder)
+    }
+    
+    var body: some View {
+        ZStack {
+            mainView
+            switch authInteractor.authState {
+            case .loading:
+                Group {
+                    Color.black.opacity(0.4).ignoresSafeArea(.all, edges: .all)
+                    ProgressView(signInState == .login ? "Logging In" : "Signing Up")
+                        .padding(.vertical)
+                }.animation(.easeInOut, value: authInteractor.authState)
+            default:
+                EmptyView()
+            }
+        }
     }
 }

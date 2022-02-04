@@ -56,6 +56,23 @@ struct ApartmentAPIInteractor {
             }
     }
     
+    static func listenForChanges(apartmentSearch: Binding<ApartmentSearch>, authInteractor: AuthInteractor) -> ListenerRegistration {
+        self.database.document("apartments/\(apartmentSearch.wrappedValue.id)").addSnapshotListener { snapshot, error in
+            Task {
+                do {
+                    if let snapshotReal = snapshot, let dto = try snapshotReal.data(as: ApartmentSearchDTO.self) {
+                        let model = try await search(fromDTO: dto, authInteractor: authInteractor)
+                        await MainActor.run {
+                            apartmentSearch.wrappedValue = model
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    
     static func addApartmentSearch(searchCreator: (String) -> ApartmentSearchDTO) -> String {
         let code = (0..<8).map { _ in Self.allCharacters.randomElement()! }.joined()
         return try! self.database.collection(Constants.apartmentsKey).addDocument(from: searchCreator(code)).documentID
@@ -82,6 +99,10 @@ struct ApartmentAPIInteractor {
         guard let collection = try await self.database.collection(Constants.apartmentsKey).document(id).getDocument().data(as: ApartmentSearchDTO.self) else {
             throw NSError(domain: "", code: 100, userInfo: [NSLocalizedDescriptionKey: "No Home Search Found"])
         }
+        return try await search(fromDTO: collection, authInteractor: authInteractor)
+    }
+    
+    private static func search(fromDTO collection: ApartmentSearchDTO, authInteractor: AuthInteractor) async throws -> ApartmentSearch {
         var newUsers = [User]()
         for user in collection.users {
             try await newUsers.append(authInteractor.fetchUser(id: user))
@@ -90,7 +111,7 @@ struct ApartmentAPIInteractor {
         for user in collection.requests {
             try await newRequests.append(authInteractor.fetchUser(id: user))
         }
-        return ApartmentSearch(id: id, name: collection.name, users: newUsers, requests: newRequests, entryCode: collection.entryCode)
+        return ApartmentSearch(id: collection.id!, name: collection.name, users: newUsers, requests: newRequests, entryCode: collection.entryCode, brokerResponse: collection.brokerResponse)
     }
     
     static func acceptUser(apartmentSearch: ApartmentSearch, user: User, authInteractor: AuthInteractor) {
@@ -107,5 +128,10 @@ struct ApartmentAPIInteractor {
         let newUser = User(id: user.id, apartmentSearchState: .noRequest, name: user.name)
         try? self.database.collection(Constants.apartmentsKey).document(apartmentSearch.id).setData(from: ApartmentSearchDTO(search: apartmentSearch))
         authInteractor.update(user: newUser)
+    }
+    
+    static func updateBrokerComment(apartmentSearch: ApartmentSearch, comment: String) {
+        apartmentSearch.brokerResponse = comment
+        try? self.database.collection(Constants.apartmentsKey).document(apartmentSearch.id).setData(from: ApartmentSearchDTO(search: apartmentSearch))
     }
 }

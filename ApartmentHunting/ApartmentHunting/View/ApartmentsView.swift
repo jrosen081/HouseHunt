@@ -81,55 +81,7 @@ struct ApartmentsView: View {
                     }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        self.loadingState = .notStarted
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                            .foregroundColor(.primary)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            self.addingApartment = true
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.primary)
-                        }
-                        Menu(content: {
-                            Picker("Filter", selection: $filter.animation()) {
-                                let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
-                                ForEach(allFilterCases, id: \.self) { state in
-                                    Text(state.rawValue)
-                                }
-                            }
-                        }) {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                                .foregroundColor(.primary)
-                        }
-                        Menu {
-                            Picker("Author", selection: $currentUser) {
-                                Text("All").tag("")
-                                ForEach(apartmentSearch.users) { user in
-                                    Text(user.name).tag(user.id!)
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "person.crop.circle.badge.questionmark")
-                                .foregroundColor(.primary)
-                        }
-                    }
-                }
-            }.navigationBarTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
-                self.loadingState = .notStarted
-            }) {
-                NavigationView {
-                    AddApartmentView()
-                        .navigationTitle("Add Home")
-                }
-            }
+            
         case .error(let string):
             Text("Error: \(string), going to retry")
                 .back_task {
@@ -144,7 +96,55 @@ struct ApartmentsView: View {
             if phase == .active {
                 self.loadingState = .loading
             }
-        }
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    self.loadingState = .notStarted
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                        .foregroundColor(.primary)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    Button(action: {
+                        self.addingApartment = true
+                    }) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.primary)
+                    }
+                    Menu(content: {
+                        Picker("Filter", selection: $filter.animation()) {
+                            let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
+                            ForEach(allFilterCases, id: \.self) { state in
+                                Text(state.rawValue)
+                            }
+                        }
+                    }) {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .foregroundColor(.primary)
+                    }
+                    Menu {
+                        Picker("Author", selection: $currentUser) {
+                            Text("All").tag("")
+                            ForEach(apartmentSearch.users) { user in
+                                Text(user.name).tag(user.id!)
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "person.crop.circle.badge.questionmark")
+                            .foregroundColor(.primary)
+                    }
+                }
+            }
+        }.navigationBarTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
+            self.loadingState = .notStarted
+        }) {
+            NavigationView {
+                AddApartmentView()
+                    .navigationTitle("Add Home")
+            }
+        }.disabled(self.loadingState == .loading || self.loadingState == .notStarted)
     }
 }
 
