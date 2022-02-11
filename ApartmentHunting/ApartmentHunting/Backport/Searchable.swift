@@ -10,14 +10,18 @@ import SwiftUI
 extension View {
     @ViewBuilder
     func back_searchable(text: Binding<String>, prompt: String) -> some View {
-        if #available(iOS 15, *) {
+        if #available(iOS 15, macOS 12, *) {
             self.searchable(text: text, prompt: prompt)
         } else {
-            self.background(SearchController(text: text, prompt: prompt))
+            self
+            #if !os(macOS)
+            .background(SearchController(text: text, prompt: prompt))
+            #endif
         }
     }
 }
 
+#if !os(macOS)
 private struct SearchController: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIViewController
     @Binding var text: String
@@ -54,3 +58,4 @@ private struct SearchController: UIViewControllerRepresentable {
         }
     }
 }
+#endif

@@ -67,9 +67,9 @@ struct OpinionView: View {
                         Text("Add Con")
                     }
                 }
-            }.navigationBarTitle(isEditable ? "Add Opinion" : "\(opinion.author)'s Opinion")
+            }.navigationTitle(isEditable ? "Add Opinion" : "\(opinion.author)'s Opinion")
         }.toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .primaryAction) {
                 if isEditable {
                     Button(action: {
                         onFinish(opinion)
@@ -89,15 +89,14 @@ struct AddOpinionView: View {
     let isEditable: Bool
     let onFinish: (Opinion) -> ()
     var body: some View {
-        NavigationView {
-            OpinionView(opinion: $opinion, onFinish: {
-                dismiss()
-                var finishedOpinion = $0
-                finishedOpinion.pros.removeAll(where: { $0.reason.isEmpty })
-                finishedOpinion.cons.removeAll(where: { $0.reason.isEmpty })
-                onFinish(finishedOpinion)
-            }, isEditable: isEditable)
-        }.onAppear {
+        OpinionView(opinion: $opinion, onFinish: {
+            dismiss()
+            var finishedOpinion = $0
+            finishedOpinion.pros.removeAll(where: { $0.reason.isEmpty })
+            finishedOpinion.cons.removeAll(where: { $0.reason.isEmpty })
+            onFinish(finishedOpinion)
+        }, isEditable: isEditable)
+        .onAppear {
             opinion.author = user.name
             opinion.authorId = user.id!
         }

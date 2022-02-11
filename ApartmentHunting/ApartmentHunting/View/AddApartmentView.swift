@@ -47,9 +47,11 @@ struct AddApartmentView: View {
         switch updatingState {
         case .notStarted:
             TextFieldEntry(title: "Link to Listing", text: $url)
+            #if !os(macOS)
                 .textContentType(.URL)
                 .keyboardType(.URL)
                 .autocapitalization(.none)
+            #endif
                 .padding(.bottom)
             HStack {
                 Text("Current Step in Process")

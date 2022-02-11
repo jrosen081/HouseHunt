@@ -14,6 +14,7 @@ protocol ActionSheetButton {
     static func cancel() -> ActionSheetButton
 }
 
+#if !os(macOS)
 extension ActionSheet.Button: ActionSheetButton {
     static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
         return self.default(message, action: action)
@@ -27,6 +28,7 @@ extension ActionSheet.Button: ActionSheetButton {
         return self.cancel(nil)
     }
 }
+#endif
 
 @available(iOS 15, *)
 extension Button: ActionSheetButton where Label == Text {
@@ -54,9 +56,11 @@ extension View {
                 }
             }
         } else {
+            #if !os(macOS)
             actionSheet(isPresented: isPresented) {
                 ActionSheet(title: title, message: nil, buttons: creator(ActionSheet.Button.self).map { $0 as! ActionSheet.Button })
             }
+            #endif
         }
     }
 }

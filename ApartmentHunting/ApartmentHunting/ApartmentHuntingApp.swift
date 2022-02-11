@@ -6,53 +6,35 @@
 //
 
 import SwiftUI
+#if !os(macOS)
 import UIKit
+#else
+import AppKit
+#endif
+
 import FirebaseMessaging
 import UserNotifications
 import Firebase
 
 @main
 struct ApartmentHuntingApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var authInteractor = AuthInteractor()
+    #if !os(macOS)
+    @UIApplicationDelegateAdaptor(UIAppDelegate.self) var delegate
+    #else
+    @NSApplicationDelegateAdaptor(NSAppDelegate.self) var delegate
+    #endif
     @StateObject var initializer = Initializer()
+    @StateObject var authInteractor = AuthInteractor()
     @StateObject var linkInteractor = LinkInteractor()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .navigationViewStyle(.stack)
+//                .navigationViewStyle(.stack)
                 .environmentObject(linkInteractor)
                 .environmentObject(authInteractor)
                 .environmentObject(initializer)
-                .preferredColorScheme(ColorScheme(initializer.userInterfaceStyle))
+                .preferredColorScheme(ColorScheme(adaptor: initializer.userInterfaceStyle))
+                .menuStyle(.borderlessButton)
         }
-    }
-}
-
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        Task {
-            UNUserNotificationCenter.current().delegate = self
-            let _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert])
-            UIApplication.shared.registerForRemoteNotifications()
-        }
-        return true
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-    ) {
-        Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(error)
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-        return [.sound, .badge, .banner]
     }
 }

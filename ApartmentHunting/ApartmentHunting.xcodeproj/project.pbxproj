@@ -47,6 +47,49 @@
 		A0C8666E27ACC384002EBFE1 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
 		A0C8667227AE23E4002EBFE1 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667127AE23E4002EBFE1 /* TextArea.swift */; };
 		A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */; };
+		A0D4E0DA27B6FBDD007098B4 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01E27A378C9003197A1 /* Searchable.swift */; };
+		A0D4E0DB27B6FBDD007098B4 /* BackportActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2027B5728800393A76 /* BackportActionSheet.swift */; };
+		A0D4E0DC27B6FBDD007098B4 /* AddApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB527A72A12006A72A8 /* AddApartmentView.swift */; };
+		A0D4E0DD27B6FBDD007098B4 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */; };
+		A0D4E0DE27B6FBDD007098B4 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00727A3718B003197A1 /* LinkView.swift */; };
+		A0D4E0DF27B6FBDD007098B4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
+		A0D4E0E027B6FBDD007098B4 /* EnvironmentValues+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074227A4300B006DDD3C /* EnvironmentValues+CurrentUser.swift */; };
+		A0D4E0E127B6FBDD007098B4 /* ApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFC27A370E4003197A1 /* ApartmentView.swift */; };
+		A0D4E0E227B6FBDD007098B4 /* AddBrokerInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2227B579BC00393A76 /* AddBrokerInformationView.swift */; };
+		A0D4E0E327B6FBDD007098B4 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01A27A37539003197A1 /* TaskView.swift */; };
+		A0D4E0E427B6FBDD007098B4 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01527A37494003197A1 /* RoundedButton.swift */; };
+		A0D4E0E527B6FBDD007098B4 /* UserOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB127A720C9006A72A8 /* UserOptionsView.swift */; };
+		A0D4E0E627B6FBDD007098B4 /* ApartmentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074727A43AD7006DDD3C /* ApartmentSearch.swift */; };
+		A0D4E0E727B6FBDD007098B4 /* DismissKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2427B5831F00393A76 /* DismissKeyboardOnTap.swift */; };
+		A0D4E0E827B6FBDD007098B4 /* APILoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00527A37169003197A1 /* APILoadingState.swift */; };
+		A0D4E0E927B6FBDD007098B4 /* LinkInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C68FB27AB307B008704F2 /* LinkInteractor.swift */; };
+		A0D4E0EA27B6FBDD007098B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A046EFEF27A37094003197A1 /* Assets.xcassets */; };
+		A0D4E0EB27B6FBDD007098B4 /* Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01027A373F0003197A1 /* Initializer.swift */; };
+		A0D4E0EC27B6FBDD007098B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFED27A3708F003197A1 /* ContentView.swift */; };
+		A0D4E0ED27B6FBDD007098B4 /* LoadApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB327A72121006A72A8 /* LoadApartmentView.swift */; };
+		A0D4E0EE27B6FBDD007098B4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB927A72C48006A72A8 /* SettingsView.swift */; };
+		A0D4E0EF27B6FBDD007098B4 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01C27A3763C003197A1 /* Dismiss.swift */; };
+		A0D4E0F027B6FBDD007098B4 /* WithKeyboardOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */; };
+		A0D4E0F127B6FBDD007098B4 /* ApartmentRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074927A441F9006DDD3C /* ApartmentRequestView.swift */; };
+		A0D4E0F227B6FBDD007098B4 /* ApartmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFF27A3711B003197A1 /* ApartmentModel.swift */; };
+		A0D4E0F327B6FBDD007098B4 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667127AE23E4002EBFE1 /* TextArea.swift */; };
+		A0D4E0F427B6FBDD007098B4 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01727A374EF003197A1 /* ShareSheet.swift */; };
+		A0D4E0F527B6FBDD007098B4 /* TextFieldEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */; };
+		A0D4E0F627B6FBDD007098B4 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005073D27A42B3F006DDD3C /* AuthInteractor.swift */; };
+		A0D4E0F727B6FBDD007098B4 /* CurrentUser.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005073B27A4297F006DDD3C /* CurrentUser.swift.swift */; };
+		A0D4E0F827B6FBDD007098B4 /* OpinionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB727A72AE2006A72A8 /* OpinionViews.swift */; };
+		A0D4E0F927B6FBDD007098B4 /* ApartmentHuntingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFEB27A3708E003197A1 /* ApartmentHuntingApp.swift */; };
+		A0D4E0FA27B6FBDD007098B4 /* ApartmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFA27A370D8003197A1 /* ApartmentsView.swift */; };
+		A0D4E0FB27B6FBDD007098B4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074427A430C4006DDD3C /* SignInView.swift */; };
+		A0D4E0FD27B6FBF2007098B4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A0D4E0FC27B6FBF2007098B4 /* FirebaseFirestore */; };
+		A0D4E0FF27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = A0D4E0FE27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta */; };
+		A0D4E10127B6FBF2007098B4 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A0D4E10027B6FBF2007098B4 /* FirebaseMessaging */; };
+		A0D4E10327B6FBFA007098B4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A0D4E10227B6FBFA007098B4 /* FirebaseAuth */; };
+		A0D4E10627B6FCFB007098B4 /* UIAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10527B6FCFB007098B4 /* UIAppDelegate.swift */; };
+		A0D4E10827B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */; };
+		A0D4E10927B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */; };
+		A0D4E10B27B70347007098B4 /* NSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */; };
+		A0D4E10C27B70414007098B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A046F00927A37211003197A1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +132,11 @@
 		A0C8666D27ACC384002EBFE1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A0C8667127AE23E4002EBFE1 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntry.swift; sourceTree = "<group>"; };
+		A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Hunt.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D4E10527B6FCFB007098B4 /* UIAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAppDelegate.swift; sourceTree = "<group>"; };
+		A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeAdaptor.swift; sourceTree = "<group>"; };
+		A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAppDelegate.swift; sourceTree = "<group>"; };
+		A0D4E10D27B70540007098B4 /* Home-Hunt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Home-Hunt-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +148,17 @@
 				A046F00D27A37313003197A1 /* FirebaseFirestore in Frameworks */,
 				A046F00F27A37313003197A1 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				A005074027A42B49006DDD3C /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0D4E0C827B6FBA3007098B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0D4E10127B6FBF2007098B4 /* FirebaseMessaging in Frameworks */,
+				A0D4E0FD27B6FBF2007098B4 /* FirebaseFirestore in Frameworks */,
+				A0D4E0FF27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				A0D4E10327B6FBFA007098B4 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				A046EFE827A3708E003197A1 /* ApartmentHunting.app */,
+				A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,7 +195,9 @@
 		A046EFEA27A3708E003197A1 /* ApartmentHunting */ = {
 			isa = PBXGroup;
 			children = (
+				A0D4E10427B6FCEB007098B4 /* Delegates */,
 				A03C68FD27AC47DF008704F2 /* ApartmentHunting.entitlements */,
+				A0D4E10D27B70540007098B4 /* Home-Hunt-Info.plist */,
 				A005074627A4348C006DDD3C /* Info.plist */,
 				A005074127A42FE9006DDD3C /* SwiftUIExtensions */,
 				A046F01927A3752F003197A1 /* Backport */,
@@ -209,6 +271,7 @@
 				A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */,
 				A00FAA2427B5831F00393A76 /* DismissKeyboardOnTap.swift */,
 				A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */,
+				A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -229,6 +292,15 @@
 				A00FAA2027B5728800393A76 /* BackportActionSheet.swift */,
 			);
 			path = Backport;
+			sourceTree = "<group>";
+		};
+		A0D4E10427B6FCEB007098B4 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				A0D4E10527B6FCFB007098B4 /* UIAppDelegate.swift */,
+				A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +329,29 @@
 			productReference = A046EFE827A3708E003197A1 /* ApartmentHunting.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A0D4E0CA27B6FBA3007098B4 /* Home Hunt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt" */;
+			buildPhases = (
+				A0D4E0C727B6FBA3007098B4 /* Sources */,
+				A0D4E0C827B6FBA3007098B4 /* Frameworks */,
+				A0D4E0C927B6FBA3007098B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Home Hunt";
+			packageProductDependencies = (
+				A0D4E0FC27B6FBF2007098B4 /* FirebaseFirestore */,
+				A0D4E0FE27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta */,
+				A0D4E10027B6FBF2007098B4 /* FirebaseMessaging */,
+				A0D4E10227B6FBFA007098B4 /* FirebaseAuth */,
+			);
+			productName = "Home Hunt";
+			productReference = A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -268,6 +363,9 @@
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					A046EFE727A3708E003197A1 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					A0D4E0CA27B6FBA3007098B4 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -289,6 +387,7 @@
 			projectRoot = "";
 			targets = (
 				A046EFE727A3708E003197A1 /* ApartmentHunting */,
+				A0D4E0CA27B6FBA3007098B4 /* Home Hunt */,
 			);
 		};
 /* End PBXProject section */
@@ -304,6 +403,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0D4E0C927B6FBA3007098B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0D4E0EA27B6FBDD007098B4 /* Assets.xcassets in Resources */,
+				A0D4E10C27B70414007098B4 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -311,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0D4E10627B6FCFB007098B4 /* UIAppDelegate.swift in Sources */,
 				A005074527A430C4006DDD3C /* SignInView.swift in Sources */,
 				A005073C27A4297F006DDD3C /* CurrentUser.swift.swift in Sources */,
 				A046F01D27A3763C003197A1 /* Dismiss.swift in Sources */,
@@ -344,6 +453,49 @@
 				A046EFEC27A3708F003197A1 /* ApartmentHuntingApp.swift in Sources */,
 				A046EFFB27A370D8003197A1 /* ApartmentsView.swift in Sources */,
 				A046F01827A374EF003197A1 /* ShareSheet.swift in Sources */,
+				A0D4E10827B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0D4E0C727B6FBA3007098B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0D4E0E227B6FBDD007098B4 /* AddBrokerInformationView.swift in Sources */,
+				A0D4E0E627B6FBDD007098B4 /* ApartmentSearch.swift in Sources */,
+				A0D4E0F727B6FBDD007098B4 /* CurrentUser.swift.swift in Sources */,
+				A0D4E0E727B6FBDD007098B4 /* DismissKeyboardOnTap.swift in Sources */,
+				A0D4E0DD27B6FBDD007098B4 /* ApartmentAPIInteractor.swift in Sources */,
+				A0D4E0E527B6FBDD007098B4 /* UserOptionsView.swift in Sources */,
+				A0D4E0F427B6FBDD007098B4 /* ShareSheet.swift in Sources */,
+				A0D4E0EE27B6FBDD007098B4 /* SettingsView.swift in Sources */,
+				A0D4E0EF27B6FBDD007098B4 /* Dismiss.swift in Sources */,
+				A0D4E0FB27B6FBDD007098B4 /* SignInView.swift in Sources */,
+				A0D4E0FA27B6FBDD007098B4 /* ApartmentsView.swift in Sources */,
+				A0D4E0F327B6FBDD007098B4 /* TextArea.swift in Sources */,
+				A0D4E0DF27B6FBDD007098B4 /* ErrorView.swift in Sources */,
+				A0D4E0E327B6FBDD007098B4 /* TaskView.swift in Sources */,
+				A0D4E0F927B6FBDD007098B4 /* ApartmentHuntingApp.swift in Sources */,
+				A0D4E0DA27B6FBDD007098B4 /* Searchable.swift in Sources */,
+				A0D4E0F127B6FBDD007098B4 /* ApartmentRequestView.swift in Sources */,
+				A0D4E0E927B6FBDD007098B4 /* LinkInteractor.swift in Sources */,
+				A0D4E0ED27B6FBDD007098B4 /* LoadApartmentView.swift in Sources */,
+				A0D4E0F027B6FBDD007098B4 /* WithKeyboardOpen.swift in Sources */,
+				A0D4E0F627B6FBDD007098B4 /* AuthInteractor.swift in Sources */,
+				A0D4E0DB27B6FBDD007098B4 /* BackportActionSheet.swift in Sources */,
+				A0D4E0E427B6FBDD007098B4 /* RoundedButton.swift in Sources */,
+				A0D4E0DC27B6FBDD007098B4 /* AddApartmentView.swift in Sources */,
+				A0D4E10927B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */,
+				A0D4E0F827B6FBDD007098B4 /* OpinionViews.swift in Sources */,
+				A0D4E0E127B6FBDD007098B4 /* ApartmentView.swift in Sources */,
+				A0D4E0DE27B6FBDD007098B4 /* LinkView.swift in Sources */,
+				A0D4E0EC27B6FBDD007098B4 /* ContentView.swift in Sources */,
+				A0D4E0F227B6FBDD007098B4 /* ApartmentModel.swift in Sources */,
+				A0D4E0E027B6FBDD007098B4 /* EnvironmentValues+CurrentUser.swift in Sources */,
+				A0D4E10B27B70347007098B4 /* NSAppDelegate.swift in Sources */,
+				A0D4E0F527B6FBDD007098B4 /* TextFieldEntry.swift in Sources */,
+				A0D4E0E827B6FBDD007098B4 /* APILoadingState.swift in Sources */,
+				A0D4E0EB27B6FBDD007098B4 /* Initializer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +684,66 @@
 			};
 			name = Release;
 		};
+		A0D4E0D727B6FBA5007098B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Home Hunt/Home_Hunt.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Home Hunt/Preview Content\"";
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ApartmentHunting/Home-Hunt-Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JackRosen.apartmenthunting.ApartmentHunting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A0D4E0D827B6FBA5007098B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Home Hunt/Home_Hunt.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Home Hunt/Preview Content\"";
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ApartmentHunting/Home-Hunt-Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JackRosen.apartmenthunting.ApartmentHunting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -549,6 +761,15 @@
 			buildConfigurations = (
 				A046EFF727A37094003197A1 /* Debug */,
 				A046EFF827A37094003197A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0D4E0D727B6FBA5007098B4 /* Debug */,
+				A0D4E0D827B6FBA5007098B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -586,6 +807,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		A0D4E0FC27B6FBF2007098B4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		A0D4E0FE27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		A0D4E10027B6FBF2007098B4 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		A0D4E10227B6FBFA007098B4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

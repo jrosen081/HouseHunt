@@ -7,6 +7,38 @@
 
 import SwiftUI
 
+#if os(macOS)
+typealias Pasteboard = NSPasteboard
+extension NSPasteboard {
+    var string: String? {
+        get {
+            return self.string(forType: .string)
+        }
+        set {
+            if let value = newValue {
+                self.setString(value, forType: .string)
+            }
+        }
+    }
+}
+#else
+typealias Pasteboard = UIPasteboard
+#endif
+
+private struct Section<Header: View, Content: View>: View {
+    let header: Header
+    @ViewBuilder var content: () -> Content
+    
+    var body: some View {
+        #if os(iOS)
+        SwiftUI.Section(content: content, header: { header })
+        #else
+        GroupBox(content: { VStack { content() }.padding() }, label: { header }).pickerStyle(.segmented)
+        #endif
+    }
+}
+
+
 struct SettingsView: View {
     @CurrentUserState private var user
     @EnvironmentObject private var apartmentSearch: ApartmentSearch
@@ -34,14 +66,14 @@ struct SettingsView: View {
                 Spacer()
                 Text(apartmentSearch.name)
             }
-            Button(action: {
-                UIPasteboard.general.string = apartmentSearch.entryCode
-                withAnimation { self.message = "Code Copied" }
-            }) {
-                HStack {
-                    Text("Join Code")
-                        .foregroundColor(.primary)
-                    Spacer()
+            HStack {
+                Text("Join Code")
+                    .foregroundColor(.primary)
+                Spacer()
+                Button(action: {
+                    Pasteboard.general.string = apartmentSearch.entryCode
+                    withAnimation { self.message = "Code Copied" }
+                }) {
                     Text(apartmentSearch.entryCode)
                         .foregroundColor(.blue)
                 }
@@ -57,7 +89,7 @@ struct SettingsView: View {
                 Spacer()
                 if let brokerCode = apartmentSearch.brokerResponse {
                     Button(action: {
-                        UIPasteboard.general.string = brokerCode
+                        Pasteboard.general.string = brokerCode
                         withAnimation { self.message = "Broker Response Copied" }
                     }) {
                         Text("Copy")
@@ -80,17 +112,20 @@ struct SettingsView: View {
     @ViewBuilder
     private var displaySection: some View {
         Section(header: Text("Display")) {
-            Picker("Theme", selection: self.$initializer.userInterfaceStyle) {
-                ForEach([UIUserInterfaceStyle.unspecified, UIUserInterfaceStyle.light, UIUserInterfaceStyle.dark], id: \.self) { style in
-                    switch style {
-                    case .unspecified: Text("System Defined")
-                    case .light: Text("Light Mode")
-                    case .dark: Text("Dark Mode")
-                    @unknown default:
-                        EmptyView()
+            HStack {
+                Text("Theme")
+                Spacer()
+                Picker("", selection: self.$initializer.userInterfaceStyle) {
+                    ForEach([ColorSchemeAdaptor.automatic, ColorSchemeAdaptor.light, ColorSchemeAdaptor.dark], id: \.self) { style in
+                        switch style {
+                        case .automatic: Text("System Defined")
+                        case .light: Text("Light Mode")
+                        case .dark: Text("Dark Mode")
+                        }
                     }
                 }
             }
+            
         }
     }
     
@@ -104,6 +139,9 @@ struct SettingsView: View {
                 authInteractor.signOut()
             }.foregroundColor(.red)
         }
+        #if os(macOS)
+        .buttonStyle(RoundedButtonStyle(color: .red))
+        #endif
     }
     
     @ViewBuilder
@@ -133,8 +171,15 @@ struct SettingsView: View {
                 displaySection
                 dangerZoneSection
             }.navigationTitle("Settings")
+            #if !os(macOS)
                 .listStyle(.insetGrouped)
+            #endif
             overlayView
+        }
+        .toolbar {
+            ToolbarItem {
+                EmptyView()
+            }
         }
     }
 }

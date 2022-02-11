@@ -25,10 +25,14 @@ struct SignInView: View {
             VStack(alignment: .leading, spacing: 2) {
                 TextFieldEntry(title: "Email", text: $email)
                     .padding(.bottom)
+                #if !os(macOS)
                     .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
+                #endif
                 TextFieldEntry(title: "Password", text: $password, isSecure: true)
+                #if !os(macOS)
                     .textContentType(signInState == .login ? .password : .newPassword)
+                #endif
                     .padding(.bottom)
                 switch signInState {
                 case .login:
@@ -36,7 +40,9 @@ struct SignInView: View {
                 case .createUser(let name):
                     let binding: Binding<String> = Binding(get: {name}, set: { self.signInState = .createUser(name: $0) })
                     TextFieldEntry(title: "Name", text: binding)
+                    #if !os(macOS)
                         .textContentType(.name)
+                    #endif
                         .padding(.bottom)
                 }
             }.frame(maxWidth: .infinity)

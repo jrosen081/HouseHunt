@@ -32,20 +32,7 @@ struct LoadApartmentView: View {
             }
             
         case .success(let apartmentSearch):
-            TabView {
-                NavigationView {
-                    ApartmentsView()
-                }.tabItem {
-                    Text("Search")
-                    Image(systemName: "house")
-                }
-                NavigationView {
-                    SettingsView()
-                }.tabItem {
-                    Text("Settings")
-                    Image(systemName: "gear")
-                }
-            }
+            MainView()
             .environmentObject(apartmentSearch)
             .onDisappear(perform: self.onDisappear)
             .onAppear {
@@ -65,3 +52,48 @@ struct LoadApartmentView: View {
         }
     }
 }
+
+
+let shouldShowLargeView: Bool = {
+#if os(macOS)
+    return true
+#else
+    return UIDevice.current.userInterfaceIdiom == .pad
+#endif
+}()
+
+private struct MainView: View {
+    @State private var isApartmentsActive = true
+    
+    var body: some View {
+        if shouldShowLargeView {
+            NavigationView {
+                List {
+                    NavigationLink(destination: ApartmentsView(), isActive: $isApartmentsActive) {
+                        Label("Homes", systemImage: "house")
+                    }
+                    NavigationLink(destination: SettingsView()) {
+                        Label("Settings", systemImage: "gear")
+                    }
+                }.listStyle(.sidebar).padding(.top)
+                    .navigationTitle("Home Hunt")
+            }
+        } else {
+            TabView {
+                NavigationView {
+                    ApartmentsView()
+                }.tabItem {
+                    Text("Homes")
+                    Image(systemName: "house")
+                }
+                NavigationView {
+                    SettingsView()
+                }.tabItem {
+                    Text("Settings")
+                    Image(systemName: "gear")
+                }
+            }
+        }
+    }
+}
+

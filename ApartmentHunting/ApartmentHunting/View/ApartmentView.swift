@@ -92,15 +92,25 @@ struct ApartmentView: View {
                     NavigationLink("See \(opinion.author)'s opinion", destination: {
                         OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in }, isEditable: false)
                     }).buttonStyle(RoundedButtonStyle(color: .primary)).padding(.bottom, 1)
-                }.sheet(isPresented: $addingOpinion) {
-                    AddOpinionView(isEditable: true) { opinion in
-                        updateApartment(state: .opinions(opinions: opinions + [opinion]))
+                }
+                #if !os(macOS)
+                .sheet(isPresented: $addingOpinion) {
+                    NavigationView {
+                        AddOpinionView(isEditable: true) { opinion in
+                            updateApartment(state: .opinions(opinions: opinions + [opinion]))
+                        }
                     }
                 }
+                #endif
                 if !opinions.contains(where: { $0.author == user.name }) {
                     RoundedButton(title: "Add Your Opinion", color: .green, action: {
                         self.addingOpinion = true
                     })
+                    #if os(macOS)
+                    NavigationLink(destination: AddOpinionView(isEditable: true) { opinion in
+                        updateApartment(state: .opinions(opinions: opinions + [opinion]))
+                    }, isActive: $addingOpinion, label: { EmptyView()})
+                    #endif
                 }
             }
         }
@@ -113,6 +123,20 @@ struct ApartmentView: View {
                     .font(.headline)
                 Spacer()
                 if let url = URL(string: apartment.url) {
+                    #if os(macOS)
+                    if let previousStates = apartment.previousStates, let prevState = previousStates.last {
+                        Button(action: {
+                            updateApartment(state: prevState, previousStates: Array(previousStates.dropLast()))
+                        }) {
+                            Label("Undo", systemImage: "arrow.uturn.backward")
+                        }
+                    }
+                    Button(action: {
+                        self.showingShareSheet = true
+                    }) {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    }.shareSheet(items: [url], isPresented: $showingShareSheet)
+                    #else
                     Menu(content: {
                         if let previousStates = apartment.previousStates, let prevState = previousStates.last {
                             Button(action: {
@@ -129,6 +153,8 @@ struct ApartmentView: View {
                     }, label: {
                         Image(systemName: "ellipsis.circle").resizable().scaledToFit().frame(height: 25).foregroundColor(.primary)
                     }).shareSheet(items: [url], isPresented: $showingShareSheet)
+                    #endif
+                        
                 }
             }
             LinkView(linkUrl: URL(string: apartment.url)).frame(maxWidth: .infinity)

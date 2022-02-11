@@ -14,11 +14,13 @@ struct KeyboardOpenState: DynamicProperty {
         static let shared = KeyboardOpenListener()
         var anyCancellables: Set<AnyCancellable> = []
         private init() {
+            #if !os(macOS)
             NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification, object: nil)
                 .merge(with: NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification, object: nil))
                 .sink { notification in
                     self.isKeyboardOpen = notification.name == UIResponder.keyboardWillShowNotification
                 }.store(in: &anyCancellables)
+            #endif
         }
         @Published var isKeyboardOpen = false
     }

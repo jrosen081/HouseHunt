@@ -9,6 +9,7 @@ import SwiftUI
 import LinkPresentation
 import UniformTypeIdentifiers
 
+#if !os(macOS)
 private struct LinkViewWrapper: UIViewRepresentable {
     class LinkView: LPLinkView {
         override var intrinsicContentSize: CGSize { CGSize(width: 0, height: super.intrinsicContentSize.height) }
@@ -25,6 +26,25 @@ private struct LinkViewWrapper: UIViewRepresentable {
         uiView.metadata = metadata
     }
 }
+#else
+private struct LinkViewWrapper: NSViewRepresentable {
+    class LinkView: LPLinkView {
+        override var intrinsicContentSize: CGSize { CGSize(width: 0, height: super.intrinsicContentSize.height) }
+    }
+    typealias NSViewType = LinkView
+    let metadata: LPLinkMetadata
+    
+    func makeNSView(context: Context) -> LinkView {
+        let link = LinkView(metadata: metadata)
+        return link
+    }
+    
+    func updateNSView(_ uiView: LinkView, context: Context) {
+        uiView.metadata = metadata
+    }
+}
+
+#endif
 
 struct LinkView: View {
     let linkUrl: URL?

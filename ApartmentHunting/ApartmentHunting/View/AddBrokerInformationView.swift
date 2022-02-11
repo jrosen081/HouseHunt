@@ -25,6 +25,7 @@ struct AddBrokerInformationView: View {
                         EmptyView()
                     }
                 }.animation(.default, value: isFocused).transition(.opacity)
+                Spacer()
                 RoundedButton(title: "Save Information", color: .green) {
                     dismiss()
                     save(brokerInfo)

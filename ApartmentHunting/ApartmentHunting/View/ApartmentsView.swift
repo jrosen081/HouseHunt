@@ -78,6 +78,9 @@ struct ApartmentsView: View {
                                 }
                             }
                         }.back_searchable(text: $search, prompt: "Filter by title")
+                        #if os(macOS)
+                            .padding(.top)
+                        #endif
                     }
                 }
             }
@@ -91,22 +94,40 @@ struct ApartmentsView: View {
         }
     }
     
+    private var authorView: some View {
+        Picker("Author", selection: $currentUser) {
+            Text("All").tag("")
+            ForEach(apartmentSearch.users) { user in
+                Text(user.name).tag(user.id!)
+            }
+        }
+    }
+    
+    private var reloadView: some View {
+        Button(action: {
+            self.loadingState = .notStarted
+        }) {
+            Image(systemName: "arrow.clockwise")
+                .foregroundColor(.primary)
+        }
+    }
+    
     var body: some View {
         mainView.onChange(of: phase) { phase in
             if phase == .active {
                 self.loadingState = .loading
             }
         }.toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    self.loadingState = .notStarted
-                }) {
-                    Image(systemName: "arrow.clockwise")
-                        .foregroundColor(.primary)
+            ToolbarItem(placement: .cancellationAction) {
+                if !shouldShowLargeView {
+                    reloadView
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .primaryAction) {
                 HStack {
+                    if shouldShowLargeView {
+                        reloadView
+                    }
                     Button(action: {
                         self.addingApartment = true
                     }) {
@@ -114,36 +135,38 @@ struct ApartmentsView: View {
                             .foregroundColor(.primary)
                     }
                     Menu(content: {
-                        Picker("Filter", selection: $filter.animation()) {
+                        Picker("Current State", selection: $filter.animation()) {
                             let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
                             ForEach(allFilterCases, id: \.self) { state in
                                 Text(state.rawValue)
                             }
                         }
+                        #if os(macOS)
+                        authorView.labelStyle(.titleOnly)
+                        #endif
                     }) {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                             .foregroundColor(.primary)
                     }
+                    #if !os(macOS)
                     Menu {
-                        Picker("Author", selection: $currentUser) {
-                            Text("All").tag("")
-                            ForEach(apartmentSearch.users) { user in
-                                Text(user.name).tag(user.id!)
-                            }
-                        }
+                        authorView
                     } label: {
                         Image(systemName: "person.crop.circle.badge.questionmark")
                             .foregroundColor(.primary)
                     }
+                    #endif
                 }
             }
-        }.navigationBarTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
+        }.navigationTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
             self.loadingState = .notStarted
         }) {
             NavigationView {
                 AddApartmentView()
                     .navigationTitle("Add Home")
+                #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
+                #endif
             }
         }.disabled(self.loadingState == .loading || self.loadingState == .notStarted)
     }
