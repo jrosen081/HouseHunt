@@ -11,6 +11,15 @@ import FirebaseMessaging
 import UserNotifications
 
 class Initializer: NSObject, ObservableObject, UNUserNotificationCenterDelegate, MessagingDelegate {
+    private enum Constants {
+        static let userStyleKey = "userStyle"
+    }
+    @Published var userInterfaceStyle: UIUserInterfaceStyle = UIUserInterfaceStyle(rawValue: UserDefaults.standard.integer(forKey: Constants.userStyleKey)) ?? .unspecified {
+        didSet {
+            UserDefaults.standard.set(userInterfaceStyle.rawValue, forKey: Constants.userStyleKey)
+        }
+    }
+    
     override init() {
         super.init()
         Messaging.messaging().delegate = self

@@ -21,6 +21,7 @@ class AuthInteractor: ObservableObject {
     private let firestore = Firestore.firestore()
     @Published var authState: LoadingState<User> = .notStarted
     private var shouldFetchUser = true
+    private var stopListeningForUserChanges: (() -> Void)? = nil
     
     private var user: User? {
         switch self.authState {
@@ -41,12 +42,28 @@ class AuthInteractor: ObservableObject {
         return user
     }
     
+    private func listenForChanges(id: String) {
+        let listener = firestore.collection(Constants.userCollection).document(id).addSnapshotListener { document, error in
+            guard let document = document else { return }
+            do {
+                guard let user = try document.data(as: User.self) else { return }
+                self.authState = .success(user)
+            } catch {
+                print(error)
+            }
+        }
+        self.stopListeningForUserChanges = {
+            listener.remove()
+        }
+    }
+    
     @MainActor
     private func fetchUserLocally(id: String) async {
         do {
             if shouldFetchUser {
                 self.authState = try await .success(fetchUser(id: id))
             }
+            self.listenForChanges(id: id)
         } catch {
             self.authState = .error(error.localizedDescription)
             try? self.auth.signOut()
@@ -85,7 +102,9 @@ class AuthInteractor: ObservableObject {
             do {
                 let _ = try await auth.signIn(withEmail: email, password: password)
             } catch {
-                self.authState = .error(error.localizedDescription)
+                await MainActor.run {
+                    self.authState = .error(error.localizedDescription)
+                }
             }
         }
     }
@@ -113,7 +132,9 @@ class AuthInteractor: ObservableObject {
     }
     
     func update(user: User) {
-        try? self.firestore.collection(Constants.userCollection).document(user.id!).setData(from: user)
+        let data: [String: Any] = ["apartmentSearchState": Optional<String>.none as Any]
+        self.firestore.collection(Constants.userCollection).document(user.id!).updateData(data)
+        try? self.firestore.collection(Constants.userCollection).document(user.id!).setData(from: user, merge: true)
         if self.user == nil || self.user?.id == user.id {
             DispatchQueue.main.async {
                 self.authState = .success(user)
@@ -125,6 +146,8 @@ class AuthInteractor: ObservableObject {
         if let userId = user?.id, let token = Messaging.messaging().fcmToken {
             self.updateToken(token: token, userId: userId, remove: true)
         }
+        self.stopListeningForUserChanges?()
+        self.stopListeningForUserChanges = nil
         self.authState = .notStarted
         try? self.auth.signOut()
     }

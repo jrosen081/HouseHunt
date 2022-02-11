@@ -27,7 +27,7 @@ struct AddApartmentView: View {
             case .seeing(_):
                 return .seeing
             }
-        }, set: { (val: ApartmentAddingState) in
+        }, set: { val in
             switch val {
             case .interested, .all, .uninterested, .opinion:
                 self.currentState = .interested
@@ -42,40 +42,61 @@ struct AddApartmentView: View {
         })
     }
     
-    var body: some View {
+    @ViewBuilder
+    var mainView: some View {
         switch updatingState {
         case .notStarted:
-            Form {
-                TextField("Home URL", text: $url)
-                    .textContentType(.URL)
-                    .keyboardType(.URL)
-                    .autocapitalization(.none)
+            TextFieldEntry(title: "Link to Listing", text: $url)
+                .textContentType(.URL)
+                .keyboardType(.URL)
+                .autocapitalization(.none)
+                .padding(.bottom)
+            HStack {
+                Text("Current Step in Process")
+                    .font(.subheadline).bold()
+                Spacer()
                 Picker("Current State", selection: apartmentAddingState) {
                     ForEach(ApartmentAddingState.allCases, id: \.self) { option in
                         Text(option.rawValue)
                     }
                 }
-                switch currentState {
-                case .seeing(let date):
-                    DatePicker("When are you seeing the home?", selection: Binding(get: { date }, set: { self.currentState = .seeing(date: $0) }), in: Date()...)
-                default:
-                    EmptyView()
-                }
-                TextField("Notes", text: $notes)
-                Button("Save Home") {
-                    Task {
-                        self.updatingState = .loading
-                        do {
-                            try await ApartmentAPIInteractor.addApartment(url: self.url, apartmentSearchId: self.apartmentSearch.id) {
-                                ApartmentModel(location: $0, url: self.url, state: self.currentState, dateUploaded: Date(), author: user.id!, apartmentSearchId: self.apartmentSearch.id, notes: self.notes)
-                            }
-                            self.updatingState = .success(true)
-                        } catch {
-                            self.updatingState = .error(error.localizedDescription)
-                        }
-                    }
-                }.disabled(URL(string: url) == nil || notes.isEmpty)
             }
+            
+            switch currentState {
+            case .seeing(let date):
+                Text("When are you seeing the home?")
+                    .font(.subheadline)
+                    .bold()
+                DatePicker("When are you seeing the home?",
+                           selection: Binding(get: { date }, set: { self.currentState = .seeing(date: $0) }),
+                           in: Date()...).labelsHidden()
+            default:
+                EmptyView()
+            }
+            TextArea(title: "Notes", text: $notes)
+            Spacer()
+            RoundedButton(title: "Save Home", color: .green) {
+                Task {
+                    self.updatingState = .loading
+                    do {
+                        try await ApartmentAPIInteractor.addApartment(url: self.url,
+                                                                      apartmentSearchId: self.apartmentSearch.id) {
+                            ApartmentModel(location: $0,
+                                           url: self.url,
+                                           state: self.currentState,
+                                           dateUploaded: Date(),
+                                           author: user.id!,
+                                           apartmentSearchId: self.apartmentSearch.id,
+                                           notes: self.notes)
+                        }
+                        self.updatingState = .success(true)
+                    } catch {
+                        self.updatingState = .error(error.localizedDescription)
+                    }
+                }
+            }
+            .padding(.top)
+            .disabled(URL(string: url) == nil || notes.isEmpty)
         case .loading:
             ProgressView("Uploading")
         case .success(_):
@@ -86,12 +107,25 @@ struct AddApartmentView: View {
                         dismiss()
                     }
                 }
-        case .error(let str):
-            Text("Something went wrong, edit again. \(str)").onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.updatingState = .notStarted
+        case .error(_):
+            ErrorView {
+                self.updatingState = .notStarted
+            }
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            mainView
+        }
+        .padding()
+        .toolbar {
+            ToolbarItem {
+                Button(action: { dismiss() }) {
+                    Text("Cancel")
                 }
             }
         }
+        .removingKeyboardOnTap()
     }
 }

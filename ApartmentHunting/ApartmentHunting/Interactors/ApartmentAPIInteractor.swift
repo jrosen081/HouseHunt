@@ -111,7 +111,15 @@ struct ApartmentAPIInteractor {
         for user in collection.requests {
             try await newRequests.append(authInteractor.fetchUser(id: user))
         }
-        return ApartmentSearch(id: collection.id!, name: collection.name, users: newUsers, requests: newRequests, entryCode: collection.entryCode, brokerResponse: collection.brokerResponse)
+        var acceptedHouse: ApartmentModel? = nil
+        do {
+            if let acceptedId = collection.acceptedHouse {
+                acceptedHouse = try await self.apartmentsCollection(for: collection.id!).document(acceptedId).getDocument().data(as: ApartmentModel.self)
+            }
+        } catch {
+            print(error)
+        }
+        return ApartmentSearch(id: collection.id!, name: collection.name, users: newUsers, requests: newRequests, entryCode: collection.entryCode, brokerResponse: collection.brokerResponse, acceptedHouse: acceptedHouse)
     }
     
     static func acceptUser(apartmentSearch: ApartmentSearch, user: User, authInteractor: AuthInteractor) {

@@ -92,7 +92,10 @@ struct AddOpinionView: View {
         NavigationView {
             OpinionView(opinion: $opinion, onFinish: {
                 dismiss()
-                onFinish($0)
+                var finishedOpinion = $0
+                finishedOpinion.pros.removeAll(where: { $0.reason.isEmpty })
+                finishedOpinion.cons.removeAll(where: { $0.reason.isEmpty })
+                onFinish(finishedOpinion)
             }, isEditable: isEditable)
         }.onAppear {
             opinion.author = user.name

@@ -29,7 +29,7 @@ const getTokensForUser = async (userId: string) => {
 
 export const sendApartmentAddedNotification = functions.firestore
     .document("apartments/{apartmentId}/apartments/{postID}")
-    .onCreate(async (_, context) => {
+    .onCreate(async (change, context) => {
         const dataRef = await db.doc(`apartments/{apartmentId}`).get()
         const data = dataRef.data()
         if (!data) {
@@ -38,6 +38,9 @@ export const sendApartmentAddedNotification = functions.firestore
         const users: string[] = data.users;
         const allTokens: string[] = []
         for (const userId of users) {
+            if (userId === change.data().author) {
+                continue;
+            }
             try {
                 const tokens: string[] = await getTokensForUser(userId);
                 allTokens.push(...tokens)
@@ -46,7 +49,7 @@ export const sendApartmentAddedNotification = functions.firestore
                 continue
             }
         }
-        return sendNotification("A Home was added to your search!", "Click this to see the new Home", allTokens)
+        return sendNotification("New Home", "A Home was added to your search!", allTokens)
     })
 
 function diff(old: string[], newOnes: string[]): {removed: string[], added: string[]} {
@@ -88,9 +91,9 @@ export const sendUserAddedRemovedNotification = functions.firestore
             try {
                 const tokens = await getTokensForUser(removal)
                 if (newUsers.includes(removal)) {
-                    await sendNotification("Your Home Search Request was accepted!", "Click this to see the Home Search", tokens)
+                    await sendNotification("Success!", "Your Home Search Request was accepted!", tokens)
                 } else {
-                    await sendNotification("Oh no! You were not accepted to the Home Search.", "Click this to try to join another!", tokens)
+                    await sendNotification("Try Again!", "Oh no! You were not accepted to the Home Search.", tokens)
                 }
             } catch (error) {
                 console.error(error)
@@ -105,6 +108,6 @@ export const sendUserAddedRemovedNotification = functions.firestore
                     console.error(error)
                 }
             }
-            await sendNotification("Someone requested to join your Home Search", "Click this to see the request", allTokens)
+            await sendNotification("New Request", "Someone requested to join your Home Search!", allTokens)
         }
     })

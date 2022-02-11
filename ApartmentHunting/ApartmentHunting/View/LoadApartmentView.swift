@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoadApartmentView: View {
     let id: String
-    @State private var loadingState = LoadingState<ApartmentSearch>.error("Fake")
+    @State private var loadingState = LoadingState<ApartmentSearch>.notStarted
     @EnvironmentObject var authInteractor: AuthInteractor
     @State private var onDisappear: (() -> Void)?
     var body: some View {
@@ -58,18 +58,9 @@ struct LoadApartmentView: View {
                 }
             }
         case .error(_):
-            VStack(spacing: 10) {
-                Spacer()
-                Image(systemName: "exclamationmark.circle")
-                    .resizable()
-                    .aspectRatio(nil, contentMode: .fit)
-                    .frame(width: 50)
-                Text("Something went wrong")
-                Spacer()
-                RoundedButton(title: "Retry", color: .primary) {
-                    self.loadingState = .notStarted
-                }
-            }.foregroundColor(.red).padding()
+            ErrorView {
+                self.loadingState = .notStarted
+            }
             
         }
     }

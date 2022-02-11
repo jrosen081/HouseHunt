@@ -19,6 +19,10 @@
 		A0099CB627A72A12006A72A8 /* AddApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB527A72A12006A72A8 /* AddApartmentView.swift */; };
 		A0099CB827A72AE2006A72A8 /* OpinionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB727A72AE2006A72A8 /* OpinionViews.swift */; };
 		A0099CBA27A72C48006A72A8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB927A72C48006A72A8 /* SettingsView.swift */; };
+		A00FAA2127B5728800393A76 /* BackportActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2027B5728800393A76 /* BackportActionSheet.swift */; };
+		A00FAA2327B579BC00393A76 /* AddBrokerInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2227B579BC00393A76 /* AddBrokerInformationView.swift */; };
+		A00FAA2527B5831F00393A76 /* DismissKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2427B5831F00393A76 /* DismissKeyboardOnTap.swift */; };
+		A00FAA2727B58B9C00393A76 /* WithKeyboardOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */; };
 		A03C68FC27AB307C008704F2 /* LinkInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C68FB27AB307B008704F2 /* LinkInteractor.swift */; };
 		A046EFEC27A3708F003197A1 /* ApartmentHuntingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFEB27A3708E003197A1 /* ApartmentHuntingApp.swift */; };
 		A046EFEE27A3708F003197A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFED27A3708F003197A1 /* ContentView.swift */; };
@@ -40,6 +44,9 @@
 		A046F01B27A37539003197A1 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01A27A37539003197A1 /* TaskView.swift */; };
 		A046F01D27A3763C003197A1 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01C27A3763C003197A1 /* Dismiss.swift */; };
 		A046F01F27A378C9003197A1 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01E27A378C9003197A1 /* Searchable.swift */; };
+		A0C8666E27ACC384002EBFE1 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
+		A0C8667227AE23E4002EBFE1 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667127AE23E4002EBFE1 /* TextArea.swift */; };
+		A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +62,10 @@
 		A0099CB527A72A12006A72A8 /* AddApartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApartmentView.swift; sourceTree = "<group>"; };
 		A0099CB727A72AE2006A72A8 /* OpinionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionViews.swift; sourceTree = "<group>"; };
 		A0099CB927A72C48006A72A8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A00FAA2027B5728800393A76 /* BackportActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackportActionSheet.swift; sourceTree = "<group>"; };
+		A00FAA2227B579BC00393A76 /* AddBrokerInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBrokerInformationView.swift; sourceTree = "<group>"; };
+		A00FAA2427B5831F00393A76 /* DismissKeyboardOnTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissKeyboardOnTap.swift; sourceTree = "<group>"; };
+		A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithKeyboardOpen.swift; sourceTree = "<group>"; };
 		A03C68FB27AB307B008704F2 /* LinkInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInteractor.swift; sourceTree = "<group>"; };
 		A03C68FD27AC47DF008704F2 /* ApartmentHunting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ApartmentHunting.entitlements; sourceTree = "<group>"; };
 		A046EFE827A3708E003197A1 /* ApartmentHunting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApartmentHunting.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +86,9 @@
 		A046F01A27A37539003197A1 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		A046F01C27A3763C003197A1 /* Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismiss.swift; sourceTree = "<group>"; };
 		A046F01E27A378C9003197A1 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		A0C8666D27ACC384002EBFE1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		A0C8667127AE23E4002EBFE1 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
+		A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +172,8 @@
 				A0099CB527A72A12006A72A8 /* AddApartmentView.swift */,
 				A0099CB727A72AE2006A72A8 /* OpinionViews.swift */,
 				A0099CB927A72C48006A72A8 /* SettingsView.swift */,
+				A0C8666D27ACC384002EBFE1 /* ErrorView.swift */,
+				A00FAA2227B579BC00393A76 /* AddBrokerInformationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +205,10 @@
 				A046F01027A373F0003197A1 /* Initializer.swift */,
 				A046F01527A37494003197A1 /* RoundedButton.swift */,
 				A046F01727A374EF003197A1 /* ShareSheet.swift */,
+				A0C8667127AE23E4002EBFE1 /* TextArea.swift */,
+				A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */,
+				A00FAA2427B5831F00393A76 /* DismissKeyboardOnTap.swift */,
+				A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -206,6 +226,7 @@
 				A046F01A27A37539003197A1 /* TaskView.swift */,
 				A046F01C27A3763C003197A1 /* Dismiss.swift */,
 				A046F01E27A378C9003197A1 /* Searchable.swift */,
+				A00FAA2027B5728800393A76 /* BackportActionSheet.swift */,
 			);
 			path = Backport;
 			sourceTree = "<group>";
@@ -294,22 +315,29 @@
 				A005073C27A4297F006DDD3C /* CurrentUser.swift.swift in Sources */,
 				A046F01D27A3763C003197A1 /* Dismiss.swift in Sources */,
 				A0099CB427A72121006A72A8 /* LoadApartmentView.swift in Sources */,
+				A00FAA2527B5831F00393A76 /* DismissKeyboardOnTap.swift in Sources */,
 				A046F00027A3711B003197A1 /* ApartmentModel.swift in Sources */,
 				A005074827A43AD7006DDD3C /* ApartmentSearch.swift in Sources */,
+				A00FAA2327B579BC00393A76 /* AddBrokerInformationView.swift in Sources */,
 				A046F01627A37494003197A1 /* RoundedButton.swift in Sources */,
+				A0C8666E27ACC384002EBFE1 /* ErrorView.swift in Sources */,
 				A046EFEE27A3708F003197A1 /* ContentView.swift in Sources */,
 				A046F01B27A37539003197A1 /* TaskView.swift in Sources */,
 				A046F01F27A378C9003197A1 /* Searchable.swift in Sources */,
+				A00FAA2127B5728800393A76 /* BackportActionSheet.swift in Sources */,
 				A005074A27A441F9006DDD3C /* ApartmentRequestView.swift in Sources */,
 				A005074327A4300B006DDD3C /* EnvironmentValues+CurrentUser.swift in Sources */,
 				A0099CB227A720C9006A72A8 /* UserOptionsView.swift in Sources */,
 				A046F01127A373F0003197A1 /* Initializer.swift in Sources */,
+				A0C8667227AE23E4002EBFE1 /* TextArea.swift in Sources */,
 				A046F00827A3718B003197A1 /* LinkView.swift in Sources */,
 				A0099CBA27A72C48006A72A8 /* SettingsView.swift in Sources */,
 				A0099CB827A72AE2006A72A8 /* OpinionViews.swift in Sources */,
 				A0099CB627A72A12006A72A8 /* AddApartmentView.swift in Sources */,
+				A00FAA2727B58B9C00393A76 /* WithKeyboardOpen.swift in Sources */,
 				A046F00327A3713E003197A1 /* ApartmentAPIInteractor.swift in Sources */,
 				A046F00627A37169003197A1 /* APILoadingState.swift in Sources */,
+				A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */,
 				A046EFFD27A370E4003197A1 /* ApartmentView.swift in Sources */,
 				A005073E27A42B3F006DDD3C /* AuthInteractor.swift in Sources */,
 				A03C68FC27AB307C008704F2 /* LinkInteractor.swift in Sources */,

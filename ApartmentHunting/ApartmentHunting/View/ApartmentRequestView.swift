@@ -21,18 +21,22 @@ struct ApartmentRequestView: View {
         VStack(alignment: .leading) {
             switch state {
             case .createNew:
-                Text("Home Search Name")
-                TextField("Name", text: $info)
+                TextFieldEntry(title: "Home Search Name", text: $info)
             case .join:
-                Text("Home Entry Code")
-                TextField("Code", text: $info)
+                TextFieldEntry(title: "Home Search Join Code", text: $info)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
             }
             Spacer()
             switch loadingState {
             case .notStarted:
                 EmptyView()
             case .loading:
-                ProgressView("Loading")
+                HStack {
+                    Spacer()
+                    ProgressView("Loading")
+                    Spacer()
+                }
             case .success(_):
                 EmptyView()
             case .error(let string):
@@ -60,6 +64,7 @@ struct ApartmentRequestView: View {
                 }
             }.disabled(info.isEmpty)
             RoundedButton(title: state == .join ? "Switch to Create Search" : "Switch to Request to Join", color: .primary) {
+                self.loadingState = .notStarted
                 switch self.state {
                 case .createNew:
                     self.state = .join
@@ -70,7 +75,10 @@ struct ApartmentRequestView: View {
             RoundedButton(title: "Sign Out", color: .red) {
                 authInteractor.signOut()
             }
-        }.navigationTitle(state == .join ? "Join Search" : "Create Search").padding().textFieldStyle(.roundedBorder)
+        }
+        .navigationTitle(state == .join ? "Join Search" : "Create Search")
+        .padding()
+        .removingKeyboardOnTap()
     }
 }
 

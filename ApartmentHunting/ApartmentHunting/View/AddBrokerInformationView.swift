@@ -1,0 +1,53 @@
+//
+//  AddBrokerInformationView.swift
+//  ApartmentHunting
+//
+//  Created by Jack Rosen on 2/10/22.
+//
+
+import SwiftUI
+
+struct AddBrokerInformationView: View {
+    @Environment(\.back_dismiss) var dismiss
+    @KeyboardOpenState private var isFocused
+    @State private var brokerInfo = ""
+    let save: (String) -> Void
+    var body: some View {
+        NavigationView {
+            VStack(alignment: .leading) {
+                TextArea(title: "Hunt Information", text: $brokerInfo)
+                Group {
+                    if !isFocused {
+                        Text("Use this space to write a default message about your Home Hunt to send to realtors.")
+                        
+                            .font(.caption).multilineTextAlignment(.leading)
+                    } else {
+                        EmptyView()
+                    }
+                }.animation(.default, value: isFocused).transition(.opacity)
+                RoundedButton(title: "Save Information", color: .green) {
+                    dismiss()
+                    save(brokerInfo)
+                }.disabled(brokerInfo.isEmpty)
+            }.padding()
+                .navigationTitle(Text("Add Information"))
+                .removingKeyboardOnTap()
+        }
+    }
+}
+
+struct AddBrokerInformationView_Previews: PreviewProvider {
+    private struct Preview: View {
+        @State private var showingView = false
+        
+        var body: some View {
+            Button(action: { showingView.toggle() }) { Text("Show add View")}
+            .sheet(isPresented: $showingView) {
+                AddBrokerInformationView {_ in }
+            }
+        }
+    }
+    static var previews: some View {
+        Preview()
+    }
+}

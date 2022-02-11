@@ -11,8 +11,9 @@ struct SettingsView: View {
     @CurrentUserState private var user
     @EnvironmentObject private var apartmentSearch: ApartmentSearch
     @EnvironmentObject private var authInteractor: AuthInteractor
+    @EnvironmentObject private var initializer: Initializer
     @State private var message: String? = nil
-    @State private var brokerResponse = ""
+    @State private var showingBrokerInfo = false
     
     @ViewBuilder
     private var requestsSection: some View {
@@ -29,7 +30,7 @@ struct SettingsView: View {
     private var homeInfoSection: some View {
         Section(header: Text("Home Info")) {
             HStack {
-                Text("Name:")
+                Text("Name")
                 Spacer()
                 Text(apartmentSearch.name)
             }
@@ -38,7 +39,7 @@ struct SettingsView: View {
                 withAnimation { self.message = "Code Copied" }
             }) {
                 HStack {
-                    Text("Join Code:")
+                    Text("Join Code")
                         .foregroundColor(.primary)
                     Spacer()
                     Text(apartmentSearch.entryCode)
@@ -51,27 +52,43 @@ struct SettingsView: View {
     @ViewBuilder
     var brokerInteractionSection: some View {
         Section(header: Text("Broker Interactions")) {
-            if let brokerCode = apartmentSearch.brokerResponse {
-                Button(action: {
-                    UIPasteboard.general.string = brokerCode
-                    withAnimation { self.message = "Broker Response Copied" }
-                }) {
-                    Text("Copy Home Information for Broker")
+            HStack {
+                Text("Home Information")
+                Spacer()
+                if let brokerCode = apartmentSearch.brokerResponse {
+                    Button(action: {
+                        UIPasteboard.general.string = brokerCode
+                        withAnimation { self.message = "Broker Response Copied" }
+                    }) {
+                        Text("Copy")
+                    }
+                } else {
+                    Button(action: {
+                        self.showingBrokerInfo = true
+                    }) {
+                        Text("Add")
+                    }
                 }
-            } else {
-                VStack(alignment: .leading) {
-                    Text("Home Information To Send to Brokers")
-                        .font(.headline)
-                        .bold()
-                    TextEditor(text: $brokerResponse)
-                        .frame(minHeight: 100)
-                        .padding(2)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke())
-                    RoundedButton(title: "Save", color: .green) {
-                        ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
-                    }.disabled(brokerResponse.isEmpty)
+            }.sheet(isPresented: $showingBrokerInfo) {
+                AddBrokerInformationView { brokerResponse in
+                    ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var displaySection: some View {
+        Section(header: Text("Display")) {
+            Picker("Theme", selection: self.$initializer.userInterfaceStyle) {
+                ForEach([UIUserInterfaceStyle.unspecified, UIUserInterfaceStyle.light, UIUserInterfaceStyle.dark], id: \.self) { style in
+                    switch style {
+                    case .unspecified: Text("System Defined")
+                    case .light: Text("Light Mode")
+                    case .dark: Text("Dark Mode")
+                    @unknown default:
+                        EmptyView()
+                    }
                 }
             }
         }
@@ -113,6 +130,7 @@ struct SettingsView: View {
                 requestsSection
                 homeInfoSection
                 brokerInteractionSection
+                displaySection
                 dangerZoneSection
             }.navigationTitle("Settings")
                 .listStyle(.insetGrouped)
@@ -135,16 +153,16 @@ private struct AcceptRejectView: View {
                 self.administering = true
             }) {
                 Text("Manage")
-            }.actionSheet(isPresented: $administering) {
-                ActionSheet(title: Text("Manage User"), message: nil, buttons: [
-                    .default(Text("Accept"), action: {
+            }.back_confirmationDialog(isPresented: $administering, title: Text("Manage User")) {
+                [
+                    $0.default(message: Text("Accept"), action: {
                         ApartmentAPIInteractor.acceptUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
                     }),
-                    .destructive(Text("Reject")) {
+                    $0.destructive(message: Text("Reject")) {
                         ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
                     },
-                    .cancel()
-                ])
+                    $0.cancel()
+                ]
             }
         }
         

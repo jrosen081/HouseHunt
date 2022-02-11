@@ -143,6 +143,7 @@ struct ApartmentsView: View {
             NavigationView {
                 AddApartmentView()
                     .navigationTitle("Add Home")
+                    .navigationBarTitleDisplayMode(.inline)
             }
         }.disabled(self.loadingState == .loading || self.loadingState == .notStarted)
     }
@@ -151,10 +152,10 @@ struct ApartmentsView: View {
 enum ApartmentAddingState: String, CaseIterable {
     case interested = "Interested"
     case unsure = "Unsure"
-    case reachedOutToBroker = "Reached Out to Broker"
-    case seeing = "Set up time to See"
+    case reachedOutToBroker = "Contacted Owner"
+    case seeing = "Seeing"
     case all = "All"
-    case uninterested = "Uninterested"
+    case uninterested = "No Longer Interested"
     case opinion = "Opinion Posted"
     
     static var allCases: [ApartmentAddingState] = [.interested, .reachedOutToBroker, .seeing, .unsure]

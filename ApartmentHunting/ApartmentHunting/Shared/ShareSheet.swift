@@ -24,7 +24,7 @@ private struct ShareSheet: UIViewControllerRepresentable {
 extension View {
     func shareSheet(items: [Any], isPresented: Binding<Bool>) -> some View {
         self.sheet(isPresented: isPresented) {
-            ShareSheet(items: items)
+            ShareSheet(items: items).edgesIgnoringSafeArea(.bottom)
         }
     }
 }

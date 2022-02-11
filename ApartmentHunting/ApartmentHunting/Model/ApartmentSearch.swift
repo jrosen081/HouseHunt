@@ -15,11 +15,12 @@ struct ApartmentSearchDTO: Codable {
     var requests: [String]
     var entryCode: String
     var brokerResponse: String?
+    var acceptedHouse: String?
 }
 
 extension ApartmentSearchDTO {
     init(search: ApartmentSearch) {
-        self = ApartmentSearchDTO(id: search.id, name: search.name, users: search.users.compactMap(\.id), requests: search.requests.compactMap(\.id), entryCode: search.entryCode, brokerResponse: search.brokerResponse)
+        self = ApartmentSearchDTO(id: search.id, name: search.name, users: search.users.compactMap(\.id), requests: search.requests.compactMap(\.id), entryCode: search.entryCode, brokerResponse: search.brokerResponse, acceptedHouse: acceptedHouse)
     }
 }
 
@@ -34,13 +35,15 @@ class ApartmentSearch: ObservableObject, Equatable {
     @Published var requests: [User]
     let entryCode: String
     @Published var brokerResponse: String?
+    @Published var acceptedHouse: ApartmentModel?
     
-    init(id: String, name: String, users: [User], requests: [User], entryCode: String, brokerResponse: String?) {
+    init(id: String, name: String, users: [User], requests: [User], entryCode: String, brokerResponse: String?, acceptedHouse: ApartmentModel?) {
         self.id = id
         self.name = name
         self.users = users
         self.requests = requests
         self.entryCode = entryCode
         self.brokerResponse = brokerResponse
+        self.acceptedHouse = acceptedHouse
     }
 }

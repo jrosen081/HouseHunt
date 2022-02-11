@@ -32,8 +32,10 @@ struct ApartmentView: View {
     
     @ViewBuilder
     private func actionsView<Content: View>(@ViewBuilder views: () -> Content) -> some View {
-        Text("Actions").font(.headline).padding(.top)
-        views()
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Actions:").font(.headline).padding(.top)
+            views()
+        }
     }
     
     @ViewBuilder
@@ -71,9 +73,9 @@ struct ApartmentView: View {
                 })
             }
         case .uninterested:
-            Text("We are uninterested in this one anymore").font(.subheadline)
+            Text("We are no longer interested in this one anymore").font(.subheadline)
         case .reachedOutToBroker:
-            Text("We reached out to broker").font(.subheadline)
+            Text("We reached out to owner").font(.subheadline)
             actionsView {
                 Text("When did you set a time to see the home?")
                 DatePicker("", selection: $dateShowing, in: Date()...)
@@ -84,6 +86,7 @@ struct ApartmentView: View {
                 })
             }
         case .opinions(let opinions):
+            Text("We saw the house").font(.subheadline)
             actionsView {
                 ForEach(opinions, id: \.authorId) { opinion in
                     NavigationLink("See \(opinion.author)'s opinion", destination: {

@@ -22,26 +22,24 @@ struct SignInView: View {
             Text("Home Hunt")
                 .font(.largeTitle)
                 .padding()
-            VStack(alignment: .leading) {
-                Text("Email")
-                TextField("Email", text: $email)
+            VStack(alignment: .leading, spacing: 2) {
+                TextFieldEntry(title: "Email", text: $email)
                     .padding(.bottom)
                     .textContentType(.emailAddress)
-                Text("Password")
-                SecureField("Password", text: $password)
-                    .textContentType(.password)
+                    .keyboardType(.emailAddress)
+                TextFieldEntry(title: "Password", text: $password, isSecure: true)
+                    .textContentType(signInState == .login ? .password : .newPassword)
                     .padding(.bottom)
                 switch signInState {
                 case .login:
                     EmptyView()
                 case .createUser(let name):
                     let binding: Binding<String> = Binding(get: {name}, set: { self.signInState = .createUser(name: $0) })
-                    Text("Name")
-                    TextField("Name", text: binding)
+                    TextFieldEntry(title: "Name", text: binding)
                         .textContentType(.name)
                         .padding(.bottom)
                 }
-            }.frame(maxWidth: .infinity).multilineTextAlignment(.leading)
+            }.frame(maxWidth: .infinity)
             switch authInteractor.authState {            case .error(let error):
                 Text("Something went wrong: \(error)")
                     .foregroundColor(.red)
@@ -65,7 +63,11 @@ struct SignInView: View {
                     self.signInState = .login
                 }
             }
-        }.frame(maxWidth: .infinity).padding().disabled(authInteractor.authState == .loading).textFieldStyle(.roundedBorder)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .disabled(authInteractor.authState == .loading)
+        .removingKeyboardOnTap()
     }
     
     var body: some View {

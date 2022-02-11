@@ -19,7 +19,12 @@ struct ApartmentHuntingApp: App {
     @StateObject var linkInteractor = LinkInteractor()
     var body: some Scene {
         WindowGroup {
-            ContentView().navigationViewStyle(.stack).environmentObject(linkInteractor).environmentObject(authInteractor)
+            ContentView()
+                .navigationViewStyle(.stack)
+                .environmentObject(linkInteractor)
+                .environmentObject(authInteractor)
+                .environmentObject(initializer)
+                .preferredColorScheme(ColorScheme(initializer.userInterfaceStyle))
         }
     }
 }
@@ -45,5 +50,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.sound, .badge, .banner]
     }
 }
