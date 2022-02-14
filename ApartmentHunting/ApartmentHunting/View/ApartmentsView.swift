@@ -154,7 +154,9 @@ struct ApartmentsView: View {
         }
         .onChange(of: phase) { phase in
             if phase == .active {
-                self.loadingState = .loading
+                DispatchQueue.main.async {
+                    self.loadingState = .loading
+                }
             }
         }.toolbar {
             ToolbarItem(placement: .cancellationAction) {

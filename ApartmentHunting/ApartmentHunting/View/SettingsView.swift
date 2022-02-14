@@ -16,6 +16,7 @@ extension NSPasteboard {
         }
         set {
             if let value = newValue {
+                self.declareTypes([.string], owner: nil)
                 self.setString(value, forType: .string)
             }
         }

@@ -111,7 +111,7 @@
 		A00FAA2627B58B9B00393A76 /* WithKeyboardOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithKeyboardOpen.swift; sourceTree = "<group>"; };
 		A03C68FB27AB307B008704F2 /* LinkInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInteractor.swift; sourceTree = "<group>"; };
 		A03C68FD27AC47DF008704F2 /* ApartmentHunting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ApartmentHunting.entitlements; sourceTree = "<group>"; };
-		A046EFE827A3708E003197A1 /* ApartmentHunting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApartmentHunting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A046EFE827A3708E003197A1 /* Home Hunt (iOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Hunt (iOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A046EFEB27A3708E003197A1 /* ApartmentHuntingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentHuntingApp.swift; sourceTree = "<group>"; };
 		A046EFED27A3708F003197A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A046EFEF27A37094003197A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		A0C8666D27ACC384002EBFE1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A0C8667127AE23E4002EBFE1 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntry.swift; sourceTree = "<group>"; };
-		A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Hunt.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D4E0CB27B6FBA3007098B4 /* Home Hunt (macOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home Hunt (macOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D4E10527B6FCFB007098B4 /* UIAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAppDelegate.swift; sourceTree = "<group>"; };
 		A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeAdaptor.swift; sourceTree = "<group>"; };
 		A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAppDelegate.swift; sourceTree = "<group>"; };
@@ -186,8 +186,8 @@
 		A046EFE927A3708E003197A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A046EFE827A3708E003197A1 /* ApartmentHunting.app */,
-				A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */,
+				A046EFE827A3708E003197A1 /* Home Hunt (iOS).app */,
+				A0D4E0CB27B6FBA3007098B4 /* Home Hunt (macOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,9 +306,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A046EFE727A3708E003197A1 /* ApartmentHunting */ = {
+		A046EFE727A3708E003197A1 /* Home Hunt (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A046EFF627A37094003197A1 /* Build configuration list for PBXNativeTarget "ApartmentHunting" */;
+			buildConfigurationList = A046EFF627A37094003197A1 /* Build configuration list for PBXNativeTarget "Home Hunt (iOS)" */;
 			buildPhases = (
 				A046EFE427A3708E003197A1 /* Sources */,
 				A046EFE527A3708E003197A1 /* Frameworks */,
@@ -318,7 +318,7 @@
 			);
 			dependencies = (
 			);
-			name = ApartmentHunting;
+			name = "Home Hunt (iOS)";
 			packageProductDependencies = (
 				A046F00C27A37313003197A1 /* FirebaseFirestore */,
 				A046F00E27A37313003197A1 /* FirebaseFirestoreSwift-Beta */,
@@ -326,12 +326,12 @@
 				A005073F27A42B49006DDD3C /* FirebaseAuth */,
 			);
 			productName = ApartmentHunting;
-			productReference = A046EFE827A3708E003197A1 /* ApartmentHunting.app */;
+			productReference = A046EFE827A3708E003197A1 /* Home Hunt (iOS).app */;
 			productType = "com.apple.product-type.application";
 		};
-		A0D4E0CA27B6FBA3007098B4 /* Home Hunt */ = {
+		A0D4E0CA27B6FBA3007098B4 /* Home Hunt (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt" */;
+			buildConfigurationList = A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt (macOS)" */;
 			buildPhases = (
 				A0D4E0C727B6FBA3007098B4 /* Sources */,
 				A0D4E0C827B6FBA3007098B4 /* Frameworks */,
@@ -341,7 +341,7 @@
 			);
 			dependencies = (
 			);
-			name = "Home Hunt";
+			name = "Home Hunt (macOS)";
 			packageProductDependencies = (
 				A0D4E0FC27B6FBF2007098B4 /* FirebaseFirestore */,
 				A0D4E0FE27B6FBF2007098B4 /* FirebaseFirestoreSwift-Beta */,
@@ -349,7 +349,7 @@
 				A0D4E10227B6FBFA007098B4 /* FirebaseAuth */,
 			);
 			productName = "Home Hunt";
-			productReference = A0D4E0CB27B6FBA3007098B4 /* Home Hunt.app */;
+			productReference = A0D4E0CB27B6FBA3007098B4 /* Home Hunt (macOS).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -386,8 +386,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A046EFE727A3708E003197A1 /* ApartmentHunting */,
-				A0D4E0CA27B6FBA3007098B4 /* Home Hunt */,
+				A046EFE727A3708E003197A1 /* Home Hunt (iOS) */,
+				A0D4E0CA27B6FBA3007098B4 /* Home Hunt (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -553,7 +553,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -608,7 +609,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -704,7 +706,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JackRosen.apartmenthunting.ApartmentHunting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -734,7 +736,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JackRosen.apartmenthunting.ApartmentHunting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -756,7 +758,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A046EFF627A37094003197A1 /* Build configuration list for PBXNativeTarget "ApartmentHunting" */ = {
+		A046EFF627A37094003197A1 /* Build configuration list for PBXNativeTarget "Home Hunt (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A046EFF727A37094003197A1 /* Debug */,
@@ -765,7 +767,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt" */ = {
+		A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0D4E0D727B6FBA5007098B4 /* Debug */,

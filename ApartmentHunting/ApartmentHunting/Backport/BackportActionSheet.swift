@@ -46,7 +46,7 @@ extension Alert.Button: ActionSheetButton {
     
 }
 
-@available(iOS 15, *)
+@available(iOS 15, macOS 12, *)
 extension Button: ActionSheetButton where Label == Text {
     static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
         return Button(action: { action?() }, label: { message })

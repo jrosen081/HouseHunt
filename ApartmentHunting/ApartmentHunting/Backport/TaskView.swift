@@ -27,7 +27,7 @@ private struct TaskView<Content: View>: View {
 extension View {
     @ViewBuilder
     func back_task(perform: @escaping () async -> Void) -> some View {
-        if #available(iOS 15, *) {
+        if #available(iOS 15, macOS 12, *) {
             self.task { await perform() }
         } else {
             TaskView(child: self, perform: perform)
