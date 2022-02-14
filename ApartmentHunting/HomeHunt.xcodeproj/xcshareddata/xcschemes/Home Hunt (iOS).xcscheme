@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-               BuildableName = "Home Hunt.app"
-               BlueprintName = "Home Hunt (macOS)"
-               ReferencedContainer = "container:ApartmentHunting.xcodeproj">
+               BlueprintIdentifier = "A046EFE727A3708E003197A1"
+               BuildableName = "ApartmentHunting.app"
+               BlueprintName = "Home Hunt (iOS)"
+               ReferencedContainer = "container:HomeHunt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-            BuildableName = "Home Hunt.app"
-            BlueprintName = "Home Hunt (macOS)"
-            ReferencedContainer = "container:ApartmentHunting.xcodeproj">
+            BlueprintIdentifier = "A046EFE727A3708E003197A1"
+            BuildableName = "ApartmentHunting.app"
+            BlueprintName = "Home Hunt (iOS)"
+            ReferencedContainer = "container:HomeHunt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-            BuildableName = "Home Hunt.app"
-            BlueprintName = "Home Hunt (macOS)"
-            ReferencedContainer = "container:ApartmentHunting.xcodeproj">
+            BlueprintIdentifier = "A046EFE727A3708E003197A1"
+            BuildableName = "ApartmentHunting.app"
+            BlueprintName = "Home Hunt (iOS)"
+            ReferencedContainer = "container:HomeHunt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
