@@ -90,6 +90,8 @@
 		A0D4E10927B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */; };
 		A0D4E10B27B70347007098B4 /* NSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */; };
 		A0D4E10C27B70414007098B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A046F00927A37211003197A1 /* GoogleService-Info.plist */; };
+		A0D4E10F27BAC43E007098B4 /* FoundApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10E27BAC43D007098B4 /* FoundApartmentView.swift */; };
+		A0D4E11027BAC43E007098B4 /* FoundApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10E27BAC43D007098B4 /* FoundApartmentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +139,7 @@
 		A0D4E10727B6FE60007098B4 /* ColorSchemeAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeAdaptor.swift; sourceTree = "<group>"; };
 		A0D4E10A27B70347007098B4 /* NSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAppDelegate.swift; sourceTree = "<group>"; };
 		A0D4E10D27B70540007098B4 /* Home-Hunt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Home-Hunt-Info.plist"; sourceTree = "<group>"; };
+		A0D4E10E27BAC43D007098B4 /* FoundApartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundApartmentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,7 @@
 				A0099CB927A72C48006A72A8 /* SettingsView.swift */,
 				A0C8666D27ACC384002EBFE1 /* ErrorView.swift */,
 				A00FAA2227B579BC00393A76 /* AddBrokerInformationView.swift */,
+				A0D4E10E27BAC43D007098B4 /* FoundApartmentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -445,6 +449,7 @@
 				A0099CB627A72A12006A72A8 /* AddApartmentView.swift in Sources */,
 				A00FAA2727B58B9C00393A76 /* WithKeyboardOpen.swift in Sources */,
 				A046F00327A3713E003197A1 /* ApartmentAPIInteractor.swift in Sources */,
+				A0D4E10F27BAC43E007098B4 /* FoundApartmentView.swift in Sources */,
 				A046F00627A37169003197A1 /* APILoadingState.swift in Sources */,
 				A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */,
 				A046EFFD27A370E4003197A1 /* ApartmentView.swift in Sources */,
@@ -487,6 +492,7 @@
 				A0D4E0DC27B6FBDD007098B4 /* AddApartmentView.swift in Sources */,
 				A0D4E10927B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */,
 				A0D4E0F827B6FBDD007098B4 /* OpinionViews.swift in Sources */,
+				A0D4E11027BAC43E007098B4 /* FoundApartmentView.swift in Sources */,
 				A0D4E0E127B6FBDD007098B4 /* ApartmentView.swift in Sources */,
 				A0D4E0DE27B6FBDD007098B4 /* LinkView.swift in Sources */,
 				A0D4E0EC27B6FBDD007098B4 /* ContentView.swift in Sources */,

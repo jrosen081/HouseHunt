@@ -19,10 +19,20 @@ struct ApartmentsView: View {
     @State private var search = ""
     @State private var filter: ApartmentAddingState = .all
     @State private var currentUser = ""
+    @State private var showingFinalApartment = true
     @Environment(\.scenePhase) var phase
     @CurrentUserState var user: User
     @EnvironmentObject var apartmentSearch: ApartmentSearch
     @State private var overlay: ApartmentsViewOverlay?
+    
+    private var shouldDisableToolbar: Bool {
+        switch loadingState {
+        case .notStarted, .loading, .error(_):
+            return true
+        case .success(_):
+            return apartmentSearch.acceptedHouse != nil
+        }
+    }
     
     func setAddApartment(_ val: Bool) {
         #if os(macOS)
@@ -50,7 +60,8 @@ struct ApartmentsView: View {
             (.unsure, .unsure),
             (.reachedOutToBroker, .reachedOutToBroker),
             (.seeing, .seeing(_)),
-            (.opinion, .opinions(_)):
+            (.opinion, .opinions(_)),
+            (.selected, .selected):
             return true
         default: return false
         }
@@ -128,10 +139,10 @@ struct ApartmentsView: View {
         }
     }
     
-    var body: some View {
+    @ViewBuilder
+    private var notShowingSuccessfulView: some View {
         ZStack {
             mainView
-            #if os(macOS)
             if let overlay = overlay {
                 Group {
                     switch overlay {
@@ -150,7 +161,6 @@ struct ApartmentsView: View {
             } else {
                 EmptyView().back_searchable(text: $search, prompt: "Filter by title")
             }
-            #endif
         }
         .onChange(of: phase) { phase in
             if phase == .active {
@@ -170,15 +180,17 @@ struct ApartmentsView: View {
                         if shouldShowLargeView {
                             reloadView
                         }
-                        Button(action: {
-                            self.setAddApartment(true)
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.primary)
+                        if !shouldDisableToolbar {
+                            Button(action: {
+                                self.setAddApartment(true)
+                            }) {
+                                Image(systemName: "plus")
+                                    .foregroundColor(.primary)
+                            }
                         }
                         Menu(content: {
                             Picker("Current State", selection: $filter.animation()) {
-                                let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
+                                let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all, ApartmentAddingState.selected] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
                                 ForEach(allFilterCases, id: \.self) { state in
                                     Text(state.rawValue)
                                 }
@@ -207,12 +219,20 @@ struct ApartmentsView: View {
         }) {
             NavigationView {
                 AddApartmentView() {}
-                    .navigationTitle("Add Home")
-                #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-                #endif
+                .navigationTitle("Add Home")
+#if !os(macOS)
+                .navigationBarTitleDisplayMode(.inline)
+#endif
             }
-        }.disabled(self.loadingState == .loading || self.loadingState == .notStarted)
+        }
+    }
+    
+    var body: some View {
+        if let selectedApartment = apartmentSearch.acceptedHouse, showingFinalApartment {
+            FoundApartmentView(apartmentModel: selectedApartment, showingFindApartmentView: $showingFinalApartment)
+        } else {
+            notShowingSuccessfulView
+        }
     }
 }
 
@@ -224,6 +244,7 @@ enum ApartmentAddingState: String, CaseIterable {
     case all = "All"
     case uninterested = "No Longer Interested"
     case opinion = "Opinion Posted"
+    case selected = "Selected"
     
     static var allCases: [ApartmentAddingState] = [.interested, .reachedOutToBroker, .seeing, .unsure]
 }

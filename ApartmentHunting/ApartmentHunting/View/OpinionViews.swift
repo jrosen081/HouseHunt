@@ -71,11 +71,13 @@ struct OpinionView: View {
         }.toolbar {
             ToolbarItem {
                 HStack {
+                    #if os(macOS)
                     Button(action: {
                         onFinish(nil)
                     }) {
                         Text(isEditable ? "Cancel" : "Dismiss")
                     }
+                    #endif
                     if isEditable {
                         Button(action: {
                             onFinish(opinion)

@@ -18,6 +18,7 @@ enum ApartmentState: Codable, Equatable {
     case reachedOutToBroker
     case seeing(date: Date)
     case opinions(opinions: [Opinion])
+    case selected
 }
 
 struct Opinion: Codable, Equatable {

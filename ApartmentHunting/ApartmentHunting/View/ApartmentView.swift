@@ -22,6 +22,11 @@ struct ApartmentView: View {
         return formatter
     }()
     @CurrentUserState var user
+    @EnvironmentObject var search: ApartmentSearch
+    
+    private var hasSelectedApartment: Bool {
+        search.acceptedHouse != nil
+    }
     
     private func updateApartment(state: ApartmentState, previousStates: [ApartmentState]? = nil) {
         var newApartment = apartment
@@ -60,7 +65,7 @@ struct ApartmentView: View {
                 }.sheet(isPresented: $addingOpinion) {
                     opinionView
                 }
-            }
+            }.disabled(hasSelectedApartment)
         case .interested:
             Text("We are interested in this home").font(.subheadline)
             actionsView {
@@ -70,7 +75,7 @@ struct ApartmentView: View {
                 RoundedButton(title: "We don't want this place", color: .red, action: {
                     updateApartment(state: .uninterested)
                 })
-            }
+            }.disabled(hasSelectedApartment)
         case .unsure:
             Text("We are unsure about the home").font(.subheadline)
             actionsView {
@@ -80,7 +85,7 @@ struct ApartmentView: View {
                 RoundedButton(title: "We don't want this place", color: .red, action: {
                     updateApartment(state: .uninterested)
                 })
-            }
+            }.disabled(hasSelectedApartment)
         case .uninterested:
             Text("We are no longer interested in this one anymore").font(.subheadline)
         case .reachedOutToBroker:
@@ -93,7 +98,7 @@ struct ApartmentView: View {
                 RoundedButton(title: "Set Viewing Date", color: .primary, action: {
                     updateApartment(state: .seeing(date: self.dateShowing))
                 })
-            }
+            }.disabled(hasSelectedApartment)
         case .opinions(let opinions):
             let opinionView = AddOpinionView(isEditable: true) { opinion in
                 if let opinion = opinion {
@@ -129,9 +134,11 @@ struct ApartmentView: View {
                         #else
                         self.overlay = .addOpinion(opinionView)
                         #endif
-                    })
+                    }).disabled(hasSelectedApartment)
                 }
             }
+        case .selected:
+            Text("We have selected this home!").font(.subheadline).bold()
         }
     }
     
@@ -148,7 +155,7 @@ struct ApartmentView: View {
                             updateApartment(state: prevState, previousStates: Array(previousStates.dropLast()))
                         }) {
                             Label("Undo", systemImage: "arrow.uturn.backward")
-                        }
+                        }.disabled(hasSelectedApartment)
                     }
                     Button(action: {
                         self.showingShareSheet = true
@@ -162,7 +169,7 @@ struct ApartmentView: View {
                                 updateApartment(state: prevState, previousStates: Array(previousStates.dropLast()))
                             }) {
                                 Label("Undo", systemImage: "arrow.uturn.backward")
-                            }
+                            }.disabled(hasSelectedApartment)
                         }
                         Button(action: {
                             self.showingShareSheet = true

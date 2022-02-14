@@ -14,22 +14,6 @@ protocol ActionSheetButton {
     static func cancel() -> ActionSheetButton
 }
 
-#if !os(macOS)
-extension ActionSheet.Button: ActionSheetButton {
-    static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
-        return self.default(message, action: action)
-    }
-    
-    static func destructive(message: Text, action: (() -> Void)?) -> ActionSheetButton {
-        return self.destructive(message, action: action)
-    }
-    
-    static func cancel() -> ActionSheetButton {
-        return self.cancel(nil)
-    }
-}
-#endif
-
 extension Alert.Button: ActionSheetButton {
     static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
         Alert.Button.default(message, action: action)
@@ -42,8 +26,6 @@ extension Alert.Button: ActionSheetButton {
     static func cancel() -> ActionSheetButton {
         Alert.Button.cancel(nil)
     }
-    
-    
 }
 
 @available(iOS 15, macOS 12, *)

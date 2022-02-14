@@ -26,7 +26,7 @@ struct AddApartmentView: View {
     private var apartmentAddingState: Binding<ApartmentAddingState> {
         Binding(get: {
             switch currentState {
-            case .interested, .uninterested, .opinions(_):
+            case .interested, .uninterested, .opinions(_), .selected:
                 return .interested
             case .unsure:
                 return .unsure
@@ -37,7 +37,7 @@ struct AddApartmentView: View {
             }
         }, set: { val in
             switch val {
-            case .interested, .all, .uninterested, .opinion:
+            case .interested, .all, .uninterested, .opinion, .selected:
                 self.currentState = .interested
             case .unsure:
                 self.currentState = .unsure
