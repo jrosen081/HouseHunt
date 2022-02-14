@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum ApartmentsViewOverlay {
+    case addOpinion(AddOpinionView)
+    case viewOpinion(OpinionView)
+    case addHouse(AddApartmentView)
+}
+
 struct ApartmentsView: View {
     @State private var loadingState = LoadingState<[ApartmentModel]>.notStarted
     @State private var addingApartment = false
@@ -16,6 +22,16 @@ struct ApartmentsView: View {
     @Environment(\.scenePhase) var phase
     @CurrentUserState var user: User
     @EnvironmentObject var apartmentSearch: ApartmentSearch
+    @State private var overlay: ApartmentsViewOverlay?
+    
+    func setAddApartment(_ val: Bool) {
+        #if os(macOS)
+        self.overlay = .addHouse(AddApartmentView { self.overlay = nil })
+        #else
+        self.addingApartment = true
+        #endif
+    }
+    
     
     func loadPosts() async {
         self.loadingState = .loading
@@ -66,18 +82,18 @@ struct ApartmentsView: View {
             Group {
                 if apartments.isEmpty {
                     RoundedButton(title: "Add the first home to your search", color: .green) {
-                        self.addingApartment = true
+                        self.setAddApartment(true)
                     }.padding(.horizontal)
                 } else {
                     ScrollView {
                         VStack(spacing: 10) {
                             ForEach(apartmentsBinding) { $apartment in
                                 if include(apartment: apartment) {
-                                    ApartmentView(apartment: $apartment).padding(.horizontal)
+                                    ApartmentView(apartment: $apartment, overlay: $overlay.animation()).padding(.horizontal)
                                     Rectangle().frame(height: 3).foregroundColor(.primary).padding(.vertical)
                                 }
                             }
-                        }.back_searchable(text: $search, prompt: "Filter by title")
+                        }
                         #if os(macOS)
                             .padding(.top)
                         #endif
@@ -113,7 +129,30 @@ struct ApartmentsView: View {
     }
     
     var body: some View {
-        mainView.onChange(of: phase) { phase in
+        ZStack {
+            mainView
+            #if os(macOS)
+            if let overlay = overlay {
+                Group {
+                    switch overlay {
+                    case .addOpinion(let addOpinionView):
+                        addOpinionView
+                    case .viewOpinion(let opinionView):
+                        opinionView
+                    case .addHouse(let addApartmentView):
+                        ZStack {
+                            List {}.frame(maxWidth: .infinity, maxHeight: .infinity)
+                            addApartmentView
+                        }
+                        
+                    }
+                }.transition(.move(edge: .bottom))
+            } else {
+                EmptyView().back_searchable(text: $search, prompt: "Filter by title")
+            }
+            #endif
+        }
+        .onChange(of: phase) { phase in
             if phase == .active {
                 self.loadingState = .loading
             }
@@ -124,45 +163,48 @@ struct ApartmentsView: View {
                 }
             }
             ToolbarItem(placement: .primaryAction) {
-                HStack {
-                    if shouldShowLargeView {
-                        reloadView
-                    }
-                    Button(action: {
-                        self.addingApartment = true
-                    }) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.primary)
-                    }
-                    Menu(content: {
-                        Picker("Current State", selection: $filter.animation()) {
-                            let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
-                            ForEach(allFilterCases, id: \.self) { state in
-                                Text(state.rawValue)
-                            }
+                if self.overlay == nil {
+                    HStack {
+                        if shouldShowLargeView {
+                            reloadView
                         }
-                        #if os(macOS)
-                        authorView.labelStyle(.titleOnly)
-                        #endif
-                    }) {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                            .foregroundColor(.primary)
+                        Button(action: {
+                            self.setAddApartment(true)
+                        }) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.primary)
+                        }
+                        Menu(content: {
+                            Picker("Current State", selection: $filter.animation()) {
+                                let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
+                                ForEach(allFilterCases, id: \.self) { state in
+                                    Text(state.rawValue)
+                                }
+                            }
+#if os(macOS)
+                            authorView.labelStyle(.titleOnly)
+#endif
+                        }) {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                                .foregroundColor(.primary)
+                        }
+#if !os(macOS)
+                        Menu {
+                            authorView
+                        } label: {
+                            Image(systemName: "person.crop.circle.badge.questionmark")
+                                .foregroundColor(.primary)
+                        }
+#endif
                     }
-                    #if !os(macOS)
-                    Menu {
-                        authorView
-                    } label: {
-                        Image(systemName: "person.crop.circle.badge.questionmark")
-                            .foregroundColor(.primary)
-                    }
-                    #endif
                 }
+                
             }
         }.navigationTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
             self.loadingState = .notStarted
         }) {
             NavigationView {
-                AddApartmentView()
+                AddApartmentView() {}
                     .navigationTitle("Add Home")
                 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)

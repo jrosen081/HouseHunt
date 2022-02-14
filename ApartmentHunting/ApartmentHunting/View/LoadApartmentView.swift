@@ -63,18 +63,25 @@ let shouldShowLargeView: Bool = {
 }()
 
 private struct MainView: View {
-    @State private var isApartmentsActive = true
+    private enum Location { case apartments, settings}
+    @State private var location: Location = .apartments
+    var isApartmentsActive: Binding<Bool> {
+        Binding(get: { location == .apartments}) { location = $0 ? .apartments : .settings}
+    }
     
+    var isSettingsActive: Binding<Bool> {
+        Binding(get: { location == .settings}) { location = $0 ? .settings : .apartments}
+    }
     var body: some View {
         if shouldShowLargeView {
             NavigationView {
                 List {
-                    NavigationLink(destination: ApartmentsView(), isActive: $isApartmentsActive) {
+                    NavigationLink(destination: ApartmentsView(), isActive: isApartmentsActive) {
                         Label("Homes", systemImage: "house")
                     }
-                    NavigationLink(destination: SettingsView()) {
+                    NavigationLink(destination: SettingsView(), isActive: isSettingsActive) {
                         Label("Settings", systemImage: "gear")
-                    }
+                    }.keyboardShortcut(",", modifiers: .command)
                 }.listStyle(.sidebar).padding(.top)
                     .navigationTitle("Home Hunt")
             }

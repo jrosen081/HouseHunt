@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ApartmentView: View {
     @Binding var apartment: ApartmentModel
+    @Binding var overlay: ApartmentsViewOverlay?
     @State private var dateShowing = Date().addingTimeInterval(60 * 60 * 24)
     @State private var addingOpinion = false
     @State private var showingShareSheet = false
@@ -42,14 +43,22 @@ struct ApartmentView: View {
     private var stateView: some View {
         switch apartment.state {
         case .seeing(let date):
+            let opinionView = AddOpinionView(isEditable: true) { opinion in
+                if let opinion = opinion {
+                    updateApartment(state: .opinions(opinions: [opinion]))
+                }
+                self.overlay = nil
+            }
             Text("Seeing \(dateFormatter.string(from: date))").font(.subheadline)
             actionsView {
                 RoundedButton(title: "Add Your Opinion", color: .green) {
+                    #if os(iOS)
                     self.addingOpinion = true
+                    #else
+                    self.overlay = .addOpinion(opinionView)
+                    #endif
                 }.sheet(isPresented: $addingOpinion) {
-                    AddOpinionView(isEditable: true) { opinion in
-                        updateApartment(state: .opinions(opinions: [opinion]))
-                    }
+                    opinionView
                 }
             }
         case .interested:
@@ -86,31 +95,41 @@ struct ApartmentView: View {
                 })
             }
         case .opinions(let opinions):
+            let opinionView = AddOpinionView(isEditable: true) { opinion in
+                if let opinion = opinion {
+                    updateApartment(state: .opinions(opinions: opinions + [opinion]))
+                }
+                self.overlay = nil
+            }
             Text("We saw the house").font(.subheadline)
             actionsView {
                 ForEach(opinions, id: \.authorId) { opinion in
+                    let opinionView = OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in
+                        self.overlay = nil
+                    }, isEditable: false)
+                    #if os(iOS)
                     NavigationLink("See \(opinion.author)'s opinion", destination: {
-                        OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in }, isEditable: false)
+                        opinionView
                     }).buttonStyle(RoundedButtonStyle(color: .primary)).padding(.bottom, 1)
+                    #else
+                    RoundedButton(title: "See \(opinion.author)'s opinion", color: .primary) {
+                        self.overlay = .viewOpinion(opinionView)
+                    }
+                    #endif
                 }
-                #if !os(macOS)
                 .sheet(isPresented: $addingOpinion) {
                     NavigationView {
-                        AddOpinionView(isEditable: true) { opinion in
-                            updateApartment(state: .opinions(opinions: opinions + [opinion]))
-                        }
+                        opinionView
                     }
                 }
-                #endif
                 if !opinions.contains(where: { $0.author == user.name }) {
                     RoundedButton(title: "Add Your Opinion", color: .green, action: {
+                        #if os(iOS)
                         self.addingOpinion = true
+                        #else
+                        self.overlay = .addOpinion(opinionView)
+                        #endif
                     })
-                    #if os(macOS)
-                    NavigationLink(destination: AddOpinionView(isEditable: true) { opinion in
-                        updateApartment(state: .opinions(opinions: opinions + [opinion]))
-                    }, isActive: $addingOpinion, label: { EmptyView()})
-                    #endif
                 }
             }
         }

@@ -15,6 +15,14 @@ struct AddApartmentView: View {
     @CurrentUserState var user
     @EnvironmentObject var apartmentSearch: ApartmentSearch
     @Environment(\.back_dismiss) var dismiss
+    let onFinish: () -> Void
+    
+    private func performFinish() {
+        #if !os(macOS)
+        dismiss()
+        #endif
+        onFinish()
+    }
     private var apartmentAddingState: Binding<ApartmentAddingState> {
         Binding(get: {
             switch currentState {
@@ -57,12 +65,15 @@ struct AddApartmentView: View {
                 Text("Current Step in Process")
                     .font(.subheadline).bold()
                 Spacer()
-                Picker("Current State", selection: apartmentAddingState) {
+                Picker("", selection: apartmentAddingState) {
                     ForEach(ApartmentAddingState.allCases, id: \.self) { option in
                         Text(option.rawValue)
                     }
                 }
             }
+            #if os(macOS)
+            .pickerStyle(.radioGroup)
+            #endif
             
             switch currentState {
             case .seeing(let date):
@@ -106,7 +117,7 @@ struct AddApartmentView: View {
                 .foregroundColor(.green)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        dismiss()
+                        performFinish()
                     }
                 }
         case .error(_):
@@ -123,7 +134,9 @@ struct AddApartmentView: View {
         .padding()
         .toolbar {
             ToolbarItem {
-                Button(action: { dismiss() }) {
+                Button(action: {
+                    performFinish()
+                }) {
                     Text("Cancel")
                 }
             }

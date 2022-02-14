@@ -29,7 +29,7 @@ struct ProConView: View {
 
 struct OpinionView: View {
     @Binding var opinion: Opinion
-    let onFinish: (Opinion) -> ()
+    let onFinish: (Opinion?) -> ()
     let isEditable: Bool
     
     var body: some View {
@@ -69,14 +69,22 @@ struct OpinionView: View {
                 }
             }.navigationTitle(isEditable ? "Add Opinion" : "\(opinion.author)'s Opinion")
         }.toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                if isEditable {
+            ToolbarItem {
+                HStack {
                     Button(action: {
-                        onFinish(opinion)
+                        onFinish(nil)
                     }) {
-                        Text("Add")
+                        Text(isEditable ? "Cancel" : "Dismiss")
+                    }
+                    if isEditable {
+                        Button(action: {
+                            onFinish(opinion)
+                        }) {
+                            Text("Add")
+                        }
                     }
                 }
+                
             }
         }
     }
@@ -87,14 +95,19 @@ struct AddOpinionView: View {
     @Environment(\.back_dismiss) var dismiss
     @CurrentUserState var user
     let isEditable: Bool
-    let onFinish: (Opinion) -> ()
+    let onFinish: (Opinion?) -> ()
     var body: some View {
         OpinionView(opinion: $opinion, onFinish: {
+            #if !os(macOS)
             dismiss()
-            var finishedOpinion = $0
-            finishedOpinion.pros.removeAll(where: { $0.reason.isEmpty })
-            finishedOpinion.cons.removeAll(where: { $0.reason.isEmpty })
-            onFinish(finishedOpinion)
+            #endif
+            if var finishedOpinion = $0 {
+                finishedOpinion.pros.removeAll(where: { $0.reason.isEmpty })
+                finishedOpinion.cons.removeAll(where: { $0.reason.isEmpty })
+                onFinish(finishedOpinion)
+            } else {
+                onFinish(nil)
+            }
         }, isEditable: isEditable)
         .onAppear {
             opinion.author = user.name

@@ -30,6 +30,22 @@ extension ActionSheet.Button: ActionSheetButton {
 }
 #endif
 
+extension Alert.Button: ActionSheetButton {
+    static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
+        Alert.Button.default(message, action: action)
+    }
+    
+    static func destructive(message: Text, action: (() -> Void)?) -> ActionSheetButton {
+        Alert.Button.destructive(message, action: action)
+    }
+    
+    static func cancel() -> ActionSheetButton {
+        Alert.Button.cancel(nil)
+    }
+    
+    
+}
+
 @available(iOS 15, *)
 extension Button: ActionSheetButton where Label == Text {
     static func `default`(message: Text, action: (() -> Void)?) -> ActionSheetButton {
@@ -48,7 +64,7 @@ extension Button: ActionSheetButton where Label == Text {
 extension View {
     @ViewBuilder
     func back_confirmationDialog(isPresented: Binding<Bool>, title: Text, creator: (ActionSheetButton.Type) -> [ActionSheetButton]) -> some View {
-        if #available(iOS 15, *) {
+        if #available(iOS 15, macOS 12, *) {
             confirmationDialog(title, isPresented: isPresented, titleVisibility: .visible) {
                 let values = creator(Button<Text>.self).map { $0 as! Button<Text> }
                 ForEach(values.indices, id: \.self) { index in
@@ -59,6 +75,11 @@ extension View {
             #if !os(macOS)
             actionSheet(isPresented: isPresented) {
                 ActionSheet(title: title, message: nil, buttons: creator(ActionSheet.Button.self).map { $0 as! ActionSheet.Button })
+            }
+            #else
+            alert(isPresented: isPresented) {
+                let buttons = creator(Alert.Button.self).map { $0 as! Alert.Button }
+                return Alert(title: title, message: nil, primaryButton: buttons[0], secondaryButton: buttons[1])
             }
             #endif
         }

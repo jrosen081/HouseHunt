@@ -33,7 +33,7 @@ private struct Section<Header: View, Content: View>: View {
         #if os(iOS)
         SwiftUI.Section(content: content, header: { header })
         #else
-        GroupBox(content: { VStack { content() }.padding() }, label: { header }).pickerStyle(.segmented)
+        GroupBox(content: { VStack { content() }.padding() }, label: { header }).pickerStyle(.radioGroup)
         #endif
     }
 }
@@ -83,28 +83,42 @@ struct SettingsView: View {
     
     @ViewBuilder
     var brokerInteractionSection: some View {
+        let brokerView = AddBrokerInformationView { brokerResponse in
+            ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+        }
         Section(header: Text("Broker Interactions")) {
-            HStack {
-                Text("Home Information")
-                Spacer()
-                if let brokerCode = apartmentSearch.brokerResponse {
+            if let brokerCode = apartmentSearch.brokerResponse {
+                HStack {
+                    Text("Hunt Information")
+                    Spacer()
                     Button(action: {
                         Pasteboard.general.string = brokerCode
                         withAnimation { self.message = "Broker Response Copied" }
                     }) {
                         Text("Copy")
                     }
-                } else {
+                }
+            } else {
+                #if os(macOS)
+                brokerView
+                #else
+                HStack {
+                    Text("Hunt Information")
+                    Spacer()
                     Button(action: {
                         self.showingBrokerInfo = true
                     }) {
                         Text("Add")
                     }
                 }
-            }.sheet(isPresented: $showingBrokerInfo) {
-                AddBrokerInformationView { brokerResponse in
-                    ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+                .sheet(isPresented: $showingBrokerInfo) {
+                    NavigationView {
+                        brokerView
+                            .navigationTitle(Text("Add Information"))
+                            .padding()
+                    }
                 }
+                #endif
             }
         }
     }
@@ -178,7 +192,9 @@ struct SettingsView: View {
         }
         .toolbar {
             ToolbarItem {
-                EmptyView()
+                HStack {
+                    EmptyView()
+                }
             }
         }
     }
