@@ -27,6 +27,7 @@ struct RoundedButtonStyle: ButtonStyle {
             .background(backgroundView(configuration: configuration))
             .multilineTextAlignment(.center)
             .opacity(!enabled ? 0.5 : 1)
+            .contentShape(Rectangle())
     }
 }
 

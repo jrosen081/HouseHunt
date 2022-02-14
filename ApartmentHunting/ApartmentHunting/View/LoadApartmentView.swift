@@ -32,20 +32,7 @@ struct LoadApartmentView: View {
             }
             
         case .success(let apartmentSearch):
-            TabView {
-                NavigationView {
-                    ApartmentsView()
-                }.tabItem {
-                    Text("Search")
-                    Image(systemName: "house")
-                }
-                NavigationView {
-                    SettingsView()
-                }.tabItem {
-                    Text("Settings")
-                    Image(systemName: "gear")
-                }
-            }
+            MainView()
             .environmentObject(apartmentSearch)
             .onDisappear(perform: self.onDisappear)
             .onAppear {
@@ -65,3 +52,55 @@ struct LoadApartmentView: View {
         }
     }
 }
+
+
+let shouldShowLargeView: Bool = {
+#if os(macOS)
+    return true
+#else
+    return UIDevice.current.userInterfaceIdiom == .pad
+#endif
+}()
+
+private struct MainView: View {
+    private enum Location { case apartments, settings}
+    @State private var location: Location = .apartments
+    var isApartmentsActive: Binding<Bool> {
+        Binding(get: { location == .apartments}) { location = $0 ? .apartments : .settings}
+    }
+    
+    var isSettingsActive: Binding<Bool> {
+        Binding(get: { location == .settings}) { location = $0 ? .settings : .apartments}
+    }
+    var body: some View {
+        if shouldShowLargeView {
+            NavigationView {
+                List {
+                    NavigationLink(destination: ApartmentsView(), isActive: isApartmentsActive) {
+                        Label("Homes", systemImage: "house")
+                    }
+                    NavigationLink(destination: SettingsView(), isActive: isSettingsActive) {
+                        Label("Settings", systemImage: "gear")
+                    }.keyboardShortcut(",", modifiers: .command)
+                }.listStyle(.sidebar).padding(.top)
+                    .navigationTitle("Home Hunt")
+            }
+        } else {
+            TabView {
+                NavigationView {
+                    ApartmentsView()
+                }.tabItem {
+                    Text("Homes")
+                    Image(systemName: "house")
+                }
+                NavigationView {
+                    SettingsView()
+                }.tabItem {
+                    Text("Settings")
+                    Image(systemName: "gear")
+                }
+            }
+        }
+    }
+}
+

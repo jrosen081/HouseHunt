@@ -24,7 +24,9 @@ struct ApartmentRequestView: View {
                 TextFieldEntry(title: "Home Search Name", text: $info)
             case .join:
                 TextFieldEntry(title: "Home Search Join Code", text: $info)
+                #if !os(macOS)
                     .autocapitalization(.none)
+                #endif
                     .disableAutocorrection(true)
             }
             Spacer()

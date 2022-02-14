@@ -13,7 +13,6 @@ struct AddBrokerInformationView: View {
     @State private var brokerInfo = ""
     let save: (String) -> Void
     var body: some View {
-        NavigationView {
             VStack(alignment: .leading) {
                 TextArea(title: "Hunt Information", text: $brokerInfo)
                 Group {
@@ -25,14 +24,13 @@ struct AddBrokerInformationView: View {
                         EmptyView()
                     }
                 }.animation(.default, value: isFocused).transition(.opacity)
+                Spacer()
                 RoundedButton(title: "Save Information", color: .green) {
                     dismiss()
                     save(brokerInfo)
                 }.disabled(brokerInfo.isEmpty)
-            }.padding()
-                .navigationTitle(Text("Add Information"))
+            }
                 .removingKeyboardOnTap()
-        }
     }
 }
 

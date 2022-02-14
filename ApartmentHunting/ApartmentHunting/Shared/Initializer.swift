@@ -5,16 +5,16 @@
 //  Created by Jack Rosen on 1/27/22.
 //
 
-import UIKit
 import Firebase
 import FirebaseMessaging
 import UserNotifications
 
-class Initializer: NSObject, ObservableObject, UNUserNotificationCenterDelegate, MessagingDelegate {
+class Initializer: NSObject, ObservableObject, MessagingDelegate {
     private enum Constants {
         static let userStyleKey = "userStyle"
     }
-    @Published var userInterfaceStyle: UIUserInterfaceStyle = UIUserInterfaceStyle(rawValue: UserDefaults.standard.integer(forKey: Constants.userStyleKey)) ?? .unspecified {
+    
+    @Published var userInterfaceStyle: ColorSchemeAdaptor = ColorSchemeAdaptor(rawValue: UserDefaults.standard.integer(forKey: Constants.userStyleKey)) ?? .automatic {
         didSet {
             UserDefaults.standard.set(userInterfaceStyle.rawValue, forKey: Constants.userStyleKey)
         }
@@ -22,12 +22,8 @@ class Initializer: NSObject, ObservableObject, UNUserNotificationCenterDelegate,
     
     override init() {
         super.init()
+        FirebaseApp.configure()
         Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().delegate = self
-        Task {
-            try await UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert])
-            await UIApplication.shared.registerForRemoteNotifications()
-        }
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
@@ -36,9 +32,5 @@ class Initializer: NSObject, ObservableObject, UNUserNotificationCenterDelegate,
         }
         print(fcmToken)
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print(notification)
-        completionHandler([.badge, .sound, .banner])
-    }
 }
+
