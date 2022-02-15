@@ -17,16 +17,17 @@ struct ApartmentRequestView: View {
     @State private var state = ViewState.join
     @State private var loadingState = LoadingState<Bool>.notStarted
     @State private var info = ""
-    var body: some View {
+    
+    private func view(for state: ViewState, showSwitch: Bool) -> some View {
         VStack(alignment: .leading) {
             switch state {
             case .createNew:
                 TextFieldEntry(title: "Home Search Name", text: $info)
             case .join:
                 TextFieldEntry(title: "Home Search Join Code", text: $info)
-                #if !os(macOS)
+#if !os(macOS)
                     .autocapitalization(.none)
-                #endif
+#endif
                     .disableAutocorrection(true)
             }
             Spacer()
@@ -65,13 +66,15 @@ struct ApartmentRequestView: View {
                     }
                 }
             }.disabled(info.isEmpty)
-            RoundedButton(title: state == .join ? "Switch to Create Search" : "Switch to Request to Join", color: .primary) {
-                self.loadingState = .notStarted
-                switch self.state {
-                case .createNew:
-                    self.state = .join
-                case .join:
-                    self.state = .createNew
+            if showSwitch {
+                RoundedButton(title: state == .join ? "Switch to Create Search" : "Switch to Request to Join", color: .primary) {
+                    self.loadingState = .notStarted
+                    switch self.state {
+                    case .createNew:
+                        self.state = .join
+                    case .join:
+                        self.state = .createNew
+                    }
                 }
             }
             RoundedButton(title: "Sign Out", color: .red) {
@@ -81,6 +84,20 @@ struct ApartmentRequestView: View {
         .navigationTitle(state == .join ? "Join Search" : "Create Search")
         .padding()
         .removingKeyboardOnTap()
+    }
+    var body: some View {
+        #if os(macOS)
+        List {
+            NavigationLink(tag: ViewState.join, selection: Binding($state), destination: { view(for: .join, showSwitch: false) }) {
+                Label("Join", systemImage: "magnifyingglass")
+            }
+            NavigationLink(tag: ViewState.createNew, selection: Binding($state), destination: { view(for: .createNew, showSwitch: false) }) {
+                Label("Create New", systemImage: "plus")
+            }
+        }.listStyle(.sidebar)
+        #else
+        view(for: state, showSwitch: true)
+        #endif
     }
 }
 

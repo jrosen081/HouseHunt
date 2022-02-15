@@ -29,12 +29,13 @@ struct ApartmentHuntingApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .navigationViewStyle(.stack)
                 .environmentObject(linkInteractor)
                 .environmentObject(authInteractor)
                 .environmentObject(initializer)
                 .preferredColorScheme(ColorScheme(adaptor: initializer.userInterfaceStyle))
                 .menuStyle(.borderlessButton)
+        }.commands {
+            SidebarCommands()
         }
     }
 }

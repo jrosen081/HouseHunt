@@ -130,13 +130,21 @@ struct ApartmentsView: View {
         }
     }
     
+    private var stateView: some View {
+        Picker("Current State", selection: $filter.animation()) {
+            let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all, ApartmentAddingState.selected] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
+            ForEach(allFilterCases, id: \.self) { state in
+                Text(state.rawValue)
+            }
+        }
+    }
+    
     private var reloadView: some View {
         Button(action: {
             self.loadingState = .notStarted
         }) {
-            Image(systemName: "arrow.clockwise")
-                .foregroundColor(.primary)
-        }
+            Label("Refresh", systemImage: "arrow.clockwise").foregroundColor(.primary)
+        }.keyboardShortcut("r")
     }
     
     @ViewBuilder
@@ -180,7 +188,7 @@ struct ApartmentsView: View {
                         if shouldShowLargeView {
                             reloadView
                         }
-                        if !shouldDisableToolbar {
+                        if self.apartmentSearch.acceptedHouse == nil {
                             Button(action: {
                                 self.setAddApartment(true)
                             }) {
@@ -189,14 +197,9 @@ struct ApartmentsView: View {
                             }
                         }
                         Menu(content: {
-                            Picker("Current State", selection: $filter.animation()) {
-                                let allFilterCases: [ApartmentAddingState] = [ApartmentAddingState.all, ApartmentAddingState.selected] + ApartmentAddingState.allCases + [ApartmentAddingState.opinion, ApartmentAddingState.uninterested]
-                                ForEach(allFilterCases, id: \.self) { state in
-                                    Text(state.rawValue)
-                                }
-                            }
+                            stateView
 #if os(macOS)
-                            authorView.labelStyle(.titleOnly)
+                            authorView
 #endif
                         }) {
                             Image(systemName: "line.3.horizontal.decrease.circle")

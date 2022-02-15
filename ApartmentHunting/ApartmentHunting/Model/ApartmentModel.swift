@@ -21,12 +21,14 @@ enum ApartmentState: Codable, Equatable {
     case selected
 }
 
-struct Opinion: Codable, Equatable {
+struct Opinion: Codable, Equatable, Identifiable {
     var totalRating: Double
     var author: String
     var authorId: String
     var pros: [ProCon]
     var cons: [ProCon]
+    
+    var id: String { authorId }
 }
 
 struct ProCon: Codable, Equatable, Identifiable {

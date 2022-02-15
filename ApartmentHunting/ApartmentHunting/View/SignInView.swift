@@ -16,12 +16,24 @@ struct SignInView: View {
     @State private var signInState = SignInState.login
     @EnvironmentObject var authInteractor: AuthInteractor
     
+    private func signIn() {
+        switch signInState {
+        case .login:
+            authInteractor.signIn(email: email, password: password)
+        case .createUser(let name):
+            authInteractor.createUser(email: email, password: password, name: name)
+        }
+    }
+    
     @ViewBuilder
     private var mainView: some View {
         VStack {
             Text("Home Hunt")
                 .font(.largeTitle)
                 .padding()
+            #if os(macOS)
+                .focusable()
+            #endif
             VStack(alignment: .leading, spacing: 2) {
                 TextFieldEntry(title: "Email", text: $email)
                     .padding(.bottom)
@@ -54,12 +66,7 @@ struct SignInView: View {
             }
             Spacer()
             RoundedButton(title: signInState == .login ? "Log In" : "Sign Up", color: .green) {
-                switch signInState {
-                case .login:
-                    authInteractor.signIn(email: email, password: password)
-                case .createUser(let name):
-                    authInteractor.createUser(email: email, password: password, name: name)
-                }
+                signIn()
             }
             RoundedButton(title: signInState == .login ? "Go to Sign Up" : "Go to Log In", color: .primary) {
                 switch signInState {

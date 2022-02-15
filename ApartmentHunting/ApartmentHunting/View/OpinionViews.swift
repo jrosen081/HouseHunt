@@ -11,17 +11,23 @@ struct ProConView: View {
     @Binding var pro: ProCon
     let isPro: Bool
     let isEditable: Bool
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }()
     
     var body: some View {
+        let importance = numberFormatter.string(from: NSNumber(value: pro.importance))!
         if isEditable {
-            VStack {
+            VStack(alignment: .leading) {
                 TextField("What did you \(isPro ? "like" : "dislike")?", text: $pro.reason)
-                Stepper("Importance: \(String(format: "%.1f", pro.importance))", value: $pro.importance, in: 0.0...10, step: 0.5)
+                Stepper("Importance: \(importance)", value: $pro.importance, in: 0.0...10, step: 0.5)
             }
         } else {
             VStack(alignment: .leading) {
                 Text(pro.reason)
-                Text("Importance: ") + Text("\(String(format: "%.1f", pro.importance))").bold()
+                Text("Importance: ") + Text(importance).bold()
             }.multilineTextAlignment(.leading)
         }
     }
@@ -31,19 +37,23 @@ struct OpinionView: View {
     @Binding var opinion: Opinion
     let onFinish: (Opinion?) -> ()
     let isEditable: Bool
+    let numberFormatter: NumberFormatter = {
+       let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }()
     
     var body: some View {
+        let totalRating = numberFormatter.string(from: NSNumber(value: opinion.totalRating))!
         List {
-            if !isEditable {
-                HStack {
-                    Text("Overall Rating:")
-                    Spacer()
-                    Text("\(String(format: "%.1f", opinion.totalRating))")
+            HStack {
+                Text("Overall Rating:")
+                Spacer()
+                Text(totalRating)
+                if isEditable {
+                    Stepper("", value: $opinion.totalRating, in: 0.0...10, step: 0.5)
                 }
-            } else {
-                Stepper("Overall Rating: \(String(format: "%.1f", opinion.totalRating))", value: $opinion.totalRating, in: 0.0...10, step: 0.5)
             }
-            
             Section(header: Text("Pros")) {
                 ForEach($opinion.pros) { $pro in
                     ProConView(pro: $pro, isPro: true, isEditable: isEditable)

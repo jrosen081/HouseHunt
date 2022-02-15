@@ -10,7 +10,7 @@ import LinkPresentation
 
 @MainActor
 class LinkInteractor: ObservableObject {
-    var cache: [URL: LPLinkMetadata] = [:]
+    private var cache: [URL: LPLinkMetadata] = [:]
     
     
     func fetchMetadata(url: URL) async throws -> LPLinkMetadata {

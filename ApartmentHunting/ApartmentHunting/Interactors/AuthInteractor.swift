@@ -149,6 +149,11 @@ class AuthInteractor: ObservableObject {
         self.stopListeningForUserChanges?()
         self.stopListeningForUserChanges = nil
         self.authState = .notStarted
-        try? self.auth.signOut()
+        do {
+            try self.auth.signOut()
+        } catch {
+            print(error)
+        }
+        
     }
 }

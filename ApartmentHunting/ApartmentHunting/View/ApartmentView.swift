@@ -15,6 +15,7 @@ struct ApartmentView: View {
     @State private var addingOpinion = false
     @State private var showingShareSheet = false
     @State private var onDisappear: (() -> Void)?
+    @State private var visibleOpinion: Opinion?
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -63,7 +64,9 @@ struct ApartmentView: View {
                     self.overlay = .addOpinion(opinionView)
                     #endif
                 }.sheet(isPresented: $addingOpinion) {
-                    opinionView
+                    NavigationView {
+                        opinionView
+                    }
                 }
             }.disabled(hasSelectedApartment)
         case .interested:
@@ -108,19 +111,21 @@ struct ApartmentView: View {
             }
             Text("We saw the house").font(.subheadline)
             actionsView {
-                ForEach(opinions, id: \.authorId) { opinion in
-                    let opinionView = OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in
-                        self.overlay = nil
-                    }, isEditable: false)
-                    #if os(iOS)
-                    NavigationLink("See \(opinion.author)'s opinion", destination: {
-                        opinionView
-                    }).buttonStyle(RoundedButtonStyle(color: .primary)).padding(.bottom, 1)
-                    #else
+                ForEach(opinions) { opinion in
                     RoundedButton(title: "See \(opinion.author)'s opinion", color: .primary) {
+                        #if os(iOS)
+                        self.visibleOpinion = opinion
+                        #else
+                        let opinionView = OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in
+                            self.overlay = nil
+                        }, isEditable: false)
                         self.overlay = .viewOpinion(opinionView)
+                        #endif
                     }
-                    #endif
+                }.sheet(item: $visibleOpinion) { opinion in
+                    NavigationView {
+                        OpinionView(opinion: .constant(opinion), onFinish: {_ in }, isEditable: false)
+                    }
                 }
                 .sheet(isPresented: $addingOpinion) {
                     NavigationView {

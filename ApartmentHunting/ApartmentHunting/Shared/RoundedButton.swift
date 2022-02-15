@@ -28,6 +28,9 @@ struct RoundedButtonStyle: ButtonStyle {
             .multilineTextAlignment(.center)
             .opacity(!enabled ? 0.5 : 1)
             .contentShape(Rectangle())
+        #if os(iOS)
+            .hoverEffect(.highlight)
+        #endif
     }
 }
 

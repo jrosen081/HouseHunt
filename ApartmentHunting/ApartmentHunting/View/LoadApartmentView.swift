@@ -64,43 +64,75 @@ let shouldShowLargeView: Bool = {
 
 private struct MainView: View {
     private enum Location { case apartments, settings}
-    @State private var location: Location = .apartments
-    var isApartmentsActive: Binding<Bool> {
-        Binding(get: { location == .apartments}) { location = $0 ? .apartments : .settings}
-    }
+    @State private var location: Location? = .apartments
     
-    var isSettingsActive: Binding<Bool> {
-        Binding(get: { location == .settings}) { location = $0 ? .settings : .apartments}
+    private func background(location: Location) -> some View {
+        Group {
+            self.location == location ? Color.gray.opacity(0.3) : Color.clear
+        }.cornerRadius(10)
     }
+
     var body: some View {
-        if shouldShowLargeView {
+        GeometryReader { proxy in
+            #if os(macOS)
             NavigationView {
                 List {
-                    NavigationLink(destination: ApartmentsView(), isActive: isApartmentsActive) {
+                    NavigationLink(tag: Location.apartments, selection: $location, destination: { ApartmentsView() }) {
                         Label("Homes", systemImage: "house")
-                    }
-                    NavigationLink(destination: SettingsView(), isActive: isSettingsActive) {
+                    }.keyboardShortcut("1", modifiers: .command)
+                    NavigationLink(tag: Location.settings, selection: $location, destination: { SettingsView() }) {
                         Label("Settings", systemImage: "gear")
                     }.keyboardShortcut(",", modifiers: .command)
-                }.listStyle(.sidebar).padding(.top)
-                    .navigationTitle("Home Hunt")
+                    Button("Settings") { self.location = .settings }.frame(width: 0, height: 0).opacity(0).keyboardShortcut("2")
+                }.listStyle(.sidebar).navigationTitle("Home Hunt").buttonStyle(.plain)
+                    .padding(.top)
             }
-        } else {
-            TabView {
+            #else
+            if proxy.size.width > 600 {
+                /// DUE TO iPADOS issues, this needs a custom look to open right away
                 NavigationView {
-                    ApartmentsView()
-                }.tabItem {
-                    Text("Homes")
-                    Image(systemName: "house")
+                    List {
+                        Button(action: { self.location = .apartments }, label: { Label("Homes", systemImage: "house") })
+                            .keyboardShortcut("1", modifiers: .command)
+                            .padding(.horizontal, 5)
+                            .listRowBackground(background(location: .apartments))
+                        Button(action: { self.location = .settings }, label: { Label("Settings", systemImage: "gear") })
+                            .keyboardShortcut(",", modifiers: .command)
+                            .padding(.horizontal, 5)
+                            .listRowBackground(background(location: .settings))
+                        Button("Settings") { self.location = .settings }.frame(width: 0, height: 0).opacity(0).keyboardShortcut("2")
+                    }.listStyle(.sidebar).navigationTitle("Home Hunt").buttonStyle(.plain)
+#if os(macOS)
+                        .padding(.top)
+#endif
+                    Group {
+                        switch self.location {
+                        case .settings:
+                            SettingsView()
+                        case .apartments:
+                            ApartmentsView()
+                        }
+                    }.animation(nil, value: self.location)
                 }
-                NavigationView {
-                    SettingsView()
-                }.tabItem {
-                    Text("Settings")
-                    Image(systemName: "gear")
+            } else {
+                TabView {
+                    NavigationView {
+                        ApartmentsView()
+                    }.tabItem {
+                        Text("Homes")
+                        Image(systemName: "house")
+                    }
+                    NavigationView {
+                        SettingsView()
+                    }.tabItem {
+                        Text("Settings")
+                        Image(systemName: "gear")
+                    }
                 }
             }
+            #endif
         }
+        
     }
 }
 

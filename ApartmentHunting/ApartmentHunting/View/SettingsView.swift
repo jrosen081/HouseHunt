@@ -26,15 +26,15 @@ extension NSPasteboard {
 typealias Pasteboard = UIPasteboard
 #endif
 
-private struct Section<Header: View, Content: View>: View {
+struct Section<Header: View, Content: View>: View {
     let header: Header
     @ViewBuilder var content: () -> Content
     
     var body: some View {
         #if os(iOS)
-        SwiftUI.Section(content: content, header: { header })
+        SwiftUI.Section(content: content, header: { header }).pickerStyle(.menu)
         #else
-        GroupBox(content: { VStack { content() }.padding() }, label: { header }).pickerStyle(.radioGroup)
+        GroupBox(content: { VStack(alignment: .leading) { content().frame(maxWidth: .infinity) }.padding().frame(maxWidth: .infinity) }, label: { header }).pickerStyle(.segmented)
         #endif
     }
 }
@@ -165,6 +165,7 @@ struct SettingsView: View {
             Text(message)
                 .padding()
                 .background(Capsule().fill(.green))
+                .padding(.bottom)
                 .transition(.move(edge: .bottom))
                 .foregroundColor(.white)
                 .onAppear {
