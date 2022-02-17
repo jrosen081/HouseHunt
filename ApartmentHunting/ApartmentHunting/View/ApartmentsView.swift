@@ -100,7 +100,7 @@ struct ApartmentsView: View {
                         VStack(spacing: 10) {
                             ForEach(apartmentsBinding) { $apartment in
                                 if include(apartment: apartment) {
-                                    ApartmentView(apartment: $apartment, overlay: $overlay.animation()).padding(.horizontal)
+                                    ApartmentView(apartment: $apartment, overlay: $overlay.animation(), showingSelected: $showingFinalApartment).padding(.horizontal)
                                     Rectangle().frame(height: 3).foregroundColor(.primary).padding(.vertical)
                                 }
                             }

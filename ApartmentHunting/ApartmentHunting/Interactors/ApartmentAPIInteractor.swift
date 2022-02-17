@@ -57,9 +57,10 @@ struct ApartmentAPIInteractor {
     }
     
     static func listenForChanges(apartmentSearch: Binding<ApartmentSearch>, authInteractor: AuthInteractor) -> ListenerRegistration {
-        self.database.document("apartments/\(apartmentSearch.wrappedValue.id)").addSnapshotListener { snapshot, error in
+        self.database.collection("apartments").document(apartmentSearch.wrappedValue.id).addSnapshotListener { snapshot, error in
             Task {
                 do {
+                    print(snapshot?.data())
                     if let snapshotReal = snapshot, let dto = try snapshotReal.data(as: ApartmentSearchDTO.self) {
                         let model = try await search(fromDTO: dto, authInteractor: authInteractor)
                         await MainActor.run {
@@ -141,5 +142,11 @@ struct ApartmentAPIInteractor {
     static func updateBrokerComment(apartmentSearch: ApartmentSearch, comment: String) {
         apartmentSearch.brokerResponse = comment
         try? self.database.collection(Constants.apartmentsKey).document(apartmentSearch.id).setData(from: ApartmentSearchDTO(search: apartmentSearch))
+    }
+    
+    static func setSelectedHouse(apartmentSearch: ApartmentSearch, houseId: String) {
+        var dto = ApartmentSearchDTO(search: apartmentSearch)
+        dto.acceptedHouse = houseId
+        try? self.database.collection(Constants.apartmentsKey).document(apartmentSearch.id).setData(from: dto)
     }
 }

@@ -102,15 +102,13 @@ private struct MainView: View {
                             .listRowBackground(background(location: .settings))
                         Button("Settings") { self.location = .settings }.frame(width: 0, height: 0).opacity(0).keyboardShortcut("2")
                     }.listStyle(.sidebar).navigationTitle("Home Hunt").buttonStyle(.plain)
-#if os(macOS)
-                        .padding(.top)
-#endif
                     Group {
                         switch self.location {
                         case .settings:
                             SettingsView()
                         case .apartments:
                             ApartmentsView()
+                        default: EmptyView()
                         }
                     }.animation(nil, value: self.location)
                 }

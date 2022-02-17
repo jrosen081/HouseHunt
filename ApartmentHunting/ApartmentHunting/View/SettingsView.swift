@@ -47,6 +47,7 @@ struct SettingsView: View {
     @EnvironmentObject private var initializer: Initializer
     @State private var message: String? = nil
     @State private var showingBrokerInfo = false
+    @State private var confirmLeaving = false
     
     @ViewBuilder
     private var requestsSection: some View {
@@ -148,8 +149,13 @@ struct SettingsView: View {
     var dangerZoneSection: some View {
         Section(header: Text("Danger Zone")) {
             Button("Leave Home Search") {
-                ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                self.confirmLeaving = true
             }.foregroundColor(.red)
+                .alert(isPresented: $confirmLeaving) {
+                    Alert(title: Text("Are you sure?"), message: Text("Once you leave, you will need to be accepted again to re-join."), primaryButton: .destructive(Text("Yes"), action: {
+                        ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                    }), secondaryButton: .cancel())
+                }
             Button("Sign Out") {
                 authInteractor.signOut()
             }.foregroundColor(.red)

@@ -26,7 +26,7 @@ extension ApartmentSearchDTO {
 
 class ApartmentSearch: ObservableObject, Equatable {
     static func == (lhs: ApartmentSearch, rhs: ApartmentSearch) -> Bool {
-        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.users == rhs.users && lhs.requests == rhs.requests && lhs.entryCode == rhs.entryCode
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.users == rhs.users && lhs.requests == rhs.requests && lhs.entryCode == rhs.entryCode && lhs.acceptedHouse == rhs.acceptedHouse
     }
     
     let id: String

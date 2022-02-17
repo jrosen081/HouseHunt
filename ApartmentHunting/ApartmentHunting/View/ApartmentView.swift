@@ -11,9 +11,11 @@ import SwiftUI
 struct ApartmentView: View {
     @Binding var apartment: ApartmentModel
     @Binding var overlay: ApartmentsViewOverlay?
+    @Binding var showingSelected: Bool
     @State private var dateShowing = Date().addingTimeInterval(60 * 60 * 24)
     @State private var addingOpinion = false
     @State private var showingShareSheet = false
+    @State private var confirmDialog = false
     @State private var onDisappear: (() -> Void)?
     @State private var visibleOpinion: Opinion?
     let dateFormatter: DateFormatter = {
@@ -27,6 +29,7 @@ struct ApartmentView: View {
     
     private var hasSelectedApartment: Bool {
         search.acceptedHouse != nil
+//        return false
     }
     
     private func updateApartment(state: ApartmentState, previousStates: [ApartmentState]? = nil) {
@@ -57,7 +60,7 @@ struct ApartmentView: View {
             }
             Text("Seeing \(dateFormatter.string(from: date))").font(.subheadline)
             actionsView {
-                RoundedButton(title: "Add Your Opinion", color: .green) {
+                RoundedButton(title: "Add Your Opinion", color: .primary) {
                     #if os(iOS)
                     self.addingOpinion = true
                     #else
@@ -133,7 +136,7 @@ struct ApartmentView: View {
                     }
                 }
                 if !opinions.contains(where: { $0.author == user.name }) {
-                    RoundedButton(title: "Add Your Opinion", color: .green, action: {
+                    RoundedButton(title: "Add Your Opinion", color: .primary, action: {
                         #if os(iOS)
                         self.addingOpinion = true
                         #else
@@ -141,9 +144,24 @@ struct ApartmentView: View {
                         #endif
                     }).disabled(hasSelectedApartment)
                 }
+                if !hasSelectedApartment {
+                    RoundedButton(title: "We Got This Home", color: .green) {
+                        self.confirmDialog = true
+                    }.alert(isPresented: $confirmDialog) {
+                        Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Hunt"), primaryButton: .default(Text("We Got It"), action: {
+                            self.updateApartment(state: .selected)
+                            ApartmentAPIInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
+                        }), secondaryButton: .cancel(Text("Nevermind")))
+                    }
+                }
             }
         case .selected:
             Text("We have selected this home!").font(.subheadline).bold()
+            actionsView {
+                RoundedButton(title: "Hide Full Search", color: .primary) {
+                    self.showingSelected = true
+                }
+            }
         }
     }
     
