@@ -5,7 +5,6 @@
 //  Created by Jack Rosen on 1/28/22.
 //
 
-import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 

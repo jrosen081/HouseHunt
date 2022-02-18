@@ -23,7 +23,7 @@ class AuthInteractor: ObservableObject {
     private var shouldFetchUser = true
     private var stopListeningForUserChanges: (() -> Void)? = nil
     
-    private var user: User? {
+    var user: User? {
         switch self.authState {
         case .success(let user): return user
         default: return nil
@@ -31,6 +31,12 @@ class AuthInteractor: ObservableObject {
     }
     
     init() {
+        do {
+            try Auth.auth().useUserAccessGroup("group.com.JackRosen.apartmenthunting.ApartmentHunting")
+        } catch let error as NSError {
+            print("Error changing user access group: %@", error)
+            print("real error\(error.userInfo[NSLocalizedFailureReasonErrorKey])")
+        }
         createLocalUser()
     }
     

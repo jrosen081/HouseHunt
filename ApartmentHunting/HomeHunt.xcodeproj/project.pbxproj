@@ -44,6 +44,22 @@
 		A046F01B27A37539003197A1 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01A27A37539003197A1 /* TaskView.swift */; };
 		A046F01D27A3763C003197A1 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01C27A3763C003197A1 /* Dismiss.swift */; };
 		A046F01F27A378C9003197A1 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01E27A378C9003197A1 /* Searchable.swift */; };
+		A07EF17827BFE9A0008ED1A9 /* LoginTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF17727BFE9A0008ED1A9 /* LoginTouchBar.swift */; };
+		A07EF1A927BFF53C008ED1A9 /* Share Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A07EF1B027BFF55D008ED1A9 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF1AD27BFF55D008ED1A9 /* ShareViewController.swift */; };
+		A07EF1B127BFF55D008ED1A9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07EF1AE27BFF55D008ED1A9 /* MainInterface.storyboard */; };
+		A07EF1B427BFF56E008ED1A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B327BFF56E008ED1A9 /* FirebaseAuth */; };
+		A07EF1B627BFF56E008ED1A9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B527BFF56E008ED1A9 /* FirebaseFirestore */; };
+		A07EF1B827BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B727BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta */; };
+		A07EF1B927BFF580008ED1A9 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */; };
+		A07EF1BA27BFF585008ED1A9 /* CurrentUser.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005073B27A4297F006DDD3C /* CurrentUser.swift.swift */; };
+		A07EF1BB27BFF585008ED1A9 /* ApartmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFF27A3711B003197A1 /* ApartmentModel.swift */; };
+		A07EF1BC27BFF585008ED1A9 /* ApartmentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074727A43AD7006DDD3C /* ApartmentSearch.swift */; };
+		A07EF1BE27BFF5F2008ED1A9 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005073D27A42B3F006DDD3C /* AuthInteractor.swift */; };
+		A07EF1C027BFF61B008ED1A9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1BF27BFF61B008ED1A9 /* FirebaseMessaging */; };
+		A07EF1C127BFF62D008ED1A9 /* APILoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00527A37169003197A1 /* APILoadingState.swift */; };
+		A07EF1C227BFFA2A008ED1A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A046F00927A37211003197A1 /* GoogleService-Info.plist */; };
+		A07EF1C327BFFD5E008ED1A9 /* LinkInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C68FB27AB307B008704F2 /* LinkInteractor.swift */; };
 		A0C8666E27ACC384002EBFE1 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
 		A0C8667227AE23E4002EBFE1 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667127AE23E4002EBFE1 /* TextArea.swift */; };
 		A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */; };
@@ -94,6 +110,30 @@
 		A0D4E11027BAC43E007098B4 /* FoundApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D4E10E27BAC43D007098B4 /* FoundApartmentView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A07EF1A727BFF53C008ED1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A046EFE027A3708E003197A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A07EF19E27BFF53B008ED1A9;
+			remoteInfo = "Share Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A07EF18B27BFEED2008ED1A9 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A07EF1A927BFF53C008ED1A9 /* Share Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A005073B27A4297F006DDD3C /* CurrentUser.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift.swift; sourceTree = "<group>"; };
 		A005073D27A42B3F006DDD3C /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
@@ -131,6 +171,12 @@
 		A046F01A27A37539003197A1 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		A046F01C27A3763C003197A1 /* Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismiss.swift; sourceTree = "<group>"; };
 		A046F01E27A378C9003197A1 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		A07EF17727BFE9A0008ED1A9 /* LoginTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTouchBar.swift; sourceTree = "<group>"; };
+		A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A07EF1AD27BFF55D008ED1A9 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A07EF1AE27BFF55D008ED1A9 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		A07EF1AF27BFF55D008ED1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A07EF1BD27BFF59B008ED1A9 /* Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Share Extension.entitlements"; sourceTree = "<group>"; };
 		A0C8666D27ACC384002EBFE1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A0C8667127AE23E4002EBFE1 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntry.swift; sourceTree = "<group>"; };
@@ -151,6 +197,17 @@
 				A046F00D27A37313003197A1 /* FirebaseFirestore in Frameworks */,
 				A046F00F27A37313003197A1 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				A005074027A42B49006DDD3C /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07EF19C27BFF53B008ED1A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A07EF1C027BFF61B008ED1A9 /* FirebaseMessaging in Frameworks */,
+				A07EF1B827BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				A07EF1B427BFF56E008ED1A9 /* FirebaseAuth in Frameworks */,
+				A07EF1B627BFF56E008ED1A9 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +238,7 @@
 			children = (
 				A046F00927A37211003197A1 /* GoogleService-Info.plist */,
 				A046EFEA27A3708E003197A1 /* ApartmentHunting */,
+				A07EF1A027BFF53C008ED1A9 /* Share Extension */,
 				A046EFE927A3708E003197A1 /* Products */,
 				A046F01227A37423003197A1 /* Frameworks */,
 			);
@@ -191,6 +249,7 @@
 			children = (
 				A046EFE827A3708E003197A1 /* Home Hunt (iOS).app */,
 				A0D4E0CB27B6FBA3007098B4 /* Home Hunt (macOS).app */,
+				A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,6 +257,7 @@
 		A046EFEA27A3708E003197A1 /* ApartmentHunting */ = {
 			isa = PBXGroup;
 			children = (
+				A07EF17627BFE982008ED1A9 /* MacShims */,
 				A0D4E10427B6FCEB007098B4 /* Delegates */,
 				A03C68FD27AC47DF008704F2 /* ApartmentHunting.entitlements */,
 				A0D4E10D27B70540007098B4 /* Home-Hunt-Info.plist */,
@@ -298,6 +358,25 @@
 			path = Backport;
 			sourceTree = "<group>";
 		};
+		A07EF17627BFE982008ED1A9 /* MacShims */ = {
+			isa = PBXGroup;
+			children = (
+				A07EF17727BFE9A0008ED1A9 /* LoginTouchBar.swift */,
+			);
+			path = MacShims;
+			sourceTree = "<group>";
+		};
+		A07EF1A027BFF53C008ED1A9 /* Share Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A07EF1BD27BFF59B008ED1A9 /* Share Extension.entitlements */,
+				A07EF1AF27BFF55D008ED1A9 /* Info.plist */,
+				A07EF1AE27BFF55D008ED1A9 /* MainInterface.storyboard */,
+				A07EF1AD27BFF55D008ED1A9 /* ShareViewController.swift */,
+			);
+			path = "Share Extension";
+			sourceTree = "<group>";
+		};
 		A0D4E10427B6FCEB007098B4 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,10 +396,12 @@
 				A046EFE427A3708E003197A1 /* Sources */,
 				A046EFE527A3708E003197A1 /* Frameworks */,
 				A046EFE627A3708E003197A1 /* Resources */,
+				A07EF18B27BFEED2008ED1A9 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A07EF1A827BFF53C008ED1A9 /* PBXTargetDependency */,
 			);
 			name = "Home Hunt (iOS)";
 			packageProductDependencies = (
@@ -332,6 +413,29 @@
 			productName = ApartmentHunting;
 			productReference = A046EFE827A3708E003197A1 /* Home Hunt (iOS).app */;
 			productType = "com.apple.product-type.application";
+		};
+		A07EF19E27BFF53B008ED1A9 /* Share Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A07EF1AA27BFF53C008ED1A9 /* Build configuration list for PBXNativeTarget "Share Extension" */;
+			buildPhases = (
+				A07EF19B27BFF53B008ED1A9 /* Sources */,
+				A07EF19C27BFF53B008ED1A9 /* Frameworks */,
+				A07EF19D27BFF53B008ED1A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Share Extension";
+			packageProductDependencies = (
+				A07EF1B327BFF56E008ED1A9 /* FirebaseAuth */,
+				A07EF1B527BFF56E008ED1A9 /* FirebaseFirestore */,
+				A07EF1B727BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta */,
+				A07EF1BF27BFF61B008ED1A9 /* FirebaseMessaging */,
+			);
+			productName = "Share Extension";
+			productReference = A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		A0D4E0CA27B6FBA3007098B4 /* Home Hunt (macOS) */ = {
 			isa = PBXNativeTarget;
@@ -369,6 +473,10 @@
 					A046EFE727A3708E003197A1 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					A07EF19E27BFF53B008ED1A9 = {
+						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
+					};
 					A0D4E0CA27B6FBA3007098B4 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -392,6 +500,7 @@
 			targets = (
 				A046EFE727A3708E003197A1 /* Home Hunt (iOS) */,
 				A0D4E0CA27B6FBA3007098B4 /* Home Hunt (macOS) */,
+				A07EF19E27BFF53B008ED1A9 /* Share Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -404,6 +513,15 @@
 				A046EFF327A37094003197A1 /* Preview Assets.xcassets in Resources */,
 				A046F00A27A37211003197A1 /* GoogleService-Info.plist in Resources */,
 				A046EFF027A37094003197A1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07EF19D27BFF53B008ED1A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A07EF1B127BFF55D008ED1A9 /* MainInterface.storyboard in Resources */,
+				A07EF1C227BFFA2A008ED1A9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +580,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A07EF19B27BFF53B008ED1A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A07EF1C327BFFD5E008ED1A9 /* LinkInteractor.swift in Sources */,
+				A07EF1BB27BFF585008ED1A9 /* ApartmentModel.swift in Sources */,
+				A07EF1BC27BFF585008ED1A9 /* ApartmentSearch.swift in Sources */,
+				A07EF1BE27BFF5F2008ED1A9 /* AuthInteractor.swift in Sources */,
+				A07EF1C127BFF62D008ED1A9 /* APILoadingState.swift in Sources */,
+				A07EF1BA27BFF585008ED1A9 /* CurrentUser.swift.swift in Sources */,
+				A07EF1B927BFF580008ED1A9 /* ApartmentAPIInteractor.swift in Sources */,
+				A07EF1B027BFF55D008ED1A9 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0D4E0C727B6FBA3007098B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +621,7 @@
 				A0D4E0F027B6FBDD007098B4 /* WithKeyboardOpen.swift in Sources */,
 				A0D4E0F627B6FBDD007098B4 /* AuthInteractor.swift in Sources */,
 				A0D4E0DB27B6FBDD007098B4 /* BackportActionSheet.swift in Sources */,
+				A07EF17827BFE9A0008ED1A9 /* LoginTouchBar.swift in Sources */,
 				A0D4E0E427B6FBDD007098B4 /* RoundedButton.swift in Sources */,
 				A0D4E0DC27B6FBDD007098B4 /* AddApartmentView.swift in Sources */,
 				A0D4E10927B6FE60007098B4 /* ColorSchemeAdaptor.swift in Sources */,
@@ -506,6 +640,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A07EF1A827BFF53C008ED1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A07EF19E27BFF53B008ED1A9 /* Share Extension */;
+			targetProxy = A07EF1A727BFF53C008ED1A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A046EFF427A37094003197A1 /* Debug */ = {
@@ -629,6 +771,7 @@
 		A046EFF727A37094003197A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ApartmentHunting/ApartmentHunting.entitlements;
@@ -662,6 +805,7 @@
 		A046EFF827A37094003197A1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ApartmentHunting/ApartmentHunting.entitlements;
@@ -686,6 +830,63 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JackRosen.apartmenthunting.ApartmentHunting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A07EF1AB27BFF53C008ED1A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Share Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JackRosen.apartmenthunting.ApartmentHunting.Share-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A07EF1AC27BFF53C008ED1A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SCB9RTL9PP;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Share Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JackRosen.apartmenthunting.ApartmentHunting.Share-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -773,6 +974,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		A07EF1AA27BFF53C008ED1A9 /* Build configuration list for PBXNativeTarget "Share Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07EF1AB27BFF53C008ED1A9 /* Debug */,
+				A07EF1AC27BFF53C008ED1A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A0D4E0D927B6FBA5007098B4 /* Build configuration list for PBXNativeTarget "Home Hunt (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -812,6 +1022,26 @@
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
 		A046F01327A37423003197A1 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		A07EF1B327BFF56E008ED1A9 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A07EF1B527BFF56E008ED1A9 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		A07EF1B727BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		A07EF1BF27BFF61B008ED1A9 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A046F00B27A37313003197A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;

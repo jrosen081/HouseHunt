@@ -36,7 +36,21 @@ struct ApartmentAPIInteractor {
         guard let linkUrl = URL(string: url) else { throw NSError(domain: "no", code: 100, userInfo: [NSLocalizedDescriptionKey: "You need to specify a valid URL"]) }
         let metadata = try await LPMetadataProvider().startFetchingMetadata(for: linkUrl)
         let model = creator(metadata.title ?? "Home")
-        let _ = try apartmentsCollection(for: apartmentSearchId).addDocument(from: model)
+        return try await withCheckedThrowingContinuation { continuation in
+            do {
+                let _ = try apartmentsCollection(for: apartmentSearchId).addDocument(from: model, completion: { error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume()
+                    }
+                })
+            } catch {
+                continuation.resume(throwing: error)
+            }
+            
+        }
+        
     }
     
     static func update(apartment: ApartmentModel) {
@@ -60,7 +74,6 @@ struct ApartmentAPIInteractor {
         self.database.collection("apartments").document(apartmentSearch.wrappedValue.id).addSnapshotListener { snapshot, error in
             Task {
                 do {
-                    print(snapshot?.data())
                     if let snapshotReal = snapshot, let dto = try snapshotReal.data(as: ApartmentSearchDTO.self) {
                         let model = try await search(fromDTO: dto, authInteractor: authInteractor)
                         await MainActor.run {

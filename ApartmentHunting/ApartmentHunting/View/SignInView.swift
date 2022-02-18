@@ -10,6 +10,14 @@ import SwiftUI
 struct SignInView: View {
     enum SignInState: Equatable {
         case login, createUser(name: String)
+        var touchBarTitle: String {
+            switch self {
+            case .login:
+                return "Log In"
+            case .createUser(_):
+                return "Create User"
+            }
+        }
     }
     @State private var email = ""
     @State private var password = ""
@@ -81,6 +89,9 @@ struct SignInView: View {
         .padding()
         .disabled(authInteractor.authState == .loading)
         .removingKeyboardOnTap()
+        #if os(macOS)
+        .background(LoginTouchBarAdapter(currentValue: self.signInState, onSubmit: signIn))
+        #endif
     }
     
     var body: some View {
