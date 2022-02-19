@@ -88,6 +88,9 @@ export const sendUserAddedRemovedNotification = functions.firestore
         const newUsers: string[] = change.after.data().users;
         const { removed, added } = diff(previousRequests, newRequests);
         for (const removal of removed) {
+            if (removal === context.auth?.uid) {
+                continue;
+            }
             try {
                 const tokens = await getTokensForUser(removal)
                 if (newUsers.includes(removal)) {
@@ -102,6 +105,9 @@ export const sendUserAddedRemovedNotification = functions.firestore
         if (added.length > 0) {
             const allTokens: string[] = []
             for (const user of newUsers) {
+                if (user === context.auth?.uid) {
+                    continue;
+                }
                 try {
                     allTokens.push(...await getTokensForUser(user))
                 } catch (error) {
