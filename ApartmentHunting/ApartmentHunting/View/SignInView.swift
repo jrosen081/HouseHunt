@@ -36,7 +36,7 @@ struct SignInView: View {
     @ViewBuilder
     private var mainView: some View {
         VStack {
-            Text("Home Hunt")
+            Text("Home Hunting")
                 .font(.largeTitle)
                 .padding()
             #if os(macOS)

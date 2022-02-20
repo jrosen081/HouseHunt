@@ -84,7 +84,7 @@ private struct MainView: View {
                         Label("Settings", systemImage: "gear")
                     }.keyboardShortcut(",", modifiers: .command)
                     Button("Settings") { self.location = .settings }.frame(width: 0, height: 0).opacity(0).keyboardShortcut("2")
-                }.listStyle(.sidebar).navigationTitle("Home Hunt").buttonStyle(.plain)
+                }.listStyle(.sidebar).navigationTitle("Home Hunting").buttonStyle(.plain)
                     .padding(.top)
             }
             #else
@@ -101,7 +101,7 @@ private struct MainView: View {
                             .padding(.horizontal, 5)
                             .listRowBackground(background(location: .settings))
                         Button("Settings") { self.location = .settings }.frame(width: 0, height: 0).opacity(0).keyboardShortcut("2")
-                    }.listStyle(.sidebar).navigationTitle("Home Hunt").buttonStyle(.plain)
+                    }.listStyle(.sidebar).navigationTitle("Home Hunting").buttonStyle(.plain)
                     Group {
                         switch self.location {
                         case .settings:

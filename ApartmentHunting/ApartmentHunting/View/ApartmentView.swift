@@ -148,7 +148,7 @@ struct ApartmentView: View {
                     RoundedButton(title: "We Got This Home", color: .green) {
                         self.confirmDialog = true
                     }.alert(isPresented: $confirmDialog) {
-                        Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Hunt"), primaryButton: .default(Text("We Got It"), action: {
+                        Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Search"), primaryButton: .default(Text("We Got It"), action: {
                             self.updateApartment(state: .selected)
                             ApartmentAPIInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
                         }), secondaryButton: .cancel(Text("Nevermind")))
