@@ -10,6 +10,9 @@ import FirebaseMessaging
 import UserNotifications
 
 class Initializer: NSObject, ObservableObject, MessagingDelegate {
+    struct EventResponderHolder {
+        weak var responder: EventResponder?
+    }
     private enum Constants {
         static let userStyleKey = "userStyle"
     }
@@ -19,6 +22,8 @@ class Initializer: NSObject, ObservableObject, MessagingDelegate {
             UserDefaults.standard.set(userInterfaceStyle.rawValue, forKey: Constants.userStyleKey)
         }
     }
+    
+    @Published var eventResponders: [EventResponderHolder] = []
     
     override init() {
         super.init()

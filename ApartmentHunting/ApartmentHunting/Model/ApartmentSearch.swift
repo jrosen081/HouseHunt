@@ -20,7 +20,7 @@ struct ApartmentSearchDTO: Codable {
 
 extension ApartmentSearchDTO {
     init(search: ApartmentSearch) {
-        self = ApartmentSearchDTO(id: search.id, name: search.name, users: search.users.compactMap(\.id), requests: search.requests.compactMap(\.id), entryCode: search.entryCode, brokerResponse: search.brokerResponse, acceptedHouse: acceptedHouse)
+        self = ApartmentSearchDTO(id: search.id, name: search.name, users: search.users.compactMap(\.id), requests: search.requests.compactMap(\.id), entryCode: search.entryCode, brokerResponse: search.brokerResponse, acceptedHouse: search.acceptedHouse?.id)
     }
 }
 

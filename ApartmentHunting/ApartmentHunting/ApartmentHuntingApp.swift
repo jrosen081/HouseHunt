@@ -34,6 +34,11 @@ struct ApartmentHuntingApp: App {
                 .environmentObject(initializer)
                 .preferredColorScheme(ColorScheme(adaptor: initializer.userInterfaceStyle))
                 .menuStyle(.borderlessButton)
+                .onAppear {
+                    #if os(macOS)
+                    NSWindow.allowsAutomaticWindowTabbing = false
+                    #endif
+                }
         }.commands {
             SidebarCommands()
         }
