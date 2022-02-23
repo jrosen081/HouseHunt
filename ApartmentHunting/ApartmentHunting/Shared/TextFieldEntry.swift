@@ -16,6 +16,7 @@ struct TextFieldEntry: View {
             Text(title)
                 .font(.subheadline)
                 .bold()
+                .accessibilityHidden(true)
             Group {
                 if isSecure {
                     SecureField(title, text: $text)

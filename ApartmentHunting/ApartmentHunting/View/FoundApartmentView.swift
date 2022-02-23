@@ -17,6 +17,7 @@ struct FoundApartmentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 100)
+                    .accessibilityHidden(true)
                 Text("Congratulations on selecting your new home!").font(.title2).bold()
 
                 Text(apartmentModel.location).font(.title3).padding(.top)

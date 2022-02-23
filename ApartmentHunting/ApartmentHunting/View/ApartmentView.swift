@@ -43,7 +43,7 @@ struct ApartmentView: View {
     @ViewBuilder
     private func actionsView<Content: View>(@ViewBuilder views: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Actions:").font(.headline).padding(.top)
+            Text("Actions:").font(.headline).padding(.top).accessibilityHidden(true)
             views()
         }
     }
@@ -58,7 +58,9 @@ struct ApartmentView: View {
                 }
                 self.overlay = nil
             }
-            Text("Seeing \(dateFormatter.string(from: date))").font(.subheadline)
+            Text("Seeing on \(dateFormatter.string(from: date))").font(.subheadline)
+                .accessibilityLabel("Current State: Seeing on \(dateFormatter.string(from: date))")
+            
             actionsView {
                 RoundedButton(title: "Add Your Opinion", color: .primary) {
                     #if os(iOS)
@@ -74,6 +76,7 @@ struct ApartmentView: View {
             }.disabled(hasSelectedApartment)
         case .interested:
             Text("We are interested in this home").font(.subheadline)
+                .accessibilityLabel("Current State: We are interested in this home")
             actionsView {
                 RoundedButton(title: "I reached out to the broker", color: .primary) {
                     updateApartment(state: .reachedOutToBroker)
@@ -84,6 +87,7 @@ struct ApartmentView: View {
             }.disabled(hasSelectedApartment)
         case .unsure:
             Text("We are unsure about the home").font(.subheadline)
+                .accessibilityLabel("Current State: We are unsure about the home")
             actionsView {
                 RoundedButton(title: "I reached out to the broker", color: .primary) {
                     updateApartment(state: .reachedOutToBroker)
@@ -94,11 +98,14 @@ struct ApartmentView: View {
             }.disabled(hasSelectedApartment)
         case .uninterested:
             Text("We are no longer interested in this one anymore").font(.subheadline)
+                .accessibilityLabel("Current State: We are no longer interested in this one anymore")
         case .reachedOutToBroker:
             Text("We reached out to owner").font(.subheadline)
+                .accessibilityLabel("Current State: We reached out to owner")
             actionsView {
                 Text("When did you set a time to see the home?")
-                DatePicker("", selection: $dateShowing, in: Date()...)
+                    .accessibilityHidden(true)
+                DatePicker("When did you set a time to see the home?", selection: $dateShowing, in: Date()...)
                     .labelsHidden()
                     .padding(.bottom)
                 RoundedButton(title: "Set Viewing Date", color: .primary, action: {
@@ -113,6 +120,7 @@ struct ApartmentView: View {
                 self.overlay = nil
             }
             Text("We saw the house").font(.subheadline)
+                .accessibilityLabel("Current State: We saw the house")
             actionsView {
                 ForEach(opinions) { opinion in
                     RoundedButton(title: "See \(opinion.author)'s opinion", color: .primary) {
@@ -157,6 +165,7 @@ struct ApartmentView: View {
             }
         case .selected:
             Text("We have selected this home!").font(.subheadline).bold()
+                .accessibilityLabel("Current State: We have selected this home!")
             actionsView {
                 RoundedButton(title: "Hide Full Search", color: .primary) {
                     self.showingSelected = true
@@ -170,6 +179,7 @@ struct ApartmentView: View {
             HStack {
                 Text(apartment.location)
                     .font(.headline)
+                    .accessibility(addTraits: .isHeader)
                 Spacer()
                 if let url = URL(string: apartment.url) {
                     #if os(macOS)
@@ -207,10 +217,11 @@ struct ApartmentView: View {
                 }
             }
             LinkView(linkUrl: URL(string: apartment.url)).frame(maxWidth: .infinity)
-            Text("Notes:").font(.headline)
+            Text("Notes:").font(.headline).accessibilityHidden(true)
             Text(apartment.notes)
                 .padding(.bottom)
-            Text("Current State:").font(.headline)
+                .accessibilityLabel("Notes:  \(apartment.notes)")
+            Text("Current State:").font(.headline).accessibilityHidden(true)
             stateView
         }
         .multilineTextAlignment(.leading)

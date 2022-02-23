@@ -13,6 +13,10 @@ function sendNotification(title: string, message: string, tokens: string[]) {
         },
         tokens: tokens
     }
+    if (tokens.length == 0) {
+        console.log(`Wanted to send ${notification} but received no tokens to send to`);
+        return;
+    }
     return messaging.sendMulticast(notification)
 }
 

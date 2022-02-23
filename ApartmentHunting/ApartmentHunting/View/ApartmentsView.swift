@@ -192,7 +192,7 @@ struct ApartmentsView: View {
                             Button(action: {
                                 self.setAddApartment(true)
                             }) {
-                                Image(systemName: "plus")
+                                Label("Add Home", systemImage: "plus")
                                     .foregroundColor(.primary)
                             }
                         }
@@ -202,14 +202,14 @@ struct ApartmentsView: View {
                             authorView
 #endif
                         }) {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
+                            Label("Filter by State", systemImage: Image.filter)
                                 .foregroundColor(.primary)
                         }
 #if !os(macOS)
                         Menu {
                             authorView
                         } label: {
-                            Image(systemName: "person.crop.circle.badge.questionmark")
+                            Label("Filter by Author", systemImage: "person.crop.circle.badge.questionmark")
                                 .foregroundColor(.primary)
                         }
 #endif

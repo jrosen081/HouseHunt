@@ -9,6 +9,17 @@ import SwiftUI
 
 enum ColorSchemeAdaptor: Int {
     case automatic = 0, light, dark
+    
+    var textualRepresentation: String {
+        switch self {
+        case .automatic:
+            return "System Defined"
+        case .light:
+            return "Light Mode"
+        case .dark:
+            return "Dark Mode"
+        }
+    }
 }
 
 extension ColorScheme {

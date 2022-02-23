@@ -14,6 +14,7 @@ private struct TaskView<Content: View>: View {
     
     var body: some View {
         child.onAppear {
+            guard task == nil else { return }
             task = Task {
                 await perform()
             }
@@ -28,7 +29,11 @@ extension View {
     @ViewBuilder
     func back_task(perform: @escaping () async -> Void) -> some View {
         if #available(iOS 15, macOS 12, *) {
-            self.task { await perform() }
+            Group {
+                if #available(iOS 15, macOS 12, *) {
+                    self.task { await perform() }
+                }
+            }
         } else {
             TaskView(child: self, perform: perform)
         }

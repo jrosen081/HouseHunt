@@ -87,6 +87,8 @@ struct LinkView: View {
                     Spacer()
                     Image(systemName: "xmark")
                 }.foregroundColor(.red)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("An Error Occurred Loading the Link")
             }
         }
         .back_task {

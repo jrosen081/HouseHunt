@@ -46,7 +46,7 @@ struct SignInView: View {
                 TextFieldEntry(title: "Email", text: $email)
                     .padding(.bottom)
                 #if !os(macOS)
-                    .textContentType(.emailAddress)
+                    .textContentType(.username)
                     .keyboardType(.emailAddress)
                 #endif
                 TextFieldEntry(title: "Password", text: $password, isSecure: true)

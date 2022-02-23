@@ -20,6 +20,7 @@ struct RoundedButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.vertical)
             .frame(maxWidth: .infinity)
             .background(RoundedRectangle(cornerRadius: 10).stroke())
@@ -28,6 +29,7 @@ struct RoundedButtonStyle: ButtonStyle {
             .multilineTextAlignment(.center)
             .opacity(!enabled ? 0.5 : 1)
             .contentShape(Rectangle())
+            .accessibilityHidden(!enabled)
         #if os(iOS)
             .hoverEffect(.highlight)
         #endif

@@ -32,9 +32,9 @@ struct Section<Header: View, Content: View>: View {
     
     var body: some View {
         #if os(iOS)
-        SwiftUI.Section(content: content, header: { header }).pickerStyle(.menu)
+        SwiftUI.Section(content: content, header: { header.accessibilityAddTraits(.isHeader) })
         #else
-        GroupBox(content: { VStack(alignment: .leading) { content().frame(maxWidth: .infinity) }.padding().frame(maxWidth: .infinity) }, label: { header }).pickerStyle(.segmented)
+        GroupBox(content: { VStack(alignment: .leading) { content().frame(maxWidth: .infinity) }.padding().frame(maxWidth: .infinity) }, label: { header.accessibilityAddTraits(.isHeader) }).pickerStyle(.segmented)
         #endif
     }
 }
@@ -64,13 +64,15 @@ struct SettingsView: View {
     private var homeInfoSection: some View {
         Section(header: Text("Home Info")) {
             HStack {
-                Text("Name")
+                Text("Name").accessibilityHidden(true)
                 Spacer()
                 Text(apartmentSearch.name)
+                    .accessibilityLabel("Name of Home Search is \(apartmentSearch.name)")
             }
             HStack {
                 Text("Join Code")
                     .foregroundColor(.primary)
+                    .accessibilityHidden(true)
                 Spacer()
                 Button(action: {
                     Pasteboard.general.string = apartmentSearch.entryCode
@@ -78,7 +80,8 @@ struct SettingsView: View {
                 }) {
                     Text(apartmentSearch.entryCode)
                         .foregroundColor(.blue)
-                }
+                        .accessibilityLabel("Copy Home Search Join Code")
+                }.accessibilityHint("Copies the Home Search Join code that you can send to someone else to join your Home Search")
             }
         }
     }
@@ -91,13 +94,15 @@ struct SettingsView: View {
         Section(header: Text("Broker Interactions")) {
             if let brokerCode = apartmentSearch.brokerResponse {
                 HStack {
-                    Text("Hunt Information")
+                    Text("Search Information")
+                        .accessibilityHidden(true)
                     Spacer()
                     Button(action: {
                         Pasteboard.general.string = brokerCode
                         withAnimation { self.message = "Broker Response Copied" }
                     }) {
                         Text("Copy")
+                            .accessibilityLabel("Copy Home Search Information")
                     }
                 }
             } else {
@@ -105,12 +110,14 @@ struct SettingsView: View {
                 brokerView
                 #else
                 HStack {
-                    Text("Hunt Information")
+                    Text("Search Information")
+                        .accessibilityHidden(true)
                     Spacer()
                     Button(action: {
                         self.showingBrokerInfo = true
                     }) {
                         Text("Add")
+                            .accessibilityLabel("Add Home Search Information")
                     }
                 }
                 .sheet(isPresented: $showingBrokerInfo) {
@@ -125,21 +132,34 @@ struct SettingsView: View {
         }
     }
     
+    private var userInterfacePicker: some View {
+        Picker("", selection: self.$initializer.userInterfaceStyle) {
+            ForEach([ColorSchemeAdaptor.automatic, ColorSchemeAdaptor.light, ColorSchemeAdaptor.dark], id: \.self) { style in
+                Text(style.textualRepresentation)
+            }
+        }
+    }
+    
     @ViewBuilder
     private var displaySection: some View {
         Section(header: Text("Display")) {
             HStack {
                 Text("Theme")
+                    .accessibilityHidden(true)
                 Spacer()
-                Picker("", selection: self.$initializer.userInterfaceStyle) {
-                    ForEach([ColorSchemeAdaptor.automatic, ColorSchemeAdaptor.light, ColorSchemeAdaptor.dark], id: \.self) { style in
-                        switch style {
-                        case .automatic: Text("System Defined")
-                        case .light: Text("Light Mode")
-                        case .dark: Text("Dark Mode")
-                        }
+                Group {
+#if !os(macOS)
+                    Menu {
+                        userInterfacePicker
+                    } label: {
+                        Text(self.initializer.userInterfaceStyle.textualRepresentation)
                     }
-                }
+#else
+                    userInterfacePicker
+#endif
+                }.accessibilityLabel("Current Theme: \(self.initializer.userInterfaceStyle.textualRepresentation)")
+                
+                
             }
             
         }
@@ -190,7 +210,9 @@ struct SettingsView: View {
                 requestsSection
                 homeInfoSection
                 brokerInteractionSection
-                displaySection
+                if #available(iOS 15, macOS 15, *) {
+                    displaySection
+                }
                 dangerZoneSection
             }.navigationTitle("Settings")
             #if !os(macOS)
@@ -217,11 +239,13 @@ private struct AcceptRejectView: View {
     var body: some View {
         HStack {
             Text(user.name)
+                .accessibilityHidden(true)
             Spacer()
             Button(action: {
                 self.administering = true
             }) {
                 Text("Manage")
+                    .accessibilityLabel("Manage \(user.name)'s request to join ")
             }.back_confirmationDialog(isPresented: $administering, title: Text("Manage User")) {
                 [
                     $0.default(message: Text("Accept"), action: {

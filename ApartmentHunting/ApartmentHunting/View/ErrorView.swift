@@ -16,6 +16,7 @@ struct ErrorView: View {
                 .resizable()
                 .aspectRatio(nil, contentMode: .fit)
                 .frame(width: 50)
+                .accessibilityHidden(true)
             Text("Something went wrong")
             Spacer()
             RoundedButton(title: "Retry", color: .primary) {

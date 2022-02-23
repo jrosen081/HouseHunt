@@ -47,10 +47,14 @@ extension View {
     @ViewBuilder
     func back_confirmationDialog(isPresented: Binding<Bool>, title: Text, creator: (ActionSheetButton.Type) -> [ActionSheetButton]) -> some View {
         if #available(iOS 15, macOS 12, *) {
-            confirmationDialog(title, isPresented: isPresented, titleVisibility: .visible) {
-                let values = creator(Button<Text>.self).map { $0 as! Button<Text> }
-                ForEach(values.indices, id: \.self) { index in
-                    values[index]
+            Group {
+                if #available(iOS 15, macOS 12, *) {
+                    confirmationDialog(title, isPresented: isPresented, titleVisibility: .visible) {
+                        let values = creator(Button<Text>.self).map { $0 as! Button<Text> }
+                        ForEach(values.indices, id: \.self) { index in
+                            values[index]
+                        }
+                    }
                 }
             }
         } else {

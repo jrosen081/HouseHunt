@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-               BuildableName = "Home Hunt.app"
+               BuildableName = "Home Hunting.app"
                BlueprintName = "Home Hunting"
                ReferencedContainer = "container:HomeHunt.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-            BuildableName = "Home Hunt.app"
+            BuildableName = "Home Hunting.app"
             BlueprintName = "Home Hunting"
             ReferencedContainer = "container:HomeHunt.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A0D4E0CA27B6FBA3007098B4"
-            BuildableName = "Home Hunt.app"
+            BuildableName = "Home Hunting.app"
             BlueprintName = "Home Hunting"
             ReferencedContainer = "container:HomeHunt.xcodeproj">
          </BuildableReference>
