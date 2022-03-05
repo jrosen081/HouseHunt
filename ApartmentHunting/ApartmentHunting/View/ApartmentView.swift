@@ -171,10 +171,10 @@ struct ApartmentView: View {
                         }.disabled(hasSelectedApartment)
                     }
                     Button(action: {
-                        self.showingShareSheet = true
+                        self.modalState.showingShareSheet = true
                     }) {
                         Label("Share", systemImage: "square.and.arrow.up")
-                    }.shareSheet(items: [url], isPresented: $showingShareSheet)
+                    }.shareSheet(items: [url], isPresented: self.$modalState.showingShareSheet)
                     #else
                     Menu(content: {
                         if let previousStates = apartment.previousStates, let prevState = previousStates.last {

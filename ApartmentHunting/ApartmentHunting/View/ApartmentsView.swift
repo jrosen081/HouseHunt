@@ -190,6 +190,7 @@ struct ApartmentsView: View {
                 Color.clear
                     .back_searchable(text: $search, prompt: "Filter by title")
                     .allowsHitTesting(false)
+                    .toolbar { toolbarItems }
             }
 #endif
         }
@@ -199,38 +200,46 @@ struct ApartmentsView: View {
                     self.loadingState = .loading
                 }
             }
-        }.toolbar {
-            ToolbarItemGroup {
-                HStack {
-                    reloadView
-                    if self.apartmentSearch.acceptedHouse == nil {
-                        Button(action: {
-                            self.setAddApartment(true)
-                        }) {
-                            Label("Add Home", systemImage: "plus")
-                                .foregroundColor(.primary)
-                        }.foregroundColor(.primary)
-                    }
-                    Menu(content: {
-                        stateView
-#if os(macOS)
-                        authorView
-#endif
+        }
+        #if os(iOS)
+        .toolbar {
+            toolbarItems
+        }
+        #endif
+        .navigationTitle("Homes")
+    }
+    
+    private var toolbarItems: some ToolbarContent {
+        ToolbarItemGroup {
+            HStack {
+                reloadView
+                if self.apartmentSearch.acceptedHouse == nil {
+                    Button(action: {
+                        self.setAddApartment(true)
                     }) {
-                        Label("Filter by State", systemImage: Image.filter)
+                        Label("Add Home", systemImage: "plus")
                             .foregroundColor(.primary)
-                    }
-#if !os(macOS)
-                    Menu {
-                        authorView
-                    } label: {
-                        Label("Filter by Author", systemImage: "person.crop.circle.badge.questionmark")
-                            .foregroundColor(.primary)
-                    }
-#endif
+                    }.foregroundColor(.primary)
                 }
+                Menu(content: {
+                    stateView
+#if os(macOS)
+                    authorView
+#endif
+                }) {
+                    Label("Filter by State", systemImage: Image.filter)
+                        .foregroundColor(.primary)
+                }
+#if !os(macOS)
+                Menu {
+                    authorView
+                } label: {
+                    Label("Filter by Author", systemImage: "person.crop.circle.badge.questionmark")
+                        .foregroundColor(.primary)
+                }
+#endif
             }
-        }.navigationTitle("Homes")
+        }
     }
     
     var body: some View {

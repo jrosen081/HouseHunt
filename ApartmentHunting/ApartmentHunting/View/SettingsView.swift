@@ -181,7 +181,7 @@ struct SettingsView: View {
             }.foregroundColor(.red)
         }
         #if os(macOS)
-        .buttonStyle(RoundedButtonStyle(color: .red))
+        .buttonStyle(RoundedButtonStyle(color: .red, enabled: true))
         #endif
     }
     
