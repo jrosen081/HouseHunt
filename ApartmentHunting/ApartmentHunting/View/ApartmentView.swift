@@ -9,15 +9,19 @@ import Foundation
 import SwiftUI
 
 struct ApartmentView: View {
+    private class ModalState: ObservableObject {
+        @Published var addingOpinion = false
+        @Published var showingShareSheet = false
+        @Published var confirmDialog = false
+    }
+    
     @Binding var apartment: ApartmentModel
     @Binding var overlay: ApartmentsViewOverlay?
     @Binding var showingSelected: Bool
     @State private var dateShowing = Date().addingTimeInterval(60 * 60 * 24)
-    @State private var addingOpinion = false
-    @State private var showingShareSheet = false
-    @State private var confirmDialog = false
+    @StateObject private var modalState: ModalState = ModalState()
     @State private var onDisappear: (() -> Void)?
-    @State private var visibleOpinion: Opinion?
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -63,17 +67,10 @@ struct ApartmentView: View {
             
             actionsView {
                 RoundedButton(title: "Add Your Opinion", color: .primary) {
-                    #if os(iOS)
-                    self.addingOpinion = true
-                    #else
                     self.overlay = .addOpinion(opinionView)
-                    #endif
-                }.sheet(isPresented: $addingOpinion) {
-                    NavigationView {
-                        opinionView
-                    }
                 }
-            }.disabled(hasSelectedApartment)
+            }
+            .disabled(hasSelectedApartment)
         case .interested:
             Text("We are interested in this home").font(.subheadline)
                 .accessibilityLabel("Current State: We are interested in this home")
@@ -124,38 +121,21 @@ struct ApartmentView: View {
             actionsView {
                 ForEach(opinions) { opinion in
                     RoundedButton(title: "See \(opinion.author)'s opinion", color: .primary) {
-                        #if os(iOS)
-                        self.visibleOpinion = opinion
-                        #else
                         let opinionView = OpinionView(opinion: Binding.constant(opinion), onFinish: {_ in
                             self.overlay = nil
                         }, isEditable: false)
                         self.overlay = .viewOpinion(opinionView)
-                        #endif
-                    }
-                }.sheet(item: $visibleOpinion) { opinion in
-                    NavigationView {
-                        OpinionView(opinion: .constant(opinion), onFinish: {_ in }, isEditable: false)
-                    }
-                }
-                .sheet(isPresented: $addingOpinion) {
-                    NavigationView {
-                        opinionView
                     }
                 }
                 if !opinions.contains(where: { $0.author == user.name }) {
                     RoundedButton(title: "Add Your Opinion", color: .primary, action: {
-                        #if os(iOS)
-                        self.addingOpinion = true
-                        #else
                         self.overlay = .addOpinion(opinionView)
-                        #endif
                     }).disabled(hasSelectedApartment)
                 }
                 if !hasSelectedApartment {
                     RoundedButton(title: "We Got This Home", color: .green) {
-                        self.confirmDialog = true
-                    }.alert(isPresented: $confirmDialog) {
+                        self.modalState.confirmDialog = true
+                    }.alert(isPresented: self.$modalState.confirmDialog) {
                         Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Search"), primaryButton: .default(Text("We Got It"), action: {
                             self.updateApartment(state: .selected)
                             ApartmentAPIInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
@@ -205,13 +185,13 @@ struct ApartmentView: View {
                             }.disabled(hasSelectedApartment)
                         }
                         Button(action: {
-                            self.showingShareSheet = true
+                            self.modalState.showingShareSheet = true
                         }) {
                             Label("Share", systemImage: "square.and.arrow.up")
                         }
                     }, label: {
                         Image(systemName: "ellipsis.circle").resizable().scaledToFit().frame(height: 25).foregroundColor(.primary)
-                    }).shareSheet(items: [url], isPresented: $showingShareSheet)
+                    }).shareSheet(items: [url], isPresented: self.$modalState.showingShareSheet)
                     #endif
                         
                 }

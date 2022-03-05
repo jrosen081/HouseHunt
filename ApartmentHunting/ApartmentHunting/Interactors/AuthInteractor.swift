@@ -31,6 +31,7 @@ class AuthInteractor: ObservableObject {
     }
     
     init() {
+        auth.shareAuthStateAcrossDevices = true
         do {
             try Auth.auth().useUserAccessGroup("group.com.JackRosen.apartmenthunting.ApartmentHunting")
         } catch let error as NSError {

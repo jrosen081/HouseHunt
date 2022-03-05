@@ -7,15 +7,18 @@
 
 import SwiftUI
 
-enum ApartmentsViewOverlay {
+enum ApartmentsViewOverlay: Identifiable {
     case addOpinion(AddOpinionView)
     case viewOpinion(OpinionView)
     case addHouse(AddApartmentView)
+    
+    var id: ObjectIdentifier {
+        ObjectIdentifier.init(ApartmentsViewOverlay.self)
+    }
 }
 
 struct ApartmentsView: View {
     @State private var loadingState = LoadingState<[ApartmentModel]>.notStarted
-    @State private var addingApartment = false
     @State private var search = ""
     @State private var filter: ApartmentAddingState = .all
     @State private var currentUser = ""
@@ -35,11 +38,7 @@ struct ApartmentsView: View {
     }
     
     func setAddApartment(_ val: Bool) {
-        #if os(macOS)
         self.overlay = .addHouse(AddApartmentView { self.overlay = nil })
-        #else
-        self.addingApartment = true
-        #endif
     }
     
     
@@ -151,6 +150,27 @@ struct ApartmentsView: View {
     private var notShowingSuccessfulView: some View {
         ZStack {
             mainView
+#if os(iOS)
+                .back_searchable(text: $search, prompt: "Filter by title")
+                .sheet(item: self.$overlay, onDismiss: {
+                    self.loadingState = .notStarted
+                }) { (sheetItem: ApartmentsViewOverlay) in
+                    NavigationView {
+                        switch sheetItem {
+                        case .addOpinion(let addOpinionView):
+                            addOpinionView
+                        case .viewOpinion(let opinionView):
+                            opinionView
+                        case .addHouse(let addApartmentView):
+                            addApartmentView
+                                .navigationTitle("Add Home")
+                                .navigationBarTitleDisplayMode(.inline)
+
+                        }
+                    }
+                }
+#endif
+#if os(macOS)
             if let overlay = overlay {
                 Group {
                     switch overlay {
@@ -167,8 +187,11 @@ struct ApartmentsView: View {
                     }
                 }.transition(.move(edge: .bottom))
             } else {
-                EmptyView().back_searchable(text: $search, prompt: "Filter by title")
+                Color.clear
+                    .back_searchable(text: $search, prompt: "Filter by title")
+                    .allowsHitTesting(false)
             }
+#endif
         }
         .onChange(of: phase) { phase in
             if phase == .active {
@@ -217,17 +240,7 @@ struct ApartmentsView: View {
                 }
                 
             }
-        }.navigationTitle("Homes").sheet(isPresented: $addingApartment, onDismiss: {
-            self.loadingState = .notStarted
-        }) {
-            NavigationView {
-                AddApartmentView() {}
-                .navigationTitle("Add Home")
-#if !os(macOS)
-                .navigationBarTitleDisplayMode(.inline)
-#endif
-            }
-        }
+        }.navigationTitle("Homes")
     }
     
     var body: some View {

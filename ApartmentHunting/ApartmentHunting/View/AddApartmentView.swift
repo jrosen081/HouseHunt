@@ -65,11 +65,11 @@ struct AddApartmentView: View {
                 Text("Current Step in Process")
                     .font(.subheadline).bold()
                 Spacer()
-                Picker("", selection: apartmentAddingState) {
+                Picker(apartmentAddingState.wrappedValue.rawValue, selection: apartmentAddingState) {
                     ForEach(ApartmentAddingState.allCases, id: \.self) { option in
                         Text(option.rawValue)
                     }
-                }
+                }.pickerStyle(.menu)
             }
             #if os(macOS)
             .pickerStyle(.radioGroup)

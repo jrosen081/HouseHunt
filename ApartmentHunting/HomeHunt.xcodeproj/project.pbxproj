@@ -176,6 +176,7 @@
 		A046F01A27A37539003197A1 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		A046F01C27A3763C003197A1 /* Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismiss.swift; sourceTree = "<group>"; };
 		A046F01E27A378C9003197A1 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
+		A04D2C9E27C7FECF006BBA61 /* MacAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MacAssets.xcassets; sourceTree = "<group>"; };
 		A07EF17727BFE9A0008ED1A9 /* LoginTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTouchBar.swift; sourceTree = "<group>"; };
 		A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07EF1AD27BFF55D008ED1A9 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +278,7 @@
 				A046EFEB27A3708E003197A1 /* ApartmentHuntingApp.swift */,
 				A046EFED27A3708F003197A1 /* ContentView.swift */,
 				A046EFEF27A37094003197A1 /* Assets.xcassets */,
+				A04D2C9E27C7FECF006BBA61 /* MacAssets.xcassets */,
 				A046EFF127A37094003197A1 /* Preview Content */,
 			);
 			path = ApartmentHunting;

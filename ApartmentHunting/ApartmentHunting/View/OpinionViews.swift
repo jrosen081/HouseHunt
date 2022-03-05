@@ -99,6 +99,9 @@ struct OpinionView: View {
                 
             }
         }
+#if os(iOS)
+        .listStyle(.insetGrouped)
+#endif
     }
 }
 

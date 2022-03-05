@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RoundedButtonStyle: ButtonStyle {
     let color: Color
-    @Environment(\.isEnabled) var enabled
+    let enabled: Bool
     
     @ViewBuilder
     private func backgroundView(configuration: Configuration) -> some View {
@@ -28,7 +28,7 @@ struct RoundedButtonStyle: ButtonStyle {
             .background(backgroundView(configuration: configuration))
             .multilineTextAlignment(.center)
             .opacity(!enabled ? 0.5 : 1)
-            .contentShape(Rectangle())
+            .contentShape(RoundedRectangle(cornerRadius: 10))
             .accessibilityHidden(!enabled)
         #if os(iOS)
             .hoverEffect(.highlight)
@@ -37,12 +37,13 @@ struct RoundedButtonStyle: ButtonStyle {
 }
 
 struct RoundedButton: View {
+    @Environment(\.isEnabled) var enabled
     let title: String
     let color: Color
     let action: () -> Void
     var body: some View {
         Button(action: action) {
             Text(title)
-        }.buttonStyle(RoundedButtonStyle(color: color))
+        }.buttonStyle(RoundedButtonStyle(color: color, enabled: enabled))
     }
 }

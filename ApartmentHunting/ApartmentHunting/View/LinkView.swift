@@ -40,7 +40,9 @@ private struct LinkViewWrapper: NSViewRepresentable {
     }
     
     func updateNSView(_ uiView: LinkView, context: Context) {
-        uiView.metadata = metadata
+        DispatchQueue.main.async {
+            uiView.metadata = metadata
+        }
     }
 }
 

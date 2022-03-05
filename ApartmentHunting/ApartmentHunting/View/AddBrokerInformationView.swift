@@ -17,9 +17,10 @@ struct AddBrokerInformationView: View {
                 TextArea(title: "Hunt Information", text: $brokerInfo)
                 Group {
                     if !isFocused {
-                        Text("Use this space to write a default message about your Home Hunt to send to realtors.")
+                        Text("Use this space to write a default message about your Home Search to send to realtors.")
                         
                             .font(.caption).multilineTextAlignment(.leading)
+                            .accessibilitySortPriority(1)
                     } else {
                         EmptyView()
                     }

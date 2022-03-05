@@ -21,6 +21,28 @@ private struct ShareSheet: UIViewControllerRepresentable {
         // Nothin
     }
 }
+
+private struct ShareSheetCreator: UIViewControllerRepresentable {
+    typealias UIViewControllerType = UIViewController
+    
+    
+    let items: [Any]
+    @Binding var isPresented: Bool
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        return UIViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        if isPresented {
+            let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            controller.popoverPresentationController?.sourceView = uiViewController.view
+            uiViewController.present(controller, animated: true) {
+                self.isPresented = false
+            }
+        }
+    }
+}
 #else
 
 private struct ShareSheet: NSViewRepresentable {
@@ -44,11 +66,10 @@ private struct ShareSheet: NSViewRepresentable {
 #endif
 
 extension View {
+    @ViewBuilder
     func shareSheet(items: [Any], isPresented: Binding<Bool>) -> some View {
         #if !os(macOS)
-        self.sheet(isPresented: isPresented) {
-            ShareSheet(items: items).edgesIgnoringSafeArea(.bottom)
-        }
+        self.background(ShareSheetCreator(items: items, isPresented: isPresented))
         #else
         self.background(ShareSheet(isPresented: isPresented, items: items))
         #endif
