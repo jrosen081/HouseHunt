@@ -109,6 +109,7 @@ class AuthInteractor: ObservableObject {
             do {
                 let _ = try await auth.signIn(withEmail: email, password: password)
             } catch {
+                print(error)
                 await MainActor.run {
                     self.authState = .error(error.localizedDescription)
                 }

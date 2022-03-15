@@ -5,6 +5,7 @@
 //  Created by Jack Rosen on 1/22/22.
 //
 
+import FirebaseAnalyticsSwift
 import SwiftUI
 
 enum ApartmentsViewOverlay: Identifiable {
@@ -159,8 +160,10 @@ struct ApartmentsView: View {
                         switch sheetItem {
                         case .addOpinion(let addOpinionView):
                             addOpinionView
+                                .analyticsScreen(name: "add_opinion_view")
                         case .viewOpinion(let opinionView):
                             opinionView
+                                .analyticsScreen(name: "viewing_opinion_view")
                         case .addHouse(let addApartmentView):
                             addApartmentView
                                 .navigationTitle("Add Home")
@@ -176,8 +179,10 @@ struct ApartmentsView: View {
                     switch overlay {
                     case .addOpinion(let addOpinionView):
                         addOpinionView
+                            .analyticsScreen(name: "add_opinion_view")
                     case .viewOpinion(let opinionView):
                         opinionView
+                            .analyticsScreen(name: "viewing_opinion_view")
                     case .addHouse(let addApartmentView):
                         ZStack {
                             List {}.frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -32,6 +32,9 @@ struct AddBrokerInformationView: View {
                 }.disabled(brokerInfo.isEmpty)
             }
                 .removingKeyboardOnTap()
+        #if os(iOS)
+                .analyticsScreen(name: "add_broker_informatioin")
+        #endif
     }
 }
 

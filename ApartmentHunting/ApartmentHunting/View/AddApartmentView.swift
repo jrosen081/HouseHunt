@@ -5,6 +5,7 @@
 //  Created by Jack Rosen on 1/30/22.
 //
 
+import FirebaseAnalyticsSwift
 import SwiftUI
 
 struct AddApartmentView: View {
@@ -142,5 +143,6 @@ struct AddApartmentView: View {
             }
         }
         .removingKeyboardOnTap()
+        .analyticsScreen(name: "add_apartments")
     }
 }
