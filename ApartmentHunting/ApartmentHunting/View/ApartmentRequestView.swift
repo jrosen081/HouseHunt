@@ -43,7 +43,7 @@ struct ApartmentRequestView: View {
             case .success(_):
                 EmptyView()
             case .error(let string):
-                Text("Something went wrong: \(string)").foregroundColor(.red)
+                Text(L10n.somethingWentWrong(string)).foregroundColor(.red)
             }
             RoundedButton(title: state == .join ? "Request to Join" : "Create Search", color: .green) {
                 switch state {

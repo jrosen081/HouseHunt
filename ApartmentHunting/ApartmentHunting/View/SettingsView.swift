@@ -41,13 +41,20 @@ struct Section<Header: View, Content: View>: View {
 
 
 struct SettingsView: View {
+    private enum Overlay: Identifiable {
+        case profile, brokerInfo
+        
+        var id: Self {
+            return self
+        }
+    }
+    
     @CurrentUserState private var user
     @EnvironmentObject private var apartmentSearch: ApartmentSearch
     @EnvironmentObject private var authInteractor: AuthInteractor
     @EnvironmentObject private var initializer: Initializer
     @State private var message: String? = nil
-    @State private var showingBrokerInfo = false
-    @State private var confirmLeaving = false
+    @State private var overlay: Overlay?
     
     @ViewBuilder
     private var requestsSection: some View {
@@ -86,11 +93,15 @@ struct SettingsView: View {
         }
     }
     
-    @ViewBuilder
-    var brokerInteractionSection: some View {
-        let brokerView = AddBrokerInformationView { brokerResponse in
+    var brokerView: some View {
+        AddBrokerInformationView { brokerResponse in
             ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
         }
+    }
+    
+    @ViewBuilder
+    var brokerInteractionSection: some View {
+        
         Section(header: Text("Broker Interactions")) {
             if let brokerCode = apartmentSearch.brokerResponse {
                 HStack {
@@ -114,19 +125,13 @@ struct SettingsView: View {
                         .accessibilityHidden(true)
                     Spacer()
                     Button(action: {
-                        self.showingBrokerInfo = true
+                        self.overlay = .brokerInfo
                     }) {
                         Text("Add")
                             .accessibilityLabel("Add Home Search Information")
                     }
                 }
-                .sheet(isPresented: $showingBrokerInfo) {
-                    NavigationView {
-                        brokerView
-                            .navigationTitle(Text("Add Information"))
-                            .padding()
-                    }
-                }
+                
                 #endif
             }
         }
@@ -166,26 +171,6 @@ struct SettingsView: View {
     }
     
     @ViewBuilder
-    var dangerZoneSection: some View {
-        Section(header: Text("Danger Zone")) {
-            Button("Leave Home Search") {
-                self.confirmLeaving = true
-            }.foregroundColor(.red)
-                .alert(isPresented: $confirmLeaving) {
-                    Alert(title: Text("Are you sure?"), message: Text("Once you leave, you will need to be accepted again to re-join."), primaryButton: .destructive(Text("Yes"), action: {
-                        ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
-                    }), secondaryButton: .cancel())
-                }
-            Button("Sign Out") {
-                authInteractor.signOut()
-            }.foregroundColor(.red)
-        }
-        #if os(macOS)
-        .buttonStyle(RoundedButtonStyle(color: .red, enabled: true))
-        #endif
-    }
-    
-    @ViewBuilder
     var overlayView: some View {
         if let message = message {
             Text(message)
@@ -205,28 +190,74 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            List {
-                requestsSection
-                homeInfoSection
-                brokerInteractionSection
-                if #available(iOS 15, macOS 15, *) {
-                    displaySection
+        ZStack {
+            ZStack(alignment: .bottom) {
+                List {
+                    requestsSection
+                    homeInfoSection
+                    brokerInteractionSection
+                    if #available(iOS 15, macOS 15, *) {
+                        displaySection
+                    }
                 }
-                dangerZoneSection
-            }.navigationTitle("Settings")
-            #if !os(macOS)
-                .listStyle(.insetGrouped)
+#if !os(macOS)
+                    .listStyle(.insetGrouped)
+#endif
+                overlayView
+            }
+            
+            #if os(iOS)
+            .sheet(item: $overlay) { overlay in
+                NavigationView {
+                    switch overlay {
+                    case .brokerInfo:
+                        brokerView
+                            .navigationTitle(Text("Add Information"))
+                            .padding()
+                    case .profile:
+                        ProfileView()
+                    }
+                }
+                
+            }
             #endif
-            overlayView
-        }
-        .toolbar {
-            ToolbarItem {
-                HStack {
-                    EmptyView()
+            #if os(macOS)
+            if overlay == .profile {
+                ProfileView()
+                    .transition(.move(edge: .bottom))
+                    .animation(.linear, value: self.overlay == nil)
+            }
+            #endif
+                
+        }.navigationTitle("Settings")
+            .toolbar {
+                ToolbarItem {
+                    #if os(iOS)
+                    Button {
+                        self.overlay = .profile
+                    } label: {
+                        Label("Show Profile", systemImage: "person.circle")
+                            .foregroundColor(.primary)
+                    }
+                    #else
+                    if self.overlay != .profile {
+                        Button {
+                            self.overlay = .profile
+                        } label: {
+                            Label("Show Profile", systemImage: "person.circle")
+                                .foregroundColor(.primary)
+                        }
+                    } else {
+                        Button {
+                            self.overlay = nil
+                        } label: {
+                            Text("Hide Profile")
+                        }
+                    }
+                    #endif
                 }
             }
-        }
+        
     }
 }
 

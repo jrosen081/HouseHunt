@@ -1,0 +1,25 @@
+/* 
+  AppStrings.strings
+  HomeHunt
+
+  Created by Jack Rosen on 3/31/22.
+  
+*/
+
+"AppName"="Home Hunting";
+"LoginPage.logInButton"="Log In";
+"LoginPage.signInButton"="Sign In";
+"LoginPage.goToLogin"="Go to Log In";
+"LoginPage.goToSignIn"="Go to Sign In";
+"LoginPage.loggingIn" = "Logging In";
+"LoginPage.signingIn" = "Signing In";
+"LoginPage.emailTextField" = "Email";
+"LoginPage.nameTextField" = "Name";
+"LoginPage.passwordTextField" = "Password";
+"SomethingWentWrong" = "Something went wrong: %@";
+"WaitingView.profile" = "Profile";
+"ShowProfile" = "Show Profile";
+"Dismiss" = "Dismiss";
+"WaitingView.waitingOnResponse" = "Waiting on Response";
+"WaitingView.searchName" = "Search Name:";
+"WaitingView.removeRequestButton" = "Remove Request";

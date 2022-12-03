@@ -10,14 +10,6 @@ import SwiftUI
 struct SignInView: View {
     enum SignInState: Equatable {
         case login, createUser(name: String)
-        var touchBarTitle: String {
-            switch self {
-            case .login:
-                return "Log In"
-            case .createUser(_):
-                return "Create User"
-            }
-        }
     }
     @State private var email = ""
     @State private var password = ""
@@ -36,20 +28,20 @@ struct SignInView: View {
     @ViewBuilder
     private var mainView: some View {
         VStack {
-            Text("Home Hunting")
+            Text(L10n.appName)
                 .font(.largeTitle)
                 .padding()
             #if os(macOS)
                 .focusable()
             #endif
             VStack(alignment: .leading, spacing: 2) {
-                TextFieldEntry(title: "Email", text: $email)
+                TextFieldEntry(title: L10n.LoginPage.emailTextField, text: $email)
                     .padding(.bottom)
                 #if !os(macOS)
                     .textContentType(.username)
                     .keyboardType(.emailAddress)
                 #endif
-                TextFieldEntry(title: "Password", text: $password, isSecure: true)
+                TextFieldEntry(title: L10n.LoginPage.passwordTextField, text: $password, isSecure: true)
                 #if !os(macOS)
                     .textContentType(signInState == .login ? .password : .newPassword)
                 #endif
@@ -59,24 +51,25 @@ struct SignInView: View {
                     EmptyView()
                 case .createUser(let name):
                     let binding: Binding<String> = Binding(get: {name}, set: { self.signInState = .createUser(name: $0) })
-                    TextFieldEntry(title: "Name", text: binding)
+                    TextFieldEntry(title: L10n.LoginPage.nameTextField, text: binding)
                     #if !os(macOS)
                         .textContentType(.name)
                     #endif
                         .padding(.bottom)
                 }
             }.frame(maxWidth: .infinity)
-            switch authInteractor.authState {            case .error(let error):
-                Text("Something went wrong: \(error)")
+            switch authInteractor.authState {
+            case .error(let error):
+                Text(L10n.somethingWentWrong(error))
                     .foregroundColor(.red)
             default:
                 EmptyView()
             }
             Spacer()
-            RoundedButton(title: signInState == .login ? "Log In" : "Sign Up", color: .green) {
+            RoundedButton(title: signInState == .login ? L10n.LoginPage.logInButton : L10n.LoginPage.signInButton, color: .green) {
                 signIn()
             }
-            RoundedButton(title: signInState == .login ? "Go to Sign Up" : "Go to Log In", color: .primary) {
+            RoundedButton(title: signInState == .login ? L10n.LoginPage.goToSignIn : L10n.LoginPage.goToLogin, color: .primary) {
                 switch signInState {
                 case .login:
                     self.signInState = .createUser(name: "")
@@ -89,9 +82,6 @@ struct SignInView: View {
         .padding()
         .disabled(authInteractor.authState == .loading)
         .removingKeyboardOnTap()
-        #if os(macOS)
-        .background(LoginTouchBarAdapter(currentValue: self.signInState, onSubmit: signIn))
-        #endif
     }
     
     var body: some View {
@@ -101,7 +91,7 @@ struct SignInView: View {
             case .loading:
                 Group {
                     Color.black.opacity(0.4).ignoresSafeArea(.all, edges: .all)
-                    ProgressView(signInState == .login ? "Logging In" : "Signing Up")
+                    ProgressView(signInState == .login ? L10n.LoginPage.loggingIn : L10n.LoginPage.signingIn)
                         .padding(.vertical)
                 }.animation(.easeInOut, value: authInteractor.authState)
             default:

@@ -10,6 +10,7 @@ import SwiftUI
 struct RoundedButtonStyle: ButtonStyle {
     let color: Color
     let enabled: Bool
+    var paddingAmount: CGFloat? = nil
     
     @ViewBuilder
     private func backgroundView(configuration: Configuration) -> some View {
@@ -21,7 +22,7 @@ struct RoundedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.vertical)
+            .padding(.vertical, paddingAmount)
             .frame(maxWidth: .infinity)
             .background(RoundedRectangle(cornerRadius: 10).stroke())
             .foregroundColor(enabled ? color : .gray)
@@ -40,10 +41,11 @@ struct RoundedButton: View {
     @Environment(\.isEnabled) var enabled
     let title: String
     let color: Color
+    var paddingAmount: CGFloat? = nil
     let action: () -> Void
     var body: some View {
         Button(action: action) {
             Text(title)
-        }.buttonStyle(RoundedButtonStyle(color: color, enabled: enabled))
+        }.buttonStyle(RoundedButtonStyle(color: color, enabled: enabled, paddingAmount: paddingAmount))
     }
 }

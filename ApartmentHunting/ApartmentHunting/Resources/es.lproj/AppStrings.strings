@@ -1,0 +1,25 @@
+/* 
+  AppStrings.strings
+  HomeHunt
+
+  Created by Jack Rosen on 3/31/22.
+  
+*/
+
+"AppName"="Home Hunting";
+"LoginPage.logInButton"="Iniciar Sessión";
+"LoginPage.signInButton"="Crear Cuenta";
+"LoginPage.goToLogin"="Ir al Iniciar Sessión";
+"LoginPage.goToSignIn"="Ir al Crear Cuenta";
+"LoginPage.loggingIn" = "Iniciando Sessión";
+"LoginPage.signingIn" = "Creando Cuenta";
+"LoginPage.emailTextField" = "Correo Electronico";
+"LoginPage.nameTextField" = "Nombre";
+"LoginPage.passwordTextField" = "Contraseña";
+"SomethingWentWrong" = "Algo pasó mal: %@";
+"WaitingView.profile" = "Perfíl";
+"ShowProfile" = "Mostrar Perfíl";
+"Dismiss" = "Cerrar";
+"WaitingView.waitingOnResponse" = "Esperando Respuesta";
+"WaitingView.searchName" = "Nombre de Búsqueda:";
+"WaitingView.removeRequestButton" = "Remover Solicitación";

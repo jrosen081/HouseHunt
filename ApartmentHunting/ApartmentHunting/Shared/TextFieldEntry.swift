@@ -11,12 +11,14 @@ struct TextFieldEntry: View {
     let title: String
     @Binding var text: String
     var isSecure: Bool = false
+    @Environment(\.isEnabled) var enabled
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.subheadline)
                 .bold()
                 .accessibilityHidden(true)
+                .opacity(enabled ? 1 : 0.2)
             Group {
                 if isSecure {
                     SecureField(title, text: $text)
@@ -26,9 +28,8 @@ struct TextFieldEntry: View {
             }
             .padding(5)
             .padding(.horizontal, 5)
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke())
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke().opacity(enabled ? 1 : 0.2))
             .textFieldStyle(.plain)
         }.multilineTextAlignment(.leading)
-        
     }
 }
