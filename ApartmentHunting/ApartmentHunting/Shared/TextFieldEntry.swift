@@ -12,10 +12,14 @@ struct TextFieldEntry: View {
     @Binding var text: String
     var isSecure: Bool = false
     @Environment(\.isEnabled) var enabled
+    @Environment(\.sizeCategory) var size
+    
+    private var fontSize: Font {
+        size > .medium ? Font.subheadline : Font.headline
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
-                .font(.subheadline)
                 .bold()
                 .accessibilityHidden(true)
                 .opacity(enabled ? 1 : 0.2)
@@ -30,6 +34,8 @@ struct TextFieldEntry: View {
             .padding(.horizontal, 5)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke().opacity(enabled ? 1 : 0.2))
             .textFieldStyle(.plain)
-        }.multilineTextAlignment(.leading)
+        }
+        .multilineTextAlignment(.leading)
+        .font(fontSize)
     }
 }

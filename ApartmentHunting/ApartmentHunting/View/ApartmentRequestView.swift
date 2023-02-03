@@ -7,18 +7,61 @@
 
 import SwiftUI
 
+struct Tabs<Value: Identifiable>: View {
+    let allTabs: [Value]
+    @Binding var selectedTab: Value
+    let viewBuilder: (Value) -> String
+    @Namespace var namespace
+    @Environment(\.sizeCategory) var size
+    
+    
+    private var fontSize: Font {
+        size > .medium ? Font.footnote : Font.callout
+    }
+    
+    @ViewBuilder
+    private func overlay(tab: Value) -> some View {
+        if tab.id == selectedTab.id {
+            VStack {
+                Spacer()
+                Rectangle().frame(height: 2)
+            }.matchedGeometryEffect(id: "fun", in: namespace)
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            ForEach(allTabs) { tab in
+                Button {
+                    selectedTab = tab
+                } label: {
+                    Text(viewBuilder(tab))
+                        .font(fontSize.weight(.semibold))
+                        .padding(.bottom, 4)
+                        .overlay(overlay(tab: tab))
+                        .frame(maxWidth: .infinity)
+                        .contentShape(Rectangle())
+                }.buttonStyle(.plain)
+            }
+        }.coordinateSpace(name: namespace)
+            .multilineTextAlignment(.center)
+    }
+}
+
 struct ApartmentRequestView: View {
-    enum ViewState {
-        case createNew
-        case join
+    enum ViewState: String, Identifiable, Hashable {
+        case createNew = "CREATE SEARCH"
+        case join = "JOIN SEARCH"
+        
+        var id: Self { self }
     }
     @EnvironmentObject var authInteractor: AuthInteractor
     @CurrentUserState var user: User
-    @State private var state = ViewState.join
+    @State private var state = ViewState.createNew
     @State private var loadingState = LoadingState<Bool>.notStarted
     @State private var info = ""
     
-    private func view(for state: ViewState, showSwitch: Bool) -> some View {
+    private func view(for state: ViewState) -> some View {
         VStack(alignment: .leading) {
             switch state {
             case .createNew:
@@ -66,17 +109,6 @@ struct ApartmentRequestView: View {
                     }
                 }
             }.disabled(info.isEmpty)
-            if showSwitch {
-                RoundedButton(title: state == .join ? "Switch to Create Search" : "Switch to Request to Join", color: .primary) {
-                    self.loadingState = .notStarted
-                    switch self.state {
-                    case .createNew:
-                        self.state = .join
-                    case .join:
-                        self.state = .createNew
-                    }
-                }
-            }
             RoundedButton(title: "Sign Out", color: .red) {
                 authInteractor.signOut()
             }
@@ -88,15 +120,27 @@ struct ApartmentRequestView: View {
     var body: some View {
         #if os(macOS)
         List {
-            NavigationLink(tag: ViewState.join, selection: Binding($state), destination: { view(for: .join, showSwitch: false) }) {
+            NavigationLink(tag: ViewState.join, selection: Binding($state), destination: { view(for: .join) }) {
                 Label("Join", systemImage: "magnifyingglass")
             }
-            NavigationLink(tag: ViewState.createNew, selection: Binding($state), destination: { view(for: .createNew, showSwitch: false) }) {
+            NavigationLink(tag: ViewState.createNew, selection: Binding($state), destination: { view(for: .createNew) }) {
                 Label("Create New", systemImage: "plus")
             }
         }.listStyle(.sidebar)
         #else
-        view(for: state, showSwitch: true)
+        VStack {
+            Tabs(allTabs: [ViewState.createNew, .join], selectedTab: $state, viewBuilder: \.rawValue)
+                .padding(.top)
+            Divider()
+            TabView(selection: $state) {
+                view(for: .createNew)
+                    .tag(ViewState.createNew)
+                view(for: .join)
+                    .tag(ViewState.join)
+            }.tabViewStyle(.page(indexDisplayMode: .never))
+        }
+        .animation(.default, value: state)
+        
         #endif
     }
 }

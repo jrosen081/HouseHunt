@@ -186,7 +186,6 @@
 		A046F01E27A378C9003197A1 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		A04D2C9E27C7FECF006BBA61 /* MacAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MacAssets.xcassets; sourceTree = "<group>"; };
 		A0741B3827F64A36001C70BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppStrings.strings; sourceTree = "<group>"; };
-		A0741B3A27F64A39001C70BB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppStrings.strings; sourceTree = "<group>"; };
 		A0741B3D27F64B89001C70BB /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		A07EF19F27BFF53B008ED1A9 /* Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07EF1AD27BFF55D008ED1A9 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -529,7 +528,6 @@
 			knownRegions = (
 				en,
 				Base,
-				es,
 			);
 			mainGroup = A046EFDF27A3708E003197A1;
 			packageReferences = (
@@ -704,7 +702,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				A0741B3827F64A36001C70BB /* en */,
-				A0741B3A27F64A39001C70BB /* es */,
 			);
 			name = AppStrings.strings;
 			sourceTree = "<group>";
@@ -846,6 +843,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ApartmentHunting/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Home Hunting";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -881,6 +879,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ApartmentHunting/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Home Hunting";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
