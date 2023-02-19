@@ -95,13 +95,19 @@ struct SettingsView: View {
     
     var brokerView: some View {
         AddBrokerInformationView { brokerResponse in
-            ApartmentFirebaseInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+            Task {
+                do {
+                    try await ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+                } catch {
+                    print(error)
+                }
+            }
+            
         }
     }
     
     @ViewBuilder
     var brokerInteractionSection: some View {
-        
         Section(header: Text("Broker Interactions")) {
             if let brokerCode = apartmentSearch.brokerResponse {
                 HStack {

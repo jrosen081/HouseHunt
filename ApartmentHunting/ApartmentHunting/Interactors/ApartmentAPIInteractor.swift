@@ -26,6 +26,20 @@ struct ApartmentAPIInteractor {
         let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
     }
     
+    static func updateBrokerComment(apartmentSearch: ApartmentSearch, comment: String) async throws {
+        struct UpdateBrokerRequest: Codable {
+            let text: String
+        }
+        
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/\(apartmentSearch.id)/broker",
+                                                body: UpdateBrokerRequest(text: comment),
+                                                type: "PUT") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
+        apartmentSearch.brokerResponse = comment
+    }
+    
     private static func createURLRequest<Body: Codable>(url: String, body: Body, type: String) -> URLRequest? {
         guard let url = URL(string: url), let body = try? JSONEncoder().encode(body) else { return nil }
         var request = URLRequest(url: url, timeoutInterval: 10)
