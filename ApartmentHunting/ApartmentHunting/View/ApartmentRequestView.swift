@@ -91,7 +91,7 @@ struct ApartmentRequestView: View {
             RoundedButton(title: state == .join ? "Request to Join" : "Create Search", color: .green) {
                 switch state {
                 case .createNew:
-                    let id = ApartmentAPIInteractor.addApartmentSearch(searchCreator: { code in  ApartmentSearchDTO(name: info, users: [user.id!], requests: [], entryCode: code)})
+                    let id = ApartmentFirebaseInteractor.addApartmentSearch(searchCreator: { code in  ApartmentSearchDTO(name: info, users: [user.id!], requests: [], entryCode: code)})
                     var newUser = user
                     newUser.apartmentSearchState = .success(id: id)
                     authInteractor.update(user: newUser)
@@ -99,7 +99,7 @@ struct ApartmentRequestView: View {
                     Task {
                         do {
                             self.loadingState = .loading
-                            let (requestId, requestName) = try await ApartmentAPIInteractor.requestApartment(currentUser: user, id: info)
+                            let (requestId, requestName) = try await ApartmentFirebaseInteractor.requestApartment(currentUser: user, id: info)
                             var newUser = user
                             newUser.apartmentSearchState = .requested(name: requestName, id: requestId)
                             authInteractor.update(user: newUser)

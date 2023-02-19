@@ -124,7 +124,8 @@ class AuthInteractor: ObservableObject {
                 self.shouldFetchUser = false
                 let credential = try await auth.createUser(withEmail: email, password: password)
                 let user = User(id: credential.user.uid, apartmentSearchState: .noRequest, name: name)
-                try self.firestore.collection(Constants.userCollection).document(credential.user.uid).setData(from: user)
+//                try self.firestore.collection(Constants.userCollection).document(credential.user.uid).setData(from: user)
+                try await ApartmentAPIInteractor.createUser(name: name)
                 self.shouldFetchUser = true
                 await MainActor.run {
                     self.authState = .success(user)

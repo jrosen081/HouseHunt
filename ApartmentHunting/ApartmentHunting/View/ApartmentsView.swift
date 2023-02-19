@@ -46,7 +46,7 @@ struct ApartmentsView: View {
     func loadPosts() async {
         self.loadingState = .loading
         do {
-            self.loadingState = try await .success(ApartmentAPIInteractor.getApartments(id: apartmentSearch.id))
+            self.loadingState = try await .success(ApartmentFirebaseInteractor.getApartments(id: apartmentSearch.id))
         } catch {
             self.loadingState = .error(error.localizedDescription)
         }

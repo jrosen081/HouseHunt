@@ -55,7 +55,7 @@ class ShareViewController: SLComposeServiceViewController {
                         print(item)
                         Task {
                             do {
-                                try await ApartmentAPIInteractor.addApartment(url: item.absoluteString, apartmentSearchId: id) { title in
+                                try await ApartmentFirebaseInteractor.addApartment(url: item.absoluteString, apartmentSearchId: id) { title in
                                     ApartmentModel(location: title, url: item.absoluteString, state: .interested, dateUploaded: Date(), author: user.id, previousStates: [], apartmentSearchId: id, notes: self.textView.text)
                                 }
                                 print("Success")

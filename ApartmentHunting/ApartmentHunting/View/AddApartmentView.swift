@@ -93,7 +93,7 @@ struct AddApartmentView: View {
                 Task {
                     self.updatingState = .loading
                     do {
-                        try await ApartmentAPIInteractor.addApartment(url: self.url,
+                        try await ApartmentFirebaseInteractor.addApartment(url: self.url,
                                                                       apartmentSearchId: self.apartmentSearch.id) {
                             ApartmentModel(location: $0,
                                            url: self.url,

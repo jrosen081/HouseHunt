@@ -24,7 +24,7 @@ struct ProfileView: View {
                 }.foregroundColor(.red)
                     .alert(isPresented: $confirmLeaving) {
                         Alert(title: Text("Are you sure?"), message: Text("Once you leave, you will need to be accepted again to re-join."), primaryButton: .destructive(Text("Yes"), action: {
-                            ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                            ApartmentFirebaseInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
                             dismiss()
                         }), secondaryButton: .cancel())
                     }

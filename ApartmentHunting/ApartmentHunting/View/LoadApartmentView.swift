@@ -19,7 +19,7 @@ struct LoadApartmentView: View {
                 ProgressView("Loading Houses")
                     .back_task {
                         do {
-                            let apartment = try await ApartmentAPIInteractor.getApartmentSearch(id: id, authInteractor: authInteractor)
+                            let apartment = try await ApartmentFirebaseInteractor.getApartmentSearch(id: id, authInteractor: authInteractor)
                             await MainActor.run {
                                 self.loadingState = .success(apartment)
                             }
@@ -39,7 +39,7 @@ struct LoadApartmentView: View {
                 let binding = Binding<ApartmentSearch>(get: { apartmentSearch }) {
                     self.loadingState = .success($0)
                 }
-                let token = ApartmentAPIInteractor.listenForChanges(apartmentSearch: binding, authInteractor: authInteractor)
+                let token = ApartmentFirebaseInteractor.listenForChanges(apartmentSearch: binding, authInteractor: authInteractor)
                 self.onDisappear = { [token] in
                     token.remove()
                 }

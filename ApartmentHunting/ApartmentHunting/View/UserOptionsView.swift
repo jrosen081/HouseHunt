@@ -68,7 +68,7 @@ private struct WaitingView: View {
                     Spacer()
                     RoundedButton(title: L10n.WaitingView.removeRequestButton, color: .red) {
                         Task {
-                            try? await ApartmentAPIInteractor.removeApartmentRequest(id: id, currentUser: user, authInteractor: authInteractor)
+                            try? await ApartmentFirebaseInteractor.removeApartmentRequest(id: id, currentUser: user, authInteractor: authInteractor)
                         }
                     }
                 }

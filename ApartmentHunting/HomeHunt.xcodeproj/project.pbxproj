@@ -33,7 +33,7 @@
 		A046EFFB27A370D8003197A1 /* ApartmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFA27A370D8003197A1 /* ApartmentsView.swift */; };
 		A046EFFD27A370E4003197A1 /* ApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFC27A370E4003197A1 /* ApartmentView.swift */; };
 		A046F00027A3711B003197A1 /* ApartmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFF27A3711B003197A1 /* ApartmentModel.swift */; };
-		A046F00327A3713E003197A1 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */; };
+		A046F00327A3713E003197A1 /* ApartmentFirebaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentFirebaseInteractor.swift */; };
 		A046F00627A37169003197A1 /* APILoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00527A37169003197A1 /* APILoadingState.swift */; };
 		A046F00827A3718B003197A1 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00727A3718B003197A1 /* LinkView.swift */; };
 		A046F00D27A37313003197A1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A046F00C27A37313003197A1 /* FirebaseFirestore */; };
@@ -56,7 +56,7 @@
 		A07EF1B427BFF56E008ED1A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B327BFF56E008ED1A9 /* FirebaseAuth */; };
 		A07EF1B627BFF56E008ED1A9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B527BFF56E008ED1A9 /* FirebaseFirestore */; };
 		A07EF1B827BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = A07EF1B727BFF56E008ED1A9 /* FirebaseFirestoreSwift-Beta */; };
-		A07EF1B927BFF580008ED1A9 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */; };
+		A07EF1B927BFF580008ED1A9 /* ApartmentFirebaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentFirebaseInteractor.swift */; };
 		A07EF1BA27BFF585008ED1A9 /* CurrentUser.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005073B27A4297F006DDD3C /* CurrentUser.swift.swift */; };
 		A07EF1BB27BFF585008ED1A9 /* ApartmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046EFFF27A3711B003197A1 /* ApartmentModel.swift */; };
 		A07EF1BC27BFF585008ED1A9 /* ApartmentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074727A43AD7006DDD3C /* ApartmentSearch.swift */; };
@@ -66,6 +66,9 @@
 		A07EF1C327BFFD5E008ED1A9 /* LinkInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C68FB27AB307B008704F2 /* LinkInteractor.swift */; };
 		A0967B2027E2741100645D33 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0967B1F27E2741100645D33 /* ProfileView.swift */; };
 		A0967B2127E2741100645D33 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0967B1F27E2741100645D33 /* ProfileView.swift */; };
+		A0AB5A5729A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB5A5629A2CA5000AA75D1 /* ApartmentAPIInteractor.swift */; };
+		A0AB5A5829A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB5A5629A2CA5000AA75D1 /* ApartmentAPIInteractor.swift */; };
+		A0AB5A5929A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB5A5629A2CA5000AA75D1 /* ApartmentAPIInteractor.swift */; };
 		A0C8666E27ACC384002EBFE1 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
 		A0C8667227AE23E4002EBFE1 /* TextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667127AE23E4002EBFE1 /* TextArea.swift */; };
 		A0C8667427AE267E002EBFE1 /* TextFieldEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */; };
@@ -78,7 +81,7 @@
 		A0D4E0DA27B6FBDD007098B4 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F01E27A378C9003197A1 /* Searchable.swift */; };
 		A0D4E0DB27B6FBDD007098B4 /* BackportActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00FAA2027B5728800393A76 /* BackportActionSheet.swift */; };
 		A0D4E0DC27B6FBDD007098B4 /* AddApartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0099CB527A72A12006A72A8 /* AddApartmentView.swift */; };
-		A0D4E0DD27B6FBDD007098B4 /* ApartmentAPIInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */; };
+		A0D4E0DD27B6FBDD007098B4 /* ApartmentFirebaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00227A3713E003197A1 /* ApartmentFirebaseInteractor.swift */; };
 		A0D4E0DE27B6FBDD007098B4 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046F00727A3718B003197A1 /* LinkView.swift */; };
 		A0D4E0DF27B6FBDD007098B4 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8666D27ACC384002EBFE1 /* ErrorView.swift */; };
 		A0D4E0E027B6FBDD007098B4 /* EnvironmentValues+CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005074227A4300B006DDD3C /* EnvironmentValues+CurrentUser.swift */; };
@@ -175,7 +178,7 @@
 		A046EFFA27A370D8003197A1 /* ApartmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentsView.swift; sourceTree = "<group>"; };
 		A046EFFC27A370E4003197A1 /* ApartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentView.swift; sourceTree = "<group>"; };
 		A046EFFF27A3711B003197A1 /* ApartmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentModel.swift; sourceTree = "<group>"; };
-		A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentAPIInteractor.swift; sourceTree = "<group>"; };
+		A046F00227A3713E003197A1 /* ApartmentFirebaseInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentFirebaseInteractor.swift; sourceTree = "<group>"; };
 		A046F00527A37169003197A1 /* APILoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILoadingState.swift; sourceTree = "<group>"; };
 		A046F00727A3718B003197A1 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		A046F01027A373F0003197A1 /* Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializer.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 		A07EF1AF27BFF55D008ED1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A07EF1BD27BFF59B008ED1A9 /* Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Share Extension.entitlements"; sourceTree = "<group>"; };
 		A0967B1F27E2741100645D33 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		A0AB5A5629A2CA5000AA75D1 /* ApartmentAPIInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApartmentAPIInteractor.swift; sourceTree = "<group>"; };
 		A0C8666D27ACC384002EBFE1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A0C8667127AE23E4002EBFE1 /* TextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextArea.swift; sourceTree = "<group>"; };
 		A0C8667327AE267E002EBFE1 /* TextFieldEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntry.swift; sourceTree = "<group>"; };
@@ -342,9 +346,10 @@
 		A046F00127A37127003197A1 /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				A046F00227A3713E003197A1 /* ApartmentAPIInteractor.swift */,
+				A046F00227A3713E003197A1 /* ApartmentFirebaseInteractor.swift */,
 				A005073D27A42B3F006DDD3C /* AuthInteractor.swift */,
 				A03C68FB27AB307B008704F2 /* LinkInteractor.swift */,
+				A0AB5A5629A2CA5000AA75D1 /* ApartmentAPIInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0D4E10627B6FCFB007098B4 /* UIAppDelegate.swift in Sources */,
+				A0AB5A5729A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */,
 				A0967B2027E2741100645D33 /* ProfileView.swift in Sources */,
 				A005074527A430C4006DDD3C /* SignInView.swift in Sources */,
 				A005073C27A4297F006DDD3C /* CurrentUser.swift.swift in Sources */,
@@ -609,7 +615,7 @@
 				A0099CB827A72AE2006A72A8 /* OpinionViews.swift in Sources */,
 				A0099CB627A72A12006A72A8 /* AddApartmentView.swift in Sources */,
 				A00FAA2727B58B9C00393A76 /* WithKeyboardOpen.swift in Sources */,
-				A046F00327A3713E003197A1 /* ApartmentAPIInteractor.swift in Sources */,
+				A046F00327A3713E003197A1 /* ApartmentFirebaseInteractor.swift in Sources */,
 				A0D4E10F27BAC43E007098B4 /* FoundApartmentView.swift in Sources */,
 				A0741B3E27F64B89001C70BB /* Strings+Generated.swift in Sources */,
 				A046F00627A37169003197A1 /* APILoadingState.swift in Sources */,
@@ -634,8 +640,9 @@
 				A07EF1BC27BFF585008ED1A9 /* ApartmentSearch.swift in Sources */,
 				A07EF1BE27BFF5F2008ED1A9 /* AuthInteractor.swift in Sources */,
 				A07EF1C127BFF62D008ED1A9 /* APILoadingState.swift in Sources */,
+				A0AB5A5929A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */,
 				A07EF1BA27BFF585008ED1A9 /* CurrentUser.swift.swift in Sources */,
-				A07EF1B927BFF580008ED1A9 /* ApartmentAPIInteractor.swift in Sources */,
+				A07EF1B927BFF580008ED1A9 /* ApartmentFirebaseInteractor.swift in Sources */,
 				A07EF1B027BFF55D008ED1A9 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,11 +652,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0D4E0E227B6FBDD007098B4 /* AddBrokerInformationView.swift in Sources */,
+				A0AB5A5829A2CA5000AA75D1 /* ApartmentAPIInteractor.swift in Sources */,
 				A0E574E827C2020B0031CCF6 /* EventResponder.swift in Sources */,
 				A0D4E0E627B6FBDD007098B4 /* ApartmentSearch.swift in Sources */,
 				A0D4E0F727B6FBDD007098B4 /* CurrentUser.swift.swift in Sources */,
 				A0D4E0E727B6FBDD007098B4 /* DismissKeyboardOnTap.swift in Sources */,
-				A0D4E0DD27B6FBDD007098B4 /* ApartmentAPIInteractor.swift in Sources */,
+				A0D4E0DD27B6FBDD007098B4 /* ApartmentFirebaseInteractor.swift in Sources */,
 				A0D4E0E527B6FBDD007098B4 /* UserOptionsView.swift in Sources */,
 				A0D4E0F427B6FBDD007098B4 /* ShareSheet.swift in Sources */,
 				A0D4E0EE27B6FBDD007098B4 /* SettingsView.swift in Sources */,
@@ -836,6 +844,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ApartmentHunting/ApartmentHunting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ApartmentHunting/Preview Content\"";
 				DEVELOPMENT_TEAM = SCB9RTL9PP;
 				ENABLE_PREVIEWS = YES;
@@ -871,6 +880,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ApartmentHunting/ApartmentHunting.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ApartmentHunting/Preview Content\"";
 				DEVELOPMENT_TEAM = SCB9RTL9PP;
 				ENABLE_PREVIEWS = YES;

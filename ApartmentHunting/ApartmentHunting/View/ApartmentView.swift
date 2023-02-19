@@ -40,7 +40,7 @@ struct ApartmentView: View {
         var newApartment = apartment
         newApartment.previousStates = previousStates ?? ((newApartment.previousStates ?? []) + [newApartment.state])
         newApartment.state = state
-        ApartmentAPIInteractor.update(apartment: newApartment)
+        ApartmentFirebaseInteractor.update(apartment: newApartment)
         self.apartment = newApartment
     }
     
@@ -138,7 +138,7 @@ struct ApartmentView: View {
                     }.alert(isPresented: self.$modalState.confirmDialog) {
                         Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Search"), primaryButton: .default(Text("We Got It"), action: {
                             self.updateApartment(state: .selected)
-                            ApartmentAPIInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
+                            ApartmentFirebaseInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
                         }), secondaryButton: .cancel(Text("Nevermind")))
                     }
                 }
@@ -207,7 +207,7 @@ struct ApartmentView: View {
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity)
         .onAppear {
-            let listener = ApartmentAPIInteractor.listenForChanges(apartment: $apartment.animation())
+            let listener = ApartmentFirebaseInteractor.listenForChanges(apartment: $apartment.animation())
             self.onDisappear = {
                 listener.remove()
             }

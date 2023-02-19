@@ -95,7 +95,7 @@ struct SettingsView: View {
     
     var brokerView: some View {
         AddBrokerInformationView { brokerResponse in
-            ApartmentAPIInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
+            ApartmentFirebaseInteractor.updateBrokerComment(apartmentSearch: self.apartmentSearch, comment: brokerResponse)
         }
     }
     
@@ -280,10 +280,10 @@ private struct AcceptRejectView: View {
             }.back_confirmationDialog(isPresented: $administering, title: Text("Manage User")) {
                 [
                     $0.default(message: Text("Accept"), action: {
-                        ApartmentAPIInteractor.acceptUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                        ApartmentFirebaseInteractor.acceptUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
                     }),
                     $0.destructive(message: Text("Reject")) {
-                        ApartmentAPIInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                        ApartmentFirebaseInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
                     },
                     $0.cancel()
                 ]
