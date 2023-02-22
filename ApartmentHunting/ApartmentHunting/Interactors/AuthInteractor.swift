@@ -77,10 +77,19 @@ class AuthInteractor: ObservableObject {
         }
     }
     
-    private func updateToken(token: String, userId: String, remove: Bool) {
-        self.firestore.collection(Constants.userCollection).document(userId).setData([
-            Constants.tokensKey: remove ? FieldValue.arrayRemove([token]) : FieldValue.arrayUnion([token])
-        ], merge: true)
+    private func updateToken(token: String, remove: Bool) {
+        Task {
+            do {
+                if remove {
+                    try await ApartmentAPIInteractor.removeToken(token: token)
+                } else {
+                    try await ApartmentAPIInteractor.addToken(token: token)
+                }
+            } catch {
+                print(error)
+            }
+            
+        }
     }
     
     private func createLocalUser() {
@@ -98,7 +107,7 @@ class AuthInteractor: ObservableObject {
                 await self.fetchUserLocally(id: user.uid)
             }
             if let token = Messaging.messaging().fcmToken {
-                self.updateToken(token: token, userId: user.uid, remove: false)
+                self.updateToken(token: token, remove: false)
             }
         }
     }
@@ -152,8 +161,8 @@ class AuthInteractor: ObservableObject {
     }
     
     func signOut() {
-        if let userId = user?.id, let token = Messaging.messaging().fcmToken {
-            self.updateToken(token: token, userId: userId, remove: true)
+        if let token = Messaging.messaging().fcmToken {
+            self.updateToken(token: token, remove: true)
         }
         self.stopListeningForUserChanges?()
         self.stopListeningForUserChanges = nil

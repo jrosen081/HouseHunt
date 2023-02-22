@@ -49,6 +49,24 @@ struct ApartmentAPIInteractor {
         let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
     }
     
+    static func addToken(token: String) async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/user/token?token=\(token)",
+                                                body: Optional<Data>.none,
+                                                type: "POST") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
+    }
+    
+    static func removeToken(token: String) async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/user/token?token=\(token)",
+                                                body: Optional<Data>.none,
+                                                type: "DELETE") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
+    }
+    
     private static func createURLRequest<Body: Codable>(url: String, body: Body?, type: String) -> URLRequest? {
         guard let url = URL(string: url) else { return nil }
         var request = URLRequest(url: url, timeoutInterval: 10)
