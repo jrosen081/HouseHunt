@@ -8,11 +8,16 @@
 import Foundation
 import SwiftUI
 
+enum SavingState {
+    case none, saving, error
+}
+
 struct ApartmentView: View {
     private class ModalState: ObservableObject {
         @Published var addingOpinion = false
         @Published var showingShareSheet = false
         @Published var confirmDialog = false
+        @Published var savingState = SavingState.none
     }
     
     @Binding var apartment: ApartmentModel
@@ -138,7 +143,13 @@ struct ApartmentView: View {
                     }.alert(isPresented: self.$modalState.confirmDialog) {
                         Alert(title: Text("Confirm that you got this home"), message: Text("Once you have accepted this house, you won't be able to edit this Home Search"), primaryButton: .default(Text("We Got It"), action: {
                             self.updateApartment(state: .selected)
-                            ApartmentFirebaseInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
+                            Task {
+                                do {
+                                    try await ApartmentAPIInteractor.setSelectedHouse(apartmentSearch: self.search, houseId: self.apartment.id!)
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         }), secondaryButton: .cancel(Text("Nevermind")))
                     }
                 }

@@ -40,10 +40,21 @@ struct ApartmentAPIInteractor {
         apartmentSearch.brokerResponse = comment
     }
     
-    private static func createURLRequest<Body: Codable>(url: String, body: Body, type: String) -> URLRequest? {
-        guard let url = URL(string: url), let body = try? JSONEncoder().encode(body) else { return nil }
+    static func setSelectedHouse(apartmentSearch: ApartmentSearch, houseId: String) async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/\(apartmentSearch.id)/select?selectedId=\(houseId)",
+                                                body: Optional<Data>.none,
+                                                type: "POST") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
+    }
+    
+    private static func createURLRequest<Body: Codable>(url: String, body: Body?, type: String) -> URLRequest? {
+        guard let url = URL(string: url) else { return nil }
         var request = URLRequest(url: url, timeoutInterval: 10)
-        request.httpBody = body
+        if let body, let optionalBody = try? JSONEncoder().encode(body) {
+            request.httpBody = optionalBody
+        }
         request.httpMethod = type
         return request
     }
