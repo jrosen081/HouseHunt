@@ -99,11 +99,9 @@ struct ApartmentRequestView: View {
                     Task {
                         do {
                             self.loadingState = .loading
-                            let (requestId, requestName) = try await ApartmentFirebaseInteractor.requestApartment(currentUser: user, id: info)
-                            var newUser = user
-                            newUser.apartmentSearchState = .requested(name: requestName, id: requestId)
-                            authInteractor.update(user: newUser)
+                            try await ApartmentAPIInteractor.requestApartment(code: info)
                         } catch {
+                            print(error)
                             self.loadingState = .error(error.localizedDescription)
                         }
                     }
