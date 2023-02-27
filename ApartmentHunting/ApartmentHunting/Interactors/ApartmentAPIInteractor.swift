@@ -79,6 +79,16 @@ struct ApartmentAPIInteractor {
         let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
     }
     
+    static func leaveApartmentSearch() async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/leave",
+                                                body: Optional<Double>.none,
+                                                type: "DELETE") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
+
+    }
+    
     private static func createURLRequest<Body: Codable>(url: String, body: Body?, type: String) -> URLRequest? {
         guard let url = URL(string: url) else { return nil }
         var request = URLRequest(url: url, timeoutInterval: 10)
