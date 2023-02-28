@@ -79,6 +79,25 @@ struct ApartmentAPIInteractor {
         let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
     }
     
+    
+    static func rejectUser(user: User) async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/\(user.id!)/reject",
+                                                body: Optional<Double>.none,
+                                                type: "DELETE") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 200)
+    }
+    
+    static func acceptUser(user: User) async throws {
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/\(user.id!)/accept",
+                                                body: Optional<Double>.none,
+                                                type: "PUT") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 200)
+    }
+    
     static func leaveApartmentSearch() async throws {
         guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/leave",
                                                 body: Optional<Double>.none,

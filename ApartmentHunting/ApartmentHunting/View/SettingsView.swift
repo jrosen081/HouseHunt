@@ -286,10 +286,14 @@ private struct AcceptRejectView: View {
             }.back_confirmationDialog(isPresented: $administering, title: Text("Manage User")) {
                 [
                     $0.default(message: Text("Accept"), action: {
-                        ApartmentFirebaseInteractor.acceptUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                        Task {
+                            try? await ApartmentAPIInteractor.acceptUser(user: user)
+                        }
                     }),
                     $0.destructive(message: Text("Reject")) {
-                        ApartmentFirebaseInteractor.rejectUser(apartmentSearch: apartmentSearch, user: user, authInteractor: authInteractor)
+                        Task {
+                            try? await ApartmentAPIInteractor.rejectUser(user: user)
+                        }
                     },
                     $0.cancel()
                 ]
