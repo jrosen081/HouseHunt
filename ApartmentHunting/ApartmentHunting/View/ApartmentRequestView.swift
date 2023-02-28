@@ -91,12 +91,16 @@ struct ApartmentRequestView: View {
             RoundedButton(title: state == .join ? "Request to Join" : "Create Search", color: .green) {
                 switch state {
                 case .createNew:
-                    let id = ApartmentFirebaseInteractor.addApartmentSearch(searchCreator: { code in  ApartmentSearchDTO(name: info, users: [user.id!], requests: [], entryCode: code)})
-                    var newUser = user
-                    newUser.apartmentSearchState = .success(id: id)
-                    authInteractor.update(user: newUser)
+                    Task { @MainActor in
+                        do {
+                            self.loadingState = .loading
+                            try await ApartmentAPIInteractor.addApartmentSearch(name: info)
+                        } catch {
+                            self.loadingState = .error(error.localizedDescription)
+                        }
+                    }
                 case .join:
-                    Task {
+                    Task { @MainActor in
                         do {
                             self.loadingState = .loading
                             try await ApartmentAPIInteractor.requestApartment(code: info)

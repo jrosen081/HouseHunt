@@ -105,7 +105,18 @@ struct ApartmentAPIInteractor {
             throw APIError.badRequest
         }
         let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
-
+    }
+    
+    static func addApartmentSearch(name: String) async throws {
+        struct ApartmentSearchRequest: Codable {
+            let name: String
+        }
+        guard let urlRequest = createURLRequest(url: "http://localhost:8080/home-search/create",
+                                                body: ApartmentSearchRequest(name: name),
+                                                type: "PUT") else {
+            throw APIError.badRequest
+        }
+        let _ = try await performRequest(urlRequest: urlRequest, expectedResponse: 204)
     }
     
     private static func createURLRequest<Body: Codable>(url: String, body: Body?, type: String) -> URLRequest? {
